@@ -14,4 +14,10 @@ public class MainController {
 		return "/index";
 	}
 	
+	@GetMapping("/sample")
+	public String sample() {
+		
+		return "/sample";
+	}
+	
 }

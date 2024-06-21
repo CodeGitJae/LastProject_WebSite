@@ -78,7 +78,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                     <ul class="nav">
                         <li><a href="#" class="active">Home</a></li>
                         <li><a href="#">별스팟</a></li>
-                        <li><a href="#">국내 천문대</a></li>
+                        <li><a href="/observatory">국내 천문대</a></li>
                         <li><a href="#">달달력</a></li>
                         <li><a href="#">자유게시판</a></li>
                         <li><a href="#">myPage <img src="assets/images/profile-header.jpg" alt=""></a></li>
