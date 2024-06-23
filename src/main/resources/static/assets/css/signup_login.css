@@ -1,0 +1,61 @@
+.gradient-custom {
+/* fallback for old browsers */
+background: #6a11cb;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1))
+}
+
+.format{
+	text-align: center;
+}
+
+.loginfont{
+	font-weight: bold;
+	font-size: 45px;
+}
+
+.singupfont{
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.form-label{
+	margin-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+}
+.form-outline{
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    margin-bottom: 15px; /* Add spacing between input groups */
+}
+.form-outline label{
+	margin-right: 10px;
+   	width: 100px; /* Match the width of the label */
+    text-align: right; /* Align label text to the right */
+}
+
+.form-outline input{
+    flex-grow: 1;
+    width: 50%;
+    margin-right: 10px;
+    border: 1px solid rgba(240, 240, 240, 1);
+    border-radius: 6px;
+    padding: 8px 16px;
+    height: 35px;
+    outline: none;
+    background-color: rgba(255, 255, 255, 1);
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 175%;
+}
+
+.form-outline .btn {
+    margin-left: 10px;
+}

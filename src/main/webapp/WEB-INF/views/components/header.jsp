@@ -18,15 +18,14 @@
     <title>Cyborg - Awesome HTML5 Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-cyborg-gaming.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/assets/css/templatemo-cyborg-gaming.css">
+    <link rel="stylesheet" href="/assets/css/owl.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     
 <!--
@@ -61,7 +60,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="/" class="logo">
-                        <img src="assets/images/logo.png" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** 검색 기능은 필요한 경우 활성화 해서 쓰시면 됩니다.***** -->
@@ -82,7 +81,15 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="#">국내 천문대</a></li>
                         <li><a href="#">달달력</a></li>
                         <li><a href="#">자유게시판</a></li>
-                        <li><a href="#">myPage <img src="assets/images/profile-header.jpg" alt=""></a></li>
+                        <c:choose>
+	                        <c:when test="${not empty loginId}">
+	                        	<li><a href="/member/logout">로그아웃</a></li>
+	                        	<li><a id="a" href="/member/myProfile/${loginId}">${loginUsername}님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<li><a href="/member/login">로그인</a></li>
+	                        </c:otherwise>
+                        </c:choose>
                     </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

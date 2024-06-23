@@ -11,7 +11,6 @@ import javax.persistence.Transient;
 import com.flower.star.dto.MemberDTO;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,11 +21,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class Member {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id  //pk 지정
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  //auto increment
 	private Integer id;
 	
 	@Column(unique= true, length= 10)
@@ -41,16 +41,14 @@ public class Member {
 	private String email;
 	
 	
-	@Builder
 	public static Member toMember(MemberDTO mDTO) {
 		Member member = new Member();
 		
-		member.id = member.getId();
-		member.username = member.getUsername();
-		member.password = member.getPassword();
-		member.confirmPassword = member.getConfirmPassword();
-		member.nickname = member.getNickname();
-		member.email = member.getEmail();
+		member.setId(mDTO.getId());
+		member.setUsername(mDTO.getUsername());
+		member.setPassword(mDTO.getPassword());
+		member.setNickname(mDTO.getNickname());
+		member.setEmail(mDTO.getEmail());
 		
 		return member;
 	}

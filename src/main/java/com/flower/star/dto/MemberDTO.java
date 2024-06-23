@@ -2,14 +2,17 @@ package com.flower.star.dto;
 
 import com.flower.star.entity.Member;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class MemberDTO {
 
 	private Integer id;
@@ -23,12 +26,12 @@ public class MemberDTO {
 		MemberDTO mDTO = new MemberDTO();
 		
 		mDTO.setId(member.getId());
-		mDTO.setUsername(member.getUsername()); 
+		mDTO.setUsername(member.getUsername());
 		mDTO.setPassword(member.getPassword());
-		mDTO.setConfirmPassword(member.getConfirmPassword());
 		mDTO.setNickname(member.getNickname());
 		mDTO.setEmail(member.getEmail());
-
+		
 		return mDTO;
-	}	
+	}
+	
 }
