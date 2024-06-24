@@ -27,7 +27,7 @@ public class Member {
 
 	@Id  //pk 지정
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  //auto increment
-	private Integer id;
+	private long id;
 	
 	@Column(unique= true, length= 10)
 	private String username;
