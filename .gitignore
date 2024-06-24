@@ -147,3 +147,7 @@ buildNumber.properties
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,eclipse
+
+
+# Upload Images
+/src/main/resources/static/uploadimages/starspot/

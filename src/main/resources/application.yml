@@ -27,3 +27,6 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        
+uploadImagePath:
+  starspot: uploadimages\starspot
