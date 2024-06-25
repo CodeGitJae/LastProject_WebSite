@@ -35,6 +35,12 @@ public class StarspotService {
 
     @Value("${uploadImagePath.starspot}")
     private String uploadPath;
+    
+    public List<Starspot> find() {
+    	
+    	
+    	return null;
+    }
 
     // Starspot 엔티티 저장 메서드
     public void insert(Starspot starspot) {
@@ -43,6 +49,7 @@ public class StarspotService {
 		String date = sdf.format(now);
 
 		starspot.setCreatedate(date);
+		starspot.setViews(0);
 		
         starspotRepository.save(starspot);
     }

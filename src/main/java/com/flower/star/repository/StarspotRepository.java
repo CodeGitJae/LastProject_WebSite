@@ -7,5 +7,5 @@ import com.flower.star.entity.Starspot;
 
 @Repository
 public interface StarspotRepository extends JpaRepository<Starspot, Integer> {
-		
+	
 }

@@ -59,6 +59,10 @@ public class StarspotController {
 		
 		Starspot s = starspotRepository.findById(id).get();
 		
+		s.setViews(s.getViews() + 1);
+		
+		starspotRepository.save(s);
+		
 		model.addAttribute("data", s);
 		
 		return "/starspot/detail";

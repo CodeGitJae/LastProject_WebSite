@@ -30,7 +30,7 @@
 									<p class="card-title">${item.title}</p>
 									<p>
 										<span class="card-createdate">${item.createdate}</span>
-										<span class="card-views">조회수 27</span>
+										<span class="card-views">조회수 ${item.views}</span>
 									</p>
 								</div>
 								</a>
