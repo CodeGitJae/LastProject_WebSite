@@ -4,6 +4,7 @@
 <%@ include file="../components/header.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/board.css">
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE/fonts/static/woff2/SUITE.css" rel="stylesheet">
 
 <div class="container">
 	<div class="row">
@@ -30,7 +31,7 @@
 									<p class="card-title">${item.title}</p>
 									<p>
 										<span class="card-createdate">${item.createdate}</span>
-										<span class="card-views">조회수 ${item.views}</span>
+										<span class="card-views">조회 ${item.views}</span>
 									</p>
 								</div>
 								</a>
