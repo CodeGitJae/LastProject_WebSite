@@ -1,4 +1,15 @@
 /* board.css */
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+	font-family: 'SUITE-Regular'
+}
+
 .header-container {
 	display: flex;
 	justify-content: space-between;
@@ -9,17 +20,18 @@
 	color: white;
 }
 
-.starhead {
-	padding-bottom: 1em;
-}
-
 .menutitle {
-	float: left;
+	font-size: 30px;
+	color: hotpink;
 }
 
+.starhead {
+	display: flex;
+}
 .write {
-	float: right;
-	padding:10px;
+	margin-left: auto;
+	padding-top:8px;
+	margin-top: 8px;
 }
 
 .card {
@@ -32,7 +44,7 @@
 	color: white;
 	padding: 1px;
 	font-weight: 500;
-	font-size: 18px;
+	font-size: 17px;
 }
 
 .card-img {
