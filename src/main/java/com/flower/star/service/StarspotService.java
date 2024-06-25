@@ -15,6 +15,10 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,10 +40,14 @@ public class StarspotService {
     @Value("${uploadImagePath.starspot}")
     private String uploadPath;
     
-    public List<Starspot> find() {
+    public Page<Starspot> find(int page, String sortField) {
+    	int size = 6;
+    	Sort sort = Sort.by(Sort.Order.desc(sortField));
     	
+    	Pageable pageable = PageRequest.of(page, size, sort);
     	
-    	return null;
+    	return starspotRepository.findAll(pageable);
+    	
     }
 
     // Starspot 엔티티 저장 메서드

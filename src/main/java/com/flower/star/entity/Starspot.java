@@ -25,6 +25,8 @@ public class Starspot {
 	private Integer id;
 	
 	private String title;
+	
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	private String address;
 	
