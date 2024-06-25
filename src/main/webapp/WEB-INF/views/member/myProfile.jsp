@@ -31,7 +31,7 @@
                     </ul>
                   </div>
                   <div class="main-border-button" style="text-align: center; margin-top: 20px;">
-                    <a href="/member/update">내정보 수정</a>
+                    <a href="/member/update/${member.id}">내정보 수정</a>
                     <a href="/member/delete/${member.id}">회원탈퇴</a>
                   </div>
                 </div>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <%@ include file="../components/header.jsp" %>
 <link rel="stylesheet" href="/assets/css/updateProfile.css">
@@ -22,11 +24,11 @@
 										<!--  선택해서 사용하기 -->
 									</div>
 								</div>
-								<form action="/member/update" method="post">
+								<form:form action="/member/update" method="post" modelAttribute="member">
 									<div class="col-lg-6 align-self-center" style="margin: 0 auto;">
-										<input type="hidden" value="${updateMember.id}" name="id">
 										<ul>
-											<li>아이디  <input value="${updateMember.username}" name="username" readonly></li>
+											<li>아이디  <form:input path="username" readonly/></li>
+											<li><form:errors path="username" cssClass="invalid-feedback d-block"/></li>
 											<li>비밀번호 <input value="${updateMember.password}" type="password" name="password"></li>
 											<li>닉네임 <input value="${updateMember.nickname}" name="nickname"></li>
 											<li>이메일 <input value="${updateMember.email}" name="email"></li>
@@ -36,7 +38,7 @@
 										style="text-align: center; margin-top: 20px;">
 										<button type="submit">수정하기</button>
 									</div>
-								</form>
+								</form:form>
 							</div>
 						</div>
 					</div>

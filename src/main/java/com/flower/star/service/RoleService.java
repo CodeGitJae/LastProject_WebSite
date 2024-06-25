@@ -20,4 +20,9 @@ public class RoleService {
 				Role.builder().role(role).member(member).build()
 		);	
 	}
+
+	public void deleteById(long id) {
+		rRepository.deleteById(id);
+		
+	}
 }

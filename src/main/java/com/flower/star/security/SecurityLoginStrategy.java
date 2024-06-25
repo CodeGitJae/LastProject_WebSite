@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
 import com.flower.star.entity.Member;
 import com.flower.star.entity.Role;
@@ -17,6 +18,7 @@ import com.flower.star.repository.RoleRepository;
 
 import lombok.RequiredArgsConstructor;
 
+@Component
 @RequiredArgsConstructor
 public class SecurityLoginStrategy implements UserDetailsService{
 

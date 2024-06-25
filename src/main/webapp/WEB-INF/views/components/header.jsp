@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 
 <!DOCTYPE html>
@@ -82,9 +83,9 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="#">달달력</a></li>
                         <li><a href="#">자유게시판</a></li>
                         <c:choose>
-	                        <c:when test="${not empty loginId}">
+	                        <c:when test="${not empty member.id}">
 	                        	<li><a href="/member/logout">로그아웃</a></li>
-	                        	<li><a id="a" href="/member/myProfile/${loginId}">${loginUsername}님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
+	                        	<li><a id="a" href="/member/myProfile/${member.id}">${member.username}님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
 	                        </c:when>
 	                        <c:otherwise>
 	                        	<li><a href="/member/login">로그인</a></li>

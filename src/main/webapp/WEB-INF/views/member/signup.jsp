@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <link rel="stylesheet" href="/assets/css/signup_login.css">  
     
 <%@ include file="../components/header.jsp" %>
@@ -13,50 +13,55 @@
 			<section class="vh-100 gradient-custom">
 			  <div class="container py-5 h-100">
 			    <div class="row d-flex justify-content-center align-items-center h-100">
-			      <div class="col-12 col-md-10 col-lg-6 col-xl-6">
+			      <div class="col-12 col-md-10 col-lg-7 col-xl-7">
 			        <div class="card bg-dark text-white" style="border-radius: 1rem;">
 			          <div class="card-body p-5 text-center animated fadeIn">
 			            <div class="mb-md-5 mt-md-4 pb-5">
 			            
 			              <h2 class="fw-bold mb-2 text-uppercase singupfont">회원가입</h2>
 			              <p class="text-white-50 mb-5">별스팟웹에 오신것을 환영 합니다.</p>
+			              <p>${error}</p>
 		
-							<form class="signUP" method="post" action="/member/signup">	
+							<form:form class="signUP" method="post" action="/member/signup" modelAttribute="member">	
 				              <div data-mdb-input-init class="form-outline form-white mb-4">
-	   			                <label class="form-label" for="username">아이디</label>
-				                <input id="id" name="username" class="form-control form-control-lg" 
-				                	placeholder="아이디 입력"/>
-				                 <button type="button" id="userBtn" class="btn btn-secondary">중복검사</button>
+	   			                <label class="form-label">아이디</label>
+				               <form:input path="username" class="form-control form-control-lg" 
+				                	placeholder="3~10자의 영문, 숫자로 입력"/>
+		                	   <form:errors path="username" cssClass="invaild-feedback d-block"/>
+<!-- 				                 <button type="button" id="userBtn" class="btn btn-secondary">중복검사</button> -->
 				              </div>
-				              <span id="checkResult"></span>
+				           <!--    <span id="checkResult"></span> -->
 
-				
 				              <div data-mdb-input-init class="form-outline form-white mb-4">
-				              	<label class="form-label" for="password">비밀번호</label>
-				                <input type="password" id="password" name="password" class="form-control form-control-lg" 
-				                	placeholder="비밀번호 입력"/>
+				              	<label class="form-label">비밀번호</label>
+				                <form:password path="password" class="form-control form-control-lg" 
+				                	placeholder="3~10자의 영문, 숫자로 입력"/>
+		                	    <form:errors path="password" cssClass="invaild-feedback d-block"/>
 				              </div>
 			
 							   <div data-mdb-input-init class="form-outline form-white mb-4">
-				              	<label class="form-label" for="confirmPassword">비밀번호 <br>확인</label>
-				                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control form-control-lg" 
-				                	placeholder="비밀번호 확인"/>
+				              	<label class="form-label">비밀번호 <br>확인</label>
+				                 <form:password path="confirmPassword" class="form-control form-control-lg" 
+				                	placeholder="비밀번호 재 입력란"/>
+		                	   	 <form:errors path="confirmPassword" cssClass="invaild-feedback d-block"/>
 				              </div>
 				              
 				               <div data-mdb-input-init class="form-outline form-white mb-4">
-				              	<label class="form-label" for="nickname">닉네임</label>
-				                <input id="nickname" name="nickname" class="form-control form-control-lg" 
-				                	placeholder="닉네임 입력"/>
+				              	<label class="form-label">닉네임</label>
+				                <form:input path="nickname" class="form-control form-control-lg" 
+				                	placeholder="이메일 입력란"/>
+		                	    <form:errors path="nickname" cssClass="invaild-feedback d-block"/>
 				              </div>
 				              
 				              <div data-mdb-input-init class="form-outline form-white mb-4">
 				              	<label class="form-label" for="email">이메일</label>
-				                <input type="email" id="email" name="email" class="form-control form-control-lg" 
-				                	placeholder="이메일 입력"/>
+				                <form:input path="email" class="form-control form-control-lg" 
+				                	placeholder="비밀번호 재 입력란"/>
+		                	   	 <form:errors path="email" cssClass="invaild-feedback d-block"/>
 				              </div>
 				
 				              <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-3" type="submit">가입완료</button>
-							</form>
+							</form:form>
 			            </div>
 			
 			            <div>
@@ -76,7 +81,7 @@
   <%@ include file="../components/footer.jsp" %>
 
 <script type="text/javascript">
-$(document).ready(function(){
+/* $(document).ready(function(){
 	$("body").on("click", "#userBtn, #emailBtn",function(){
 	 let username = $("#id").val();
 	 let checkBtn = document.getElementById("checkResult");
@@ -113,5 +118,5 @@ $(document).ready(function(){
 $("#id").on("input", function() {
     let checkBtn = document.getElementById("checkResult");
     checkBtn.innerHTML = ""; // 메시지 초기화
-});
+}); */
 </script>

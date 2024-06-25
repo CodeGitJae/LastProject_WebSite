@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <link rel="stylesheet" href="/assets/css/signup_login.css">  
-    
-<%@ include file="../components/header.jsp" %>
 
+<%@ include file="../components/header.jsp" %>
   <div class="container">
       <div class="col-lg-12">
         <div class="page-content">
@@ -16,11 +15,12 @@
 			      <div class="col-12 col-md-10 col-lg-6 col-xl-5">
 			        <div class="card bg-dark text-white" style="border-radius: 1rem;">
 			          <div class="card-body p-5 text-center animated fadeIn">
-			
+						
 			            <div class="mb-md-5 mt-md-4 pb-5">
 			
 			              <h2 class="fw-bold mb-2 text-uppercase loginfont">로그인</h2>
 			              <p class="text-white-50 mb-5">Please enter your login and password!</p>
+			             	<p class="text-white-50 mb-5" style="font-size: 20px;">${warning}</p>
 			              
 						<form action="/member/login" method="post">
 			              <div data-mdb-input-init class="form-outline form-white mb-4">
