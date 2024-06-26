@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ include file="../components/header.jsp" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
+<%@ include file="../components/header.jsp" %>
+<link rel="stylesheet" href="/assets/css/myProfile.css">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -17,22 +18,23 @@
                  	<img src="/assets/images/banner-bg.jpg" alt="" style="border-radius: 23px;">
                  </div>
                   <div class="col-lg-12 align-self-center">
-                    <div class="main-info header-text" style="text-align: center">
+                    <div class="main-info header-text div1">
                       <h4>마이페이지 내 정보 보기</h4>   <!--  선택해서 사용하기 -->
                     </div>
                   </div>
-                  <div class="col-lg-6 align-self-center" style="margin: 0 auto;">
-                  <input type="hidden" value="${member.id}" name="id">
+                  <div class="col-lg-6 align-self-center div2">
                     <ul>
-                      <li>아이디  <span>${member.username}</span></li>
+                      <li>아이디  <span class="user">${member.username} </span></li>
                       <li>닉네임 <span>${member.nickname}</span></li>
                       <li>이메일 <span>${member.email}</span></li>
-                      <li><p style="text-align: center;">비밀번호를 변경하시려면 [내정보 수정]을 클릭하세요.</p></li>
+                      <li><p>비밀번호를 변경하시려면 [내정보 수정]을 클릭하세요.</p></li>
                     </ul>
                   </div>
-                  <div class="main-border-button" style="text-align: center; margin-top: 20px;">
-                    <a href="/member/update/${member.id}">내정보 수정</a>
-                    <a href="/member/delete/${member.id}">회원탈퇴</a>
+                  <div class="main-border-button div3">
+                    <a href="/member/update">내정보 수정</a>
+                	<a href="/member/delete" class="deleteBtn" data-user="${member.username}">
+                		회원탈퇴
+              		</a> 
                   </div>
                 </div>
                 <div class="row">
@@ -99,4 +101,29 @@
   </div>
  
    <%@ include file="../components/footer.jsp" %>
+ <script>
+ $(document).ready(function(){
+	$(".deleteBtn").click(function(){
+		username = $(this).data("user");
+		
+		if(confirm("정말 삭제하시겠습니까?")){	
+			$.ajax({
+				type: "GET",
+				url: "/member/delete",
+				data: {
+					"username": username
+				},
+				success: function(result){
+				window.location.href = "/";
+				alert(username + "님의 계정이 삭제되었습니다.");
+
+				},
+				error: function(err){
+					alert("삭제 처리 중 오류가 발생했습니다.");
+				}
+			}); 
+		}
+	});
+ });
+ </script>
   

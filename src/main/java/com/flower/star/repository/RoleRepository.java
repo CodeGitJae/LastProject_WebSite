@@ -9,8 +9,7 @@ import com.flower.star.entity.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role,	Long> {
-
-									
+								
 	List<Role> findAllByMember_Id(Long member);
 	
 }

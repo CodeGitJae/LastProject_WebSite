@@ -29,9 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	private static final String [] ACCESS_GUEST = {
 			"/member/login",
-			"/member/signup",
-			"/member/myProfile",
-			"/member/updateProfile"
+			"/member/signup"
 	};
 	
 	private static final String [] ACCESS_MANAGER = {

@@ -18,7 +18,7 @@ import lombok.Setter;
 public class MemberUpdateDTO {
 
 	@NotBlank(message = "비번을 입력해 주세요.")
-    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "한글, 영문, 숫자만 입력 가능합니다. (특수문자 입력 불가)")
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "영문, 숫자만 입력 가능합니다. (특수문자 입력 불가)")
     @Size(min = 3, max = 10, message = "3 ~ 10자로 입력해 주십시오.")
     private String password;
 	
@@ -28,11 +28,9 @@ public class MemberUpdateDTO {
 	@NotBlank(message = "닉네임(별명)을 입력해 주십시오.")
     @Pattern(regexp = "^[a-zA-Z0-9가-힣 ]*$", message = "한글, 영문, 숫자만 입력 가능합니다. (특수문자 입력 불가)")
     @Size(min = 3, max = 10, message = "3 ~ 10자로 입력해 주십시오.")
-	@MemberUniqueCheck(dataType = MemberType.NICKNAME, message="이미 존재하는 닉네임(별명) 입니다.")
     private String nickname;
 
     @NotBlank(message = "이메일을 입력해 주십시오.")
     @Email(message = "올바른 이메일을 입력해 주십시오.")
-    @MemberUniqueCheck(dataType = MemberType.EMAIL, message = "이미 가입된 회원입니다.")
     private String email;
 }

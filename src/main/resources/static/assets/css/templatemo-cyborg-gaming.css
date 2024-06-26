@@ -1593,7 +1593,7 @@ Profile Style
 }
 
 .main-profile ul li span {
-  float: right;
+/*   float: right; */
   font-weight: 500;
   color: #ec6090;
 }

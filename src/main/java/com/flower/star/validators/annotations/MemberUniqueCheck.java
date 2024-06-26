@@ -27,7 +27,7 @@ public @interface MemberUniqueCheck {
 	
 	MemberType dataType();
 	
-	 @RequiredArgsConstructor
+	@RequiredArgsConstructor
 	class Validator implements ConstraintValidator<MemberUniqueCheck, String> {
 		
 		private MemberType type;
@@ -38,6 +38,7 @@ public @interface MemberUniqueCheck {
 			type = constraintAnnotation.dataType();
 		}
 		
+		@Override
 		public boolean isValid(String value, ConstraintValidatorContext context) {
 			return validator.isUnique(type, value);
 		}

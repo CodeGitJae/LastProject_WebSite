@@ -49,14 +49,14 @@
 				               <div data-mdb-input-init class="form-outline form-white mb-4">
 				              	<label class="form-label">닉네임</label>
 				                <form:input path="nickname" class="form-control form-control-lg" 
-				                	placeholder="이메일 입력란"/>
+				                	placeholder="3~10자의 한글, 영문, 숫자로 입력"/>
 		                	    <form:errors path="nickname" cssClass="invaild-feedback d-block"/>
 				              </div>
 				              
 				              <div data-mdb-input-init class="form-outline form-white mb-4">
 				              	<label class="form-label" for="email">이메일</label>
 				                <form:input path="email" class="form-control form-control-lg" 
-				                	placeholder="비밀번호 재 입력란"/>
+				                	placeholder="이메일 입력란"/>
 		                	   	 <form:errors path="email" cssClass="invaild-feedback d-block"/>
 				              </div>
 				

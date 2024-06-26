@@ -40,7 +40,7 @@ public class Role {
 	private long id;
 	
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER )
 	@JoinColumn(nullable = false)
 	private Member member;
 	

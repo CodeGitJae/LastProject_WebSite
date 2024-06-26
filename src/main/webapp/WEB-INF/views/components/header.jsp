@@ -83,9 +83,9 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="#">달달력</a></li>
                         <li><a href="#">자유게시판</a></li>
                         <c:choose>
-	                        <c:when test="${not empty member.id}">
+	                        <c:when test="${not empty access}">
 	                        	<li><a href="/member/logout">로그아웃</a></li>
-	                        	<li><a id="a" href="/member/myProfile/${member.id}">${member.username}님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
+	                        	<li><a id="a" href="/member/myProfile">${access.getName()}님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
 	                        </c:when>
 	                        <c:otherwise>
 	                        	<li><a href="/member/login">로그인</a></li>

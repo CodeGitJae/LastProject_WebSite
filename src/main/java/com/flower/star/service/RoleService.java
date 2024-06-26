@@ -21,8 +21,5 @@ public class RoleService {
 		);	
 	}
 
-	public void deleteById(long id) {
-		rRepository.deleteById(id);
-		
-	}
+
 }
