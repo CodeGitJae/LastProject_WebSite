@@ -43,6 +43,10 @@
 				<div class="map">
 					지도
 				</div>
+				
+				<div class="weather">
+					날씨
+				</div>
 				<br><br>
 				
 				<div class="tag">

@@ -26,4 +26,6 @@ public class Observatory {
 	private int views;
 	private String image;
 	
+	private String createdate;
+	
 }
