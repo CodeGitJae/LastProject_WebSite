@@ -61,7 +61,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="/" class="logo">
-                        <img src="${pageContext.request.contextPath}/assets/images/logo.png" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** 검색 기능은 필요한 경우 활성화 해서 쓰시면 됩니다.***** -->
@@ -77,10 +77,10 @@ https://templatemo.com/tm-579-cyborg-gaming
                    
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="/" class="active">Home</a></li>
                         <li><a href="/starspot">별스팟</a></li>
                         <li><a href="/observatory">국내 천문대</a></li>
-                        <li><a href="#">달달력</a></li>
+                        <li><a href="#">달 달력</a></li>
                         <li><a href="#">자유게시판</a></li>
                         <li><a href="#">myPage <img src="${pageContext.request.contextPath}/assets/images/profile-header.jpg" alt=""></a></li>
                     </ul>   

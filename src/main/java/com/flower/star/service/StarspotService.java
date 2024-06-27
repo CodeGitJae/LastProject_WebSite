@@ -49,6 +49,7 @@ public class StarspotService {
     	return starspotRepository.findAll(pageable);
     	
     }
+    
 
     // Starspot 엔티티 저장 메서드
     public void insert(Starspot starspot) {
@@ -112,6 +113,9 @@ public class StarspotService {
             }
         }
     }
+    
+    
+    
 
     // 날짜 폴더 생성 메서드
     private String makeFolder(String currentDir) {
