@@ -22,7 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.flower.star.DTO.UploadImgDTO;
+import com.flower.star.dto.UploadImgDTO;
 import com.flower.star.entity.Starspot;
 import com.flower.star.entity.StarspotImages;
 import com.flower.star.repository.StarspotImagesRepository;

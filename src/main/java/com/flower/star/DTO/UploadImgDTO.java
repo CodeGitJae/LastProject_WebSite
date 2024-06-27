@@ -1,4 +1,4 @@
-package com.flower.star.DTO;
+package com.flower.star.dto;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

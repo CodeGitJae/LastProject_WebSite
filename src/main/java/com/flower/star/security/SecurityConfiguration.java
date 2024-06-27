@@ -25,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			"/starspot/**",
             "/mooncalendar/**",
             "/observatory/**",
+            "/uploadimages/**",
 			"/assets/**",
             "/vendor/**",
             "/favicon.ico"
