@@ -1,9 +1,6 @@
 package com.flower.star.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.flower.star.dto.MemberRegisterDTO;
 import com.flower.star.dto.MemberUpdateDTO;
 import com.flower.star.service.MemberService;
@@ -27,31 +25,34 @@ public class MemberController {
 
 	
 	@GetMapping("/member/delete")
-	public String deleteById(@RequestParam(name="username") String username, HttpSession session) {
-		
-		mService.deleteByUsername(username);
-		session.invalidate();
-		return "redirect:/";
+	public String deleteById(@RequestParam("username") String username) {
+
+		if(username != null) {
+			mService.deleteByUsername(username);
+			return "redirect:/member/logout";
+		} else {
+			return "redirect:/member/myProfile";
+		}
 	}
 	
 	 // 마이페이지 내 정보 수정하기
-	 @PostMapping("/member/update/processedDone")
-	    public String updateProfile(@ModelAttribute("member") @Valid MemberUpdateDTO member,
-	    									BindingResult bindingResult, Model model) {
-		 
-		 System.out.println("::::::::::member"+member);
-		 System.out.println("::::::::::member"+bindingResult);
-		 		try {
-					if(bindingResult.hasErrors()) {
-						return "member/updateProfile";
-					}
-					mService.updateProfile(member, common.getLoginUsername());
-					return "redirect:/member/myProfile";
-				} catch (Exception exception) {
-					System.out.println(":::::::::ErrorMessage:"+exception.getMessage());
-					model.addAttribute("error", "처리 중 오류가 발생 했습니다.");
-					return "redirect:/";
+	@PostMapping("/member/update/processedDone")
+    public String updateProfile(@ModelAttribute("member") @Valid MemberUpdateDTO member,
+    									BindingResult bindingResult, Model model) {
+	 
+//		 System.out.println("::::::::::member"+member);
+//		 System.out.println("::::::::::member"+bindingResult);
+	 		try {
+				if(bindingResult.hasErrors()) {
+					return "member/updateProfile";
 				}
+				mService.updateProfile(member, common.getLoginUsername());
+				return "redirect:/member/myProfile";
+			} catch (Exception exception) {
+				System.out.println(":::::::::ErrorMessage:"+exception.getMessage());
+				model.addAttribute("error", "처리 중 오류가 발생 했습니다.");
+				return "redirect:/";
+			}
 	 }	 		
 		 
 	 
@@ -85,8 +86,8 @@ public class MemberController {
 	public String signUpValidation(@ModelAttribute("member") @Valid MemberRegisterDTO member,
 									BindingResult bindingResult, Model model) {
 
-		System.out.println(member);
-		System.out.println(bindingResult);
+//		System.out.println(member);
+//		System.out.println(bindingResult);
 		try {
 			if (bindingResult.hasErrors()) {
 				return "/member/signup";
@@ -117,7 +118,7 @@ public class MemberController {
 	//	System.out.println(":::::::::" + status);
 
 		if (status.equals("error")) {
-			model.addAttribute("warning", "잘못된 로그인 정보 입니다.");
+			model.addAttribute("warning", "아이디가 존재하지 않습니다.");
 			
 		}
 		return "/member/login";

@@ -9,13 +9,16 @@
         <div class="page-content">
 
          <!-- *****아래 div태그는 지워고 사용하세요. ***** -->
+    <div class="row">
+       <div class="col-lg-12">
+         <div class="featured-games header-text">
+           <div class="heading-section">
 			<section class="vh-100 gradient-custom">
 			  <div class="container py-5 h-100">
 			    <div class="row d-flex justify-content-center align-items-center h-100">
 			      <div class="col-12 col-md-10 col-lg-6 col-xl-5">
 			        <div class="card bg-dark text-white" style="border-radius: 1rem;">
 			          <div class="card-body p-5 text-center animated fadeIn">
-						
 			            <div class="mb-md-5 mt-md-4 pb-5">
 			
 			              <h2 class="fw-bold mb-2 text-uppercase loginfont">로그인</h2>
@@ -57,10 +60,14 @@
 			      </div>
 			    </div>
 			  </div>
-			</section>										
-        </div>
+			</section>	
+	      </div>
+		 </div>	
+		</div>											
       </div>
-  </div>
+    </div>
+   </div>
+</div>
   
   <%@ include file="../components/footer.jsp" %>
   

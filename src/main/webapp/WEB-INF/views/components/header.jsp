@@ -82,15 +82,13 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="#">국내 천문대</a></li>
                         <li><a href="#">달달력</a></li>
                         <li><a href="#">자유게시판</a></li>
-                        <c:choose>
-	                        <c:when test="${not empty access}">
+						<sec:authorize access="isAuthenticated()">
 	                        	<li><a href="/member/logout">로그아웃</a></li>
-	                        	<li><a id="a" href="/member/myProfile">${access.getName()}님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
-	                        </c:when>
-	                        <c:otherwise>
+	                        	<li><a id="a" href="/member/myProfile"><sec:authentication property="principal.username"/>님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
 	                        	<li><a href="/member/login">로그인</a></li>
-	                        </c:otherwise>
-                        </c:choose>
+						</sec:authorize>
                     </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>

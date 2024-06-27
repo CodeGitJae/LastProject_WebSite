@@ -8,30 +8,31 @@
   <div class="container">
       <div class="col-lg-12">
         <div class="page-content">
-
          <!-- *****아래 div태그는 지워고 사용하세요. ***** -->
-			<section class="vh-100 gradient-custom">
-			  <div class="container py-5 h-100">
-			    <div class="row d-flex justify-content-center align-items-center h-100">
-			      <div class="col-12 col-md-10 col-lg-7 col-xl-7">
-			        <div class="card bg-dark text-white" style="border-radius: 1rem;">
-			          <div class="card-body p-5 text-center animated fadeIn">
-			            <div class="mb-md-5 mt-md-4 pb-5">
-			            
-			              <h2 class="fw-bold mb-2 text-uppercase singupfont">회원가입</h2>
-			              <p class="text-white-50 mb-5">별스팟웹에 오신것을 환영 합니다.</p>
-			              <p>${error}</p>
-		
+           <div class="featured-games header-text">
+             <div class="heading-section">
+				<section class="vh-100 gradient-custom">
+				  <div class="container py-5 h-100">
+				    <div class="row d-flex justify-content-center align-items-center h-100">
+				      <div class="col-12 col-md-10 col-lg-7 col-xl-7">
+				        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+				          <div class="card-body p-5 text-center animated fadeIn">
+				            <div class="mb-md-5 mt-md-4 pb-5">
+				            
+				              <h2 class="fw-bold mb-2 text-uppercase singupfont">회원가입</h2>
+				              <p class="text-white-50 mb-5">별스팟웹에 오신것을 환영 합니다.</p>
+				              <p>${error}</p>
+			
 							<form:form class="signUP" method="post" action="/member/signup" modelAttribute="member">	
 				              <div data-mdb-input-init class="form-outline form-white mb-4">
 	   			                <label class="form-label">아이디</label>
 				               <form:input path="username" class="form-control form-control-lg" 
 				                	placeholder="3~10자의 영문, 숫자로 입력"/>
 		                	   <form:errors path="username" cssClass="invaild-feedback d-block"/>
-<!-- 				                 <button type="button" id="userBtn" class="btn btn-secondary">중복검사</button> -->
+	<!-- 				                 <button type="button" id="userBtn" class="btn btn-secondary">중복검사</button> -->
 				              </div>
 				           <!--    <span id="checkResult"></span> -->
-
+	
 				              <div data-mdb-input-init class="form-outline form-white mb-4">
 				              	<label class="form-label">비밀번호</label>
 				                <form:password path="password" class="form-control form-control-lg" 
@@ -73,10 +74,12 @@
 			      </div>
 			    </div>
 			  </div>
-			</section>										
-        </div>
+			</section>
+		  </div>
+	   	</div>
       </div>
-  </div>
+  	</div>
+ </div>
   
   <%@ include file="../components/footer.jsp" %>
 

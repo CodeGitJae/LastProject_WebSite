@@ -20,11 +20,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 	private static final String [] ACCESS_PUBLIC= {
 			"/",
+			"/sample/**",
 			"/board/**",
-			"/star/**",
+			"/starspot/**",
+            "/mooncalendar/**",
+            "/observatory/**",
 			"/assets/**",
             "/vendor/**",
-            "/favicon.ico",
+            "/favicon.ico"
 	};
 	
 	private static final String [] ACCESS_GUEST = {

@@ -25,3 +25,6 @@ public class MemberPasswordDTO {
     private String confirmPassword;
 	
 }
+
+
+// passwordDTO 는 사용하지 않았습니다. 추후 비밀번호 변경 작업만 따로 만들고 싶을 떄 사용하기 위해서 남겨두었습니다.

@@ -23,6 +23,7 @@ public class MemberService {
 	private final MemberRepository mRepository;
 	private final RoleService rService;
 
+	// 회원 정보 삭제 
 	@Transactional
 	public void deleteByUsername(String username) {
 		mRepository.deleteByUsername(username);
@@ -71,7 +72,7 @@ public class MemberService {
 	@Transactional
 	public void register(MemberRegisterDTO memberDto) throws Exception {
 		
-			System.out.println(memberDto);
+//			System.out.println(memberDto);
 		
 		try {
 			String password = passwordEncoder.encode(memberDto.getPassword());

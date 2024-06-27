@@ -11,20 +11,16 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="page-content">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="main-profile ">
-							<div class="row">
-								<div class="col-lg-2">
+		         <div class="featured-games header-text">
+		           <div class="heading-section" style="text-align: center;"> 
+		           	   <h4><em>내 정보</em> 수정</h4>
+		           </div>
+				  <div class="main-profile ">
+					<div class="row">
+						<div class="col-lg-2">
 <!--                     <img src="/assets/images/profile.jpg" alt="" style="border-radius: 23px;"> -->
-								</div>
-								<div class="col-lg-12 align-self-center">
-									<div class="main-info header-text" style="text-align: center">
-										<h4>내정보 수정</h4>
-										<!--  선택해서 사용하기 -->
-									</div>
-								</div>
-								<form:form action="/member/update/processedDone" method="post" modelAttribute="member" >
+						</div>
+							<form:form action="/member/update/processedDone" method="post" modelAttribute="member" >
 									<div class="col-lg-6 align-self-center" style="margin: 0 auto;">
 										<ul>
 	<%-- 										<li>아이디 <form:input path="username" /></li>
@@ -43,8 +39,7 @@
 										style="text-align: center; margin-top: 20px;">
 										<button type="submit">수정하기</button>
 									</div>
-								</form:form>
-							</div>
+							</form:form>
 						</div>
 					</div>
 				</div>
@@ -52,6 +47,7 @@
 		</div>
 	</div>
 </div>
+
 
 <%@ include file="../components/footer.jsp" %>
   
