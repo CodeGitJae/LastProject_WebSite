@@ -150,4 +150,4 @@ buildNumber.properties
 
 
 # Upload Images
-/src/main/resources/static/uploadimages/starspot/
+/src/main/resources/static/uploadimages/
