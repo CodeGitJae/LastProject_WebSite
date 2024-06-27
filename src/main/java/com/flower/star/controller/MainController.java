@@ -17,7 +17,7 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 
-		
+	
 	@GetMapping("/")
 	public String index(Model model) {
 		

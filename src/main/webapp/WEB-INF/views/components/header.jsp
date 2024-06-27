@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 
 <!DOCTYPE html>
@@ -29,6 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    
 <!--
 
 TemplateMo 579 Cyborg Gaming
@@ -82,7 +84,13 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="/observatory">국내 천문대</a></li>
                         <li><a href="/mooncalendar">달달력</a></li>
                         <li><a href="#">자유게시판</a></li>
-                        <li><a href="#">myPage <img src="${pageContext.request.contextPath}/assets/images/profile-header.jpg" alt=""></a></li>
+						<sec:authorize access="isAuthenticated()">
+	                        	<li><a href="/member/logout">로그아웃</a></li>
+	                        	<li><a id="a" href="/member/myProfile"><sec:authentication property="principal.username"/>님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+	                        	<li><a href="/member/login">로그인</a></li>
+						</sec:authorize>
                     </ul>   
                     <a class='menu-trigger'>
                         <span>Menu</span>
