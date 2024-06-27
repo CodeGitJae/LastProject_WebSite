@@ -1,6 +1,8 @@
 package com.flower.star.controller;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,11 +45,13 @@ public class StarspotController {
 		return "/starspot/board";
 	}
 	
+	
 	@GetMapping("/write")
 	public String starspotWrite() {
 		
 		return "/starspot/write";
 	}
+	
 	
 	@PostMapping("/write")
 	public String starspotWrite(Starspot starspot, MultipartFile[] uploadImages) {
@@ -71,5 +76,26 @@ public class StarspotController {
 		model.addAttribute("data", s);
 		
 		return "/starspot/detail";
+	}
+	
+	
+	@GetMapping("/update")
+	public String starspotUpdate(Model model, @RequestParam Integer id) {
+		Optional<Starspot> optionalStarspot = starspotRepository.findById(id);
+		
+		Starspot starspot = optionalStarspot.get();
+        model.addAttribute("starspot", starspot);
+        
+        return "/starspot/update";
+	}
+	
+	@PostMapping("/update")
+	public String starspotUpdate(Starspot starspot, MultipartFile[] uploadImages) {
+		
+		starspotService.insert(starspot);
+		
+		starspotService.insertImg(starspot, uploadImages);
+		
+		return "redirect:/starspot";
 	}
 }
