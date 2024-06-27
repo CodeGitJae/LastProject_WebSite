@@ -12,6 +12,10 @@ body, pre {
 	font-family: 'SUITE-Regular'
 }
 
+pre {
+	white-space: break-spaces;
+}
+
 .header-container {
 	display: flex;
 	justify-content: space-between;
