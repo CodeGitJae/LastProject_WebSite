@@ -15,9 +15,9 @@
 				  <label for="title" class="form-label">제목</label>
 				  <input class="form-control" id="title" placeholder="제목을 입력해주세요." name="title">
 				</div>
-				<div class="mb-3">
+				<div class="mb-3 address-box">
 				  <label for="address" class="form-label">주소</label>
-				  <input class="form-control" id="address" placeholder="스팟의 위치를 적어주세요." name="address">
+				  <input class="form-control" id="address" placeholder="클릭 시 주소검색창이 열립니다." name="address" readonly>
 				</div>
 				<div class="mb-3">
 				  <label for="image" class="form-label">이미지</label>
@@ -35,3 +35,22 @@
   </div>
   
 <%@ include file="../components/footer.jsp" %>
+
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function daumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+
+                document.getElementById("address").value = roadAddr;
+                
+            }
+        }).open();
+    }
+    
+    $('.address-box').on('click', () => {
+    	daumPostcode();
+    });
+</script>

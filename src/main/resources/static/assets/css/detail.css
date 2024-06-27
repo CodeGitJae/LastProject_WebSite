@@ -8,8 +8,12 @@
 	font-style: normal;
 }
 
-body {
+body, pre {
 	font-family: 'SUITE-Regular'
+}
+
+pre {
+	white-space: break-spaces;
 }
 
 .header-container {
@@ -101,19 +105,10 @@ body {
 }
 
 /* map.css */
-.map {
+#map {
 	margin: auto;
 	width: 70%;
 	height: 400px;
-	display: block;
-	border: 1px solid #ccc;
-}
-
-/* tag.css */
-.tag {
-	margin: auto;
-	width: 100%;
-	height: 40px;
 	display: block;
 	border: 1px solid #ccc;
 }
@@ -131,7 +126,7 @@ body {
 
 .comment-count {
 	margin: 10px;
-/* } */
+}
 
 .comment-id {
 	margin-left: 10px;
