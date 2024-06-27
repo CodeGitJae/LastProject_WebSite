@@ -112,7 +112,8 @@ p {
 }
 
 img {
-  width: 100%;
+  width: 150%;
+  max-height: 80%;
   overflow: hidden;
 }
 
@@ -176,7 +177,23 @@ p {
   color: #e75e8d;
 }
 
-.main-border-button a {
+.main-border-button a{
+  font-size: 14px;
+  color: #ec6090;
+  background-color: transparent;
+  border: 1px solid #ec6090;
+  padding: 12px 30px;
+  display: inline-block;
+  border-radius: 25px;
+  font-weight: 400;
+  text-transform: capitalize;
+  letter-spacing: 0.5px;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.main-border-button button{
   font-size: 14px;
   color: #ec6090;
   background-color: transparent;
@@ -198,6 +215,12 @@ p {
   color: #e75e8d;
 }
 
+.main-border-button button:hover {
+  border-color: #fff;
+  background-color: #fff;
+  color: #e75e8d;
+}
+
 .border-no-active a {
   border-color: #666;
   color: #666;
@@ -210,7 +233,7 @@ p {
 }
 
 section {
-  margin-top: 120px;
+  margin-top: 1px;
 }
 
 .heading-section h4 {
@@ -458,6 +481,7 @@ Header Style
   padding: 13px 10px;
   border-radius: 18px;
   letter-spacing: .3px;
+  text-align: left;
 }
 
 .header-area .main-nav .nav li:last-child a {
@@ -1387,7 +1411,12 @@ Game Details Style
   margin-top: 35px;
 }
 
-.game-details .main-border-button a {
+.game-details .main-border-button a{
+  text-align: center;
+  width: 100%;
+} 
+
+.game-details .main-border-button button{
   text-align: center;
   width: 100%;
 } 
@@ -1528,7 +1557,7 @@ Profile Style
 }
 
 .main-profile .main-info span {
-  font-size: 14px;
+  font-size: 20px;
   color: #fff;
   background-color: #e75e8d;
   padding: 8px 20px;
@@ -1556,7 +1585,7 @@ Profile Style
 
 .main-profile ul li {
   width: 100%;
-  font-size: 14px;
+  font-size: 18px;
   color: #666;
   margin-bottom: 20px;
   padding-bottom: 20px;
@@ -1564,7 +1593,7 @@ Profile Style
 }
 
 .main-profile ul li span {
-  float: right;
+/*   float: right; */
   font-weight: 500;
   color: #ec6090;
 }

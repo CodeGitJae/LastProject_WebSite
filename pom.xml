@@ -84,8 +84,50 @@
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>javax.validation</groupId>
+		    <artifactId>validation-api</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.hibernate.validator</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		</dependency>
 
-
+	    <!-- Spring Boot Starter Security -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-security</artifactId>
+	    </dependency>
+	
+	    <!-- Spring Security Test (Optional, for testing security configurations) -->
+	    <dependency>
+	        <groupId>org.springframework.security</groupId>
+	        <artifactId>spring-security-test</artifactId>
+	        <scope>test</scope>
+	    </dependency>
+	
+	    <!-- JWT (Optional, if using JWT for authentication) -->
+	    <dependency>
+	        <groupId>io.jsonwebtoken</groupId>
+	        <artifactId>jjwt</artifactId>
+	        <version>0.9.1</version>
+	    </dependency>
+	
+	    <!-- OAuth2 Resource Server (Optional, if using OAuth2 for authentication) -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+	    </dependency>
+	
+	    <!-- OAuth2 Client (Optional, if using OAuth2 client) -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-oauth2-client</artifactId>
+	    </dependency>
+	    <dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-taglibs</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
