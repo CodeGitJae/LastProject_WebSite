@@ -13,87 +13,25 @@
             <div class="col-lg-12">
               <div class="featured-games header-text">
                 <div class="heading-section">
-                  <h4><em>인기 별자리</em> 스팟</h4>
+                  <h4><em>별자리 스팟</em> TOP 5</h4>
                 </div>
                 <div class="owl-features owl-carousel">
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/assets/images/featured-01.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>CS-GO<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/assets/images/featured-02.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Gamezer<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/assets/images/featured-03.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Island Rusty<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/assets/images/featured-01.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>CS-GO<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/assets/images/featured-02.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Gamezer<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="/assets/images/featured-03.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Island Rusty<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
+                  <c:forEach items="${top5Starspot}" var="starspot">
+	                 <div class="item">
+	                    <div class="thumb">
+	                      <img src="${starspot.images[0].imagePath}" alt="">
+	                      <div class="hover-effect">
+	                        <h6>${starspot.views} views</h6>
+	                      </div>
+	                    </div>
+	                    <h4>${starspot.title}<br><span>${starspot.views} views</span></h4>
+	                    <ul>
+	                      <li><i class="fa fa-star"></i> 4.8</li>
+	                      <li><i class="fa fa-download"></i> 2.3M</li>
+	                    </ul>
+	                  </div>
+                  </c:forEach>
+                  
                 </div>
               </div>
             </div>
