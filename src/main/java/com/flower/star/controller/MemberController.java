@@ -23,7 +23,7 @@ public class MemberController {
 	private final Common common;
 	private final MemberService mService;
 
-	
+	// 내 정보 삭제하기
 	@GetMapping("/member/delete")
 	public String deleteById(@RequestParam("username") String username) {
 

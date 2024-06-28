@@ -31,3 +31,4 @@ spring:
 uploadImagePath:
   starspot: uploadimages\starspot
   observatory: uploadimages\observatory
+  board: uploadimages\board

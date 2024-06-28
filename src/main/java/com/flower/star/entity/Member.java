@@ -1,10 +1,12 @@
 package com.flower.star.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,18 +55,19 @@ public class Member {
 	@OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Role> roles;
 	
+	@OneToMany(mappedBy="member", fetch = FetchType.LAZY)
+	private List<Board> boardList = new ArrayList<>();
 	
-	public static Member toMember(MemberDTO mDTO) {
-		Member member = new Member();
-		
-		member.setId(mDTO.getId());
-		member.setUsername(mDTO.getUsername());
-		member.setPassword(mDTO.getPassword());
-		member.setNickname(mDTO.getNickname());
-		member.setEmail(mDTO.getEmail());
-		
-		return member;
-	}
+	
+	/*
+	 * public static Member toMember(MemberDTO mDTO) { Member member = new Member();
+	 * 
+	 * member.setId(mDTO.getId()); member.setUsername(mDTO.getUsername());
+	 * member.setPassword(mDTO.getPassword());
+	 * member.setNickname(mDTO.getNickname()); member.setEmail(mDTO.getEmail());
+	 * 
+	 * return member; }
+	 */
 
 
 

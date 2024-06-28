@@ -83,7 +83,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="/starspot">별스팟</a></li>
                         <li><a href="/observatory">국내 천문대</a></li>
                         <li><a href="/mooncalendar">달달력</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="/board/list">자유게시판</a></li>
 						<sec:authorize access="isAuthenticated()">
 	                        	<li><a href="/member/logout">로그아웃</a></li>
 	                        	<li><a id="a" href="/member/myProfile"><sec:authentication property="principal.username"/>님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>
