@@ -52,7 +52,7 @@ public class Member {
 	@OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy="member", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="member", fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<Board> boardList = new ArrayList<>();
 
 	

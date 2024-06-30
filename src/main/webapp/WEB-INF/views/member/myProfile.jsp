@@ -42,7 +42,7 @@
             </div>
 	     	     <!-- ***** 마이페이지 내정보 보기 끝***** -->  
 	     	     
-     	     <!-- ***** 내가 찜한 별자리 스팟 시작***** --> 
+<!--      	     ***** 내가 찜한 별자리 스팟 시작***** 
    	       <div class="gaming-library profile-library"> 
              <div class="row">
                <div class="col-lg-12">
@@ -53,7 +53,7 @@
                <div class="col-lg-4 col-sm-6">
                  <div class="item">
                    <div class="thumb">
-                    <!--  <img src="assets/images/clip-01.jpg" alt="" style="border-radius: 23px;"> -->
+                     <img src="assets/images/clip-01.jpg" alt="" style="border-radius: 23px;">
                      <a href="#" target="_blank"><i class="fa fa-play"></i></a>
                    </div>
                    <div class="down-content">
@@ -69,26 +69,39 @@
                </div>
              </div>
            </div>
-         	<!-- ***** 내가 찜한 별자리 스팟 끝 ***** -->
+         	***** 내가 찜한 별자리 스팟 끝 ***** -->
 
 	          <!-- ***** 자유게시판 최근 글 n개 시작 ***** -->
 	          <div class="gaming-library profile-library">
 	            <div class="col-lg-12">
 	              <div class="heading-section">
-	                <h4><em>내가 쓴</em> 게시글 정보</h4>
+	                <h4><em>최근 내가 쓴</em> 게시글 정보</h4>
 	              </div>
+	              <c:forEach items="${boardList}" var="b" begin="0" end="2">
 	              <div class="item">
-	                <ul>
-	                  <li><img src="/assets/images/game-01.jpg" alt="" class="templatemo-item"></li>
-	                  <li><h4>Dota 2</h4><span>Sandbox</span></li>
-	                  <li><h4>Date Added</h4><span>24/08/2036</span></li>
-	                  <li><h4>Hours Played</h4><span>634 H 22 Mins</span></li>
-	                  <li><h4>Currently</h4><span>Downloaded</span></li>
-	                </ul>
+	                <table class="table table-dark">
+					  <thead>
+					    <tr>
+					      <th scope="col">번호</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">글쓴이</th>
+					      <th scope="col">작성일</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <th>${b.id}</th>
+					      <td><a href="/board/detail?id=${b.id}">${b.title}</a></td>
+					      <td>${b.member.username}</td>
+					      <td>${b.createDate}</td>
+					    </tr>
+					  </tbody>
+					</table>
 	              </div>
+	              </c:forEach>
 		             <div class="col-lg-12">
 		              <div class="main-button">
-		                <a href="#">게시판으로 이동</a>
+		                <a href="/board/list">게시판으로 이동</a>
 		              </div>
 		            </div>
 	            </div>

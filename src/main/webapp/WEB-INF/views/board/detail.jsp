@@ -26,8 +26,8 @@
 				<div class="text">
 					<div class="correction-top">
 						<div class="correction">
-							<a href="/board/update?id=${b.id}" class="correction-data">수정</a><a>|</a> <a href=""
-								class="delete-data">삭제</a>
+							<a href="/board/update?id=${b.id}" class="correction-data">수정</a><a>|</a> 
+							<a href="/board/delete?id=${b.id}" class="delete-data">삭제</a>
 						</div>
 					</div>
 					<c:forEach items="${b.images}" var="image">

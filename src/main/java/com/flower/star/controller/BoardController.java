@@ -1,6 +1,10 @@
 package com.flower.star.controller;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.flower.star.entity.Board;
 import com.flower.star.service.BoardSerivce;
 import com.flower.star.service.MemberService;
+import com.flower.star.util.Pagination;
+
 import lombok.RequiredArgsConstructor;
 
 
@@ -90,13 +96,42 @@ public class BoardController {
 	}
 	
 	@PostMapping("/update")
-	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage, Integer updateToBoardImage) {
+	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage) {
 
 		bService.update(board);
-		bService.updateImage(board, uploadToBoardImage, updateToBoardImage);
+		bService.updateImage(board, uploadToBoardImage);
 		
 		return "redirect:/board/detail?id="+ board.getId();
 	}
 	
+	@GetMapping("/delete")
+	public String deleteToBoard(@RequestParam("id") Integer id) {
+		if(id == null) {
+			return "redirect:/board/detail?id=" + id;
+		}
+		bService.deleteById(id);
+		return "redirect:/board/list";
+	}
+	
+	@GetMapping("/paging")
+	public String paging(@RequestParam(defaultValue = "1") int curPage, Model model) {
+
+		// 한 페이지당 출력 게시물 수 
+		int blockLimit = 5;
+		Page<Board> paging = bService.paging(curPage -1);
+		System.out.println("::::::::::::::::::bservice paging111111::::"+ paging);
+		
+		Pagination pagination = new Pagination(curPage, paging.getTotalPages(), blockLimit);
+		int nextKey = (int) (Math.floor((curPage -1) / 5) * 5 + 6);
+		int prevKey = (int) (Math.floor((curPage -1) / 5) * 5);
+		
+		model.addAttribute("paging", paging);
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("nextKey", nextKey);
+		model.addAttribute("prevKey", prevKey);
+		
+		return "/board/list";
+		
+	}
 	
 }

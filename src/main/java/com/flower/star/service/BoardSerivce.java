@@ -5,19 +5,21 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 import java.util.UUID;
-import javax.servlet.http.HttpSession;
+import java.util.stream.Collectors;
+
 import javax.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.flower.star.dto.UploadImgDTO;
@@ -26,6 +28,7 @@ import com.flower.star.entity.Board;
 import com.flower.star.entity.Member;
 import com.flower.star.entity.StarspotImages;
 import com.flower.star.repository.BoardRepository;
+import com.flower.star.repository.MemberRepository;
 import com.flower.star.repository.StarspotImagesRepository;
 import com.flower.star.utilities.Common;
 
@@ -35,6 +38,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardSerivce {
 	private final BoardRepository bRepository;
+	private final MemberRepository mRepository;
 	private final StarspotImagesRepository starspotImagesRepository;
 	private final Common common;
 //	@Value("${uploadImagePath.board}")
@@ -208,37 +212,60 @@ public class BoardSerivce {
 		bRepository.save(board);
 	}
 
-	public void updateImage(Board board, MultipartFile[] uploadToBoardImage, Integer updateToBoardImage) {
+	public void updateImage(Board board, MultipartFile[] uploadToBoardImage) {
 		insertImage(board, uploadToBoardImage);
-		System.out.println("::::::::::::::::updateToBoardImage::::::::::::::::::::::::::");
-		// DB에서 Image의 Id정보 조회
-		Integer bId = board.getId();
-		Optional<StarspotImages> optBid = starspotImagesRepository.findById(bId);	
-		if(optBid.isEmpty()) {
-			return ;
-		}
-		// DB저장을 위한 엔터티 객체 생성
-		StarspotImages starImages = new StarspotImages();
-		// Optinal로 DB에서 꺼내온 image 객체 추출
-		StarspotImages image = optBid.get();
 
-		Integer imageIdFormDb = image.getId();
-		String imagePathFormDb = image.getImagePath();
-		Board imageBidFormDb = image.getBoard();
-		
-		System.out.println("::::::::::::::imageBid::::::::::::"+imageBidFormDb);
-		System.out.println("::::::::::::::dbImage::::::::::::"+image);
-		
-
-		
-		// 수정된 이미지 데이터 저장
-		starImages.setId(updateToBoardImage);
-		starImages.setImagePath(imagePathFormDb);
-		starImages.setBoard(imageBidFormDb);
-		System.out.println(starImages);
-		
-		starspotImagesRepository.save(starImages);
+//		// DB에서 Image의 Id정보 조회        유지 보수 기간에 수정해야할것같음. 시간 너무 많이 걸림
+//		Integer bId = board.getId();
+//		Optional<StarspotImages> optImgBid = starspotImagesRepository.findById(bId);	
+//		if(optImgBid.isEmpty()) {
+//			return ;
+//		}
+//		// DB저장을 위한 엔터티 객체 생성
+//		StarspotImages starImages = new StarspotImages();
+//		// Optinal로 DB에서 꺼내온 image 객체 추출
+//		StarspotImages image = optImgBid.get();
+//
+//		// 파라미터 값 체크
+//		Integer imageIdFormDb = image.getId();
+//		Board imageBidFormDb = image.getBoard();
+//		System.out.println("::::::::::::::imageIdFormDb::::::::::::"+imageIdFormDb);
+//		System.out.println("::::::::::::::dbImage::::::::::::"+image);
+//		
+//
+//		// 수정된 이미지 데이터 저장
+//		starImages.setId(image.getId());
+//		starImages.setBoard(image.getBoard());
+//		System.out.println(":::::::starImagesstarImagesstarImages::::::::::"+starImages);
+//		
+//		starspotImagesRepository.save(starImages);
 	}
+
+	public void deleteById(Integer id) {
+		bRepository.findById(id);
+		
+	}
+
+	public Page<Board> paging(int curPage) {
+		System.out.println("::::::::::::::::::servicecurPage::::"+ curPage);
+		 // 한페이지 최대 출력 수
+		int pageLimit = 5; 
+		Sort sort = Sort.by(Sort.Order.desc("id"));
+		System.out.println("::::::::::::::::::sort::::"+ sort);
+    	Pageable pageable = PageRequest.of(curPage, pageLimit, sort);
+    	System.out.println("::::::::::::::::::pageable::::"+ pageable);
+		Page<Board> page = bRepository.findAll(pageable);
+		System.out.println("::::::::::::::::::page::::"+ page);
+		return page;
+	}
+
+	public List<Board> findAllForViews() {
+	        List<Board> boardList = bRepository.findAll(); // 모든 게시물 가져오기
+	        Collections.reverse(boardList); // 리스트를 역순으로 정렬
+	       
+		return boardList.stream().limit(3).collect(Collectors.toList()); // 최신 3개의 게시물 반환;
+	}
+
 
 }
 
