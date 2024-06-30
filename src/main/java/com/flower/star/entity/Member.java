@@ -13,9 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.flower.star.dto.MemberDTO;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,7 +54,7 @@ public class Member {
 	
 	@OneToMany(mappedBy="member", fetch = FetchType.LAZY)
 	private List<Board> boardList = new ArrayList<>();
-	
+
 	
 	/*
 	 * public static Member toMember(MemberDTO mDTO) { Member member = new Member();

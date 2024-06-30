@@ -10,10 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
-
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,79 +27,87 @@ import com.flower.star.entity.Member;
 import com.flower.star.entity.StarspotImages;
 import com.flower.star.repository.BoardRepository;
 import com.flower.star.repository.StarspotImagesRepository;
+import com.flower.star.utilities.Common;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class BoardSerivce {
+	private final BoardRepository bRepository;
+	private final StarspotImagesRepository starspotImagesRepository;
+	private final Common common;
+//	@Value("${uploadImagePath.board}")
+//    private String uploadPath;
 
-	@Autowired
-	private BoardRepository bRepository;
-	@Autowired
-	private StarspotImagesRepository starspotImagesRepository;
 	
-	@Value("${uploadImagePath.board}")
-    private String uploadPath;
-	
-
 	// 입력한 게시글 정보 DB에 저장 (MEMBER 객체도 함께)
 	public void insert(Board board) {
-		Member member = new Member();
-		
+	
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		
 		String now = sdf.format(date);
 		
-//		board.setMember(member);
 		board.setCreateDate(now);
 		board.setViews(0);
 		
-		bRepository.save(board);	
+		bRepository.save(board);
 	}
 
 	public void insertImage(Board board, MultipartFile[] uploadToBoardImage){
 		
 		System.out.println(":::::::::::::::service :" + board);
 		System.out.println(":::::::::::::::service :" +uploadToBoardImage);
+		
+		// 현재 폴더 위치 정보 얻기 (프로젝트 저장한 폴더 위치가 출력됨)
 		String curDir = System.getProperty("user.dir");
-		System.out.println("::::::::::1"+curDir);
+		
+			// 폴더 생성 및 저장할 경로 추가
 			curDir += File.separator + "src" + File.separator + "main" + File.separator 
 					+ "resources" + File.separator + "static" + File.separator;
-		System.out.println("::::::::::2"+curDir);
+//		System.out.println("::::::::::2"+curDir);
 		List<UploadImgDTO> uploadDTOList = new ArrayList<>();
 		
 		for(MultipartFile uploadFile : uploadToBoardImage) {
 			
+			System.out.println("::::::::::::::::::빈깡통 인 경우?::::::::::::::::::"+uploadFile);
 			 // 파일 크기가 20MB 이상의 경우 업로드 할 수 없도록 설정
-			if(uploadFile !=null ? uploadFile.getSize() > Define.MAX_FILE_SIZE : null) {
-				System.out.println("20MB 이하 파일만 업로드 할 수 있습니다.");
+			if(!Objects.requireNonNull(uploadFile.getContentType()).startsWith("image")) {
+				System.out.println("파일의 Type이 이미지가 아닙니다.");
+				return;
 			}
-			String originFilename = uploadFile.getOriginalFilename();
-			String newFileName = generateUniqueFileName(originFilename);
-			System.out.println("newFileName: "+ newFileName);
-			System.out.println(curDir);
+
+			// 예외 처리가 정상 동작하지 않은 경우를 대비 20MB 크기 넘는 파일을 저장하지 않음 
+			if(uploadFile.getSize() > Define.MAX_FILE_SIZE) {
+				System.out.println("#########uploadfile 결과:"+(uploadFile.getSize() > Define.MAX_FILE_SIZE));
+				return;
+			}
+			// 실제 파일 이름 가져오기
+//			String originFilename = uploadFile.getOriginalFilename();
 			
 			// 폴더 생성
-			String folderPath = makeFolder(curDir);
+			String folderPath = common.makeFolder(curDir);
 			System.out.println("::::::::::::::::::folder"+folderPath);
 			
-			// 범용 고유 식별자 생성
-			String uuid = UUID.randomUUID().toString();
+			// 저장할 파일 이름 생성
+			String savePathName = common.makeSaveNameForSavePath(uploadFile, folderPath);
+			System.out.println("::::::::::::::::::saveName"+ savePathName);
 			
-			// 저장 할 파일 이름
-			String saveName = uploadPath + File.separator + folderPath + File.separator + uuid + "_" + newFileName;
-			System.out.println("::::::::::::::::::saveName"+ saveName);
-			Path savePath = Paths.get(curDir + saveName);
-			
+			// 저장 경로 생성
+			Path savePath = Paths.get(curDir + savePathName);
+			System.out.println("::::::::::::::::::savePath"+ savePath);
 			
 			try {
+				// 범용 고유 식별자 생성
+				String uuid = UUID.randomUUID().toString();
+				
 				// 실제 이미지 저장
 				uploadFile.transferTo(savePath);
-				uploadDTOList.add(new UploadImgDTO(newFileName, uuid, folderPath));
+				System.out.println("::::::::::::tryCatch uploadFile:"+ uploadFile);
+				uploadDTOList.add(new UploadImgDTO(uploadFile.getOriginalFilename(), uuid, folderPath));
+				System.out.println("::::::::::::tryCatch uploadDTOList:"+ uploadDTOList);
 				
-				
-				StarspotImages starspotImgs = new StarspotImages(null, saveName, null, board);
+				StarspotImages starspotImgs = new StarspotImages(null, savePathName, null, board);
 				starspotImagesRepository.save(starspotImgs);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -108,36 +118,128 @@ public class BoardSerivce {
 	}
 	
 	
-	// 새로운 파일 이름을 생성하는 메서드
-	private String generateUniqueFileName(String originaFileName) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-		
-		//random 객체 생성
-		Random random = new Random();
-		
-		//0이상 100미만의 랜덤한 정수 반환
-		String randomNumber = Integer.toString(random.nextInt(Integer.MAX_VALUE));
-		String timeStamp = sdf.format(new Date());
-		System.out.println("::::::::::::timeStamp:"+timeStamp);
-		System.out.println("::::::::::::randomNumber:"+randomNumber);
-		System.out.println("::::::::::::originaFileName:"+originaFileName);
-		return timeStamp + randomNumber + originaFileName; 
+//	// 새로운 파일 이름을 생성하는 메서드
+//	private String makeSaveNameForSavePath(MultipartFile uploadFile, String folderPath) {
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//		
+//		//random 객체 생성
+//		Random random = new Random();
+//		
+//		//0이상 100미만의 랜덤한 정수 반환
+//		String randomNumber = Integer.toString(random.nextInt(Integer.MAX_VALUE));
+//		String timeStamp = sdf.format(new Date());	
+//		String originFilename = uploadFile.getOriginalFilename();
+//		// 원래 파일 이름이 비어있는지 검증
+//		assert originFilename != null;
+//		String saveName = uploadPath + File.separator + folderPath + File.separator + timeStamp + randomNumber + "_" + originFilename; 
+//		System.out.println("::::::::::::method saveName:"+ saveName);
+////		System.out.println("::::::::::::timeStamp:"+timeStamp);
+////		System.out.println("::::::::::::randomNumber:"+randomNumber);
+////		System.out.println("::::::::::::originaFileName:"+originaFileName);
+//		return saveName; 
+//	}
+//	
+//	// 날짜 폴더를 생성하는 메서드
+//	private String makeFolder(String curDir) {
+//		// 날짜 포맷 생성
+//		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+//		
+//		// 날짜 폴더 경로 생성
+//		String folderPath = str.replace("/", File.separator);
+//		
+//		
+//		// 업로드 경로에 날짜 폴더가 없으면 생성
+//		File uploadPathFolder = new File(curDir + uploadPath, folderPath);
+//		System.out.println("-------------------"+uploadPathFolder);
+//		if(!uploadPathFolder.exists()) {
+//			boolean mkdirs = uploadPathFolder.mkdirs();
+//			System.out.println("##### Successful== "+ mkdirs + " ==Successful #####");
+//		}
+//		return folderPath;
+//	}
+	
+	
+	// 게시물 목록 조회
+	public List<Board> findAll() {
+		return bRepository.findAll();
+	}
+
+	// 게시물 상세 정보 가져오기
+	public Board findById(Integer bId) {
+		Optional<Board> optBid = bRepository.findById(bId);
+		// 객체가 없는 경우 null을 리턴함.
+		if(!optBid.isPresent()) {
+			return null;
+		}
+		Board board = optBid.get();
+		return board ;
 	}
 	
-	// 날짜 폴더를 생성하는 메서드
-	private String makeFolder(String curDir) {
-		// 날짜 포맷 생성
-		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-		
-		// 날짜 폴더 경로 생성
-		String folderPath = str.replace("/", File.separator);
-		
-		// 업로드 경로에 날짜 폴더가 없으면 생성
-		File uploadPathFolder = new File(curDir + uploadPath, folderPath);
-		if(uploadPathFolder.exists()) {
-			boolean mkdirs = uploadPathFolder.mkdirs();
-			System.out.println("##### Successful== "+ mkdirs + " ==Successful#####");
-		}
-		return folderPath;
+	
+	// 조회수 업데이트
+	 // 수동적인 쿼리 수행하는 경우라서 transactional을 추가 해야함./ 없을 경우 영속성 부여 구간에서 에러남
+	@Transactional
+	public void updateViews(Integer bId) {
+		bRepository.updateViews(bId);
 	}
+	
+	
+	//
+	public void update(Board board) {
+		// DB에서 ID 값 기준으로 저장된 정보 가져오기
+		Integer bId = board.getId();
+		Optional<Board> bid = bRepository.findById(bId);
+		if(!bid.isPresent()) {
+			return ;
+		}
+		// Optinal로 DB에서 꺼내온 Board 객체 추출
+		Board bIdFromDb = bid.get();
+		
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String now = sdf.format(date);
+		
+		// DB에 저장할 데이터 값 세팅
+		board.setUpdateDate(now);
+		board.setCreateDate(bIdFromDb.getCreateDate());
+		board.setMember(bIdFromDb.getMember());
+		board.setViews(bIdFromDb.getViews());
+
+		bRepository.save(board);
+	}
+
+	public void updateImage(Board board, MultipartFile[] uploadToBoardImage, Integer updateToBoardImage) {
+		insertImage(board, uploadToBoardImage);
+		System.out.println("::::::::::::::::updateToBoardImage::::::::::::::::::::::::::");
+		// DB에서 Image의 Id정보 조회
+		Integer bId = board.getId();
+		Optional<StarspotImages> optBid = starspotImagesRepository.findById(bId);	
+		if(optBid.isEmpty()) {
+			return ;
+		}
+		// DB저장을 위한 엔터티 객체 생성
+		StarspotImages starImages = new StarspotImages();
+		// Optinal로 DB에서 꺼내온 image 객체 추출
+		StarspotImages image = optBid.get();
+
+		Integer imageIdFormDb = image.getId();
+		String imagePathFormDb = image.getImagePath();
+		Board imageBidFormDb = image.getBoard();
+		
+		System.out.println("::::::::::::::imageBid::::::::::::"+imageBidFormDb);
+		System.out.println("::::::::::::::dbImage::::::::::::"+image);
+		
+
+		
+		// 수정된 이미지 데이터 저장
+		starImages.setId(updateToBoardImage);
+		starImages.setImagePath(imagePathFormDb);
+		starImages.setBoard(imageBidFormDb);
+		System.out.println(starImages);
+		
+		starspotImagesRepository.save(starImages);
+	}
+
 }
+
+

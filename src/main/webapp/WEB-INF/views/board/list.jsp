@@ -19,6 +19,10 @@
 				 </div>
 			   </div>
 			   <!-- 본문 시작하는 곳 -->
+			   <div class="resultMessage">
+			   	<p>${message}</p>
+			   	<p>${errorMessage}</p>
+			   	</div>
 			    <table class="table">
 				  <thead>
 				    <tr>
@@ -29,15 +33,17 @@
 				      <th scope="col">조회수</th>
 				    </tr>
 				  </thead>
+ 				  <c:forEach items="${board}" var="b">
 				  <tbody>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td><a href="#">제목 내용이들어가는 곳입니다.</a></td>
-				      <td>geust1</td>
-				      <td>2024-06-28</td>
-				      <td>2</td>
+				      <th scope="row">${b.id}</th>
+				      <td><a href="/board/detail?id=${b.id}">${b.title}</a></td>
+				      <td>${b.member.username}</td>
+				      <td>${b.createDate}</td>
+				      <td>${b.views}</td>
 				    </tr>
 				  </tbody>
+				  </c:forEach>
 				</table>                          
 			   <!--  본문 끝나는 곳 -->
             </div>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     
 <%@ include file="../components/header.jsp" %>
 
@@ -16,6 +17,8 @@
 			   <!-- 본문 시작하는 곳 -->
 				<form method="post" action="/board/write" enctype="multipart/form-data">
 				  <div class="mb-4" style="margin: 0px, 40px, 0px, 40px;">
+				  <sec:authentication property="principal.username" var="username"/>
+					<input type="hidden" name="username" value="${username}"/>
 				    <label for="title" class="form-label" style="color: white;">제목</label>
 				    <input class="form-control" id="title" name="title">
 				  </div>

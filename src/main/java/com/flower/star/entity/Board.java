@@ -13,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,12 +26,15 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Board {
 
-	@Id
+	@Id    // pk 키 설정
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
+	//컬럼 글자수 설정
+	@Column(length = 100)
 	private String title;
 	
+	// 글잦수 제한 없애기
 	@Column(columnDefinition = "TEXT")
 	private String content;
 	
