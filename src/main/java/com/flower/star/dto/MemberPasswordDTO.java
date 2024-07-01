@@ -16,12 +16,12 @@ public class MemberPasswordDTO {
     @Size(min = 3, max = 10, message = "3~10자로 입력해 주세요.")
     private String nowPassword;
 
-    @NotBlank(message = "새 비밀번호를 입력해 주십시오.")
+    @NotBlank(message = "새 비밀번호를 입력해 주세요.")
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "영문, 숫자만 입력 가능합니다. (특수문자 입력 불가)")
     @Size(min = 3, max = 10, message = "3~10자로 입력해 주십시오.")
     private String newPassword;
 
-    @NotBlank(message = "기존 및 신규 비번 불일치")
+    @NotBlank(message = "비밀번호가 일치하지 않습니다.")
     private String confirmPassword;
 	
 }

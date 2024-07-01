@@ -27,8 +27,8 @@
 					<div class="correction-top">
 						<p class="address-data">위치 : ${data.address}</p>
 						<div class="correction">
-							<a href="/starspot/update?id=${data.id}" class="correction-data">수정</a><a>|</a> <a href=""
-								class="delete-data">삭제</a>
+							<a href="/starspot/update?id=${data.id}" class="correction-data">수정</a><a>|</a>
+							<a href="" class="delete-data">삭제</a>
 						</div>
 					</div>
 					<c:forEach items="${data.images}" var="image">
@@ -40,28 +40,38 @@
 					<pre>${data.content}</pre>
 				</div>
 				<br>
-				<div id="map">
-					지도
-				</div>
+				<div id="map">지도</div>
+				<br> <br>
 				
-				<div class="weather">
-					날씨
+				<div class="weather">날씨</div>
+				<br> <br>
+
+				<div class="tag-dar">
+					<div class="tag">
+						공유하기<br>
+						<button id="share-fb" class="share-button">페이스북</button>
+						<button id="share-tw" class="share-button">트위터</button>
+						<button id="share-ko" class="share-button">카카오톡</button>
+					</div>
+
+					<div class="like-section">
+						좋아요<br>
+						<button id="like-button" class="like-button">좋아요</button>
+						<span id="like-count"> </span>
+					</div>
 				</div>
-				<br><br>
-				
-				<div class="tag">
-					공유하기<br>
-					<button id="share-fb">페북공유</button>
-					<button id="share-tw">트위터공유</button>
-				</div>
+
 				<br>
-				
+
 				<div class="comment">
-				<h3 class="comment-count">댓글<span>1</span></h3>
-				<form action="" method="get" id="comment-form">
-					<textarea id="comment-text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-					<button type="button" id="comment-btn">입력</button>
-				</form>
+					<h3 class="comment-count">
+						댓글<span>1</span>
+					</h3>
+					<form action="" method="get" id="comment-form">
+						<textarea id="comment-text"
+							placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
+						<button type="button" id="comment-btn">입력</button>
+					</form>
 					<p class="comment-id">${data.id}</p>
 					<p class="comment-date">${data.createdate}</p>
 					<hr>
@@ -78,7 +88,9 @@
 </div>
 
 <%@ include file="../components/footer.jsp"%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
+
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -118,7 +130,7 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 });    
 </script>
 
-<script>
+<script>//공유하기
 	const url = encodeURI(window.location.href);
 	
 	//Facebook
