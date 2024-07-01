@@ -83,7 +83,7 @@
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
   <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
+                      <h4>Dust<br><span class="PM10"></span><span class="PM25"></span></h4>
                       <ul>
                         <li><i class="fa fa-star"></i> 4.8</li>
                         <li><i class="fa fa-download"></i> 2.3M</li>
@@ -93,7 +93,7 @@
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
   <!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
-                      <h4>PubG<br><span>Battle S</span></h4>
+                      <h4>Weather<br><span class="TMP"></span><span class="REH"></span><span class="PCP"></span></h4>
                       <ul>
                         <li><i class="fa fa-star"></i> 4.8</li>
                         <li><i class="fa fa-download"></i> 2.3M</li>
@@ -190,4 +190,60 @@
   </div>
   
   <%@ include file="./components/footer.jsp" %>
+  
+<script type="text/javascript">
+
+	function PM(pm) {
+		let result = "";
+		
+		if (pm < 30) {
+			result = "(좋음)";
+		} else if (pm >= 31 && pm < 80) {
+			result = "(보통)";
+		} else if (pm >= 81 && pm < 150) {
+			result = "(나쁨)";
+		} else if (pm >= 151) {
+			result = "(매우 나쁨)";
+		}
+		
+		return result;
+	}
+
+	function connectGeo(position) {
+    $.ajax({
+        type:'GET',
+        url: 'http://13.209.237.30:5000/position_dust_info?x=' + parseInt(position.coords.latitude) + '&y=' + parseInt(position.coords.longitude),
+        dataType:'json',
+        success : function(result){
+        	$(".PM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"]) + PM(parseInt(result[0]["PM10"])));
+        	$(".PM25").text("오늘의 초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])));
+        },
+        error : function(request, status, error) {
+           console.log(error);
+        }
+     })
+     
+     console.log("인사");
+     $.ajax({
+        type:'GET',
+        url: 'http://13.209.237.30:5000/get_weather?x=' + parseInt(position.coords.latitude) + '&y=' + parseInt(position.coords.longitude),
+        dataType:'json',
+        success : function(result){
+        	$(".TMP").text("기온: " + parseInt(result["result"]["기온"][0]));
+        	$(".REH").text("습도: " + parseInt(result["result"]["습도"][0]));
+        	$(".PCP").text("예측 강수량: " + parseInt(result["result"]["강수량"][0]));
+        },
+        error : function(request, status, error) {
+           console.log(error);
+        }
+     })
+	  
+	} function errorGeo() {
+	  alert("위치 연결이 안됨");
+	}
+	
+	navigator.geolocation.getCurrentPosition(connectGeo, errorGeo);
+	
+
+</script>
   
