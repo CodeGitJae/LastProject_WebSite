@@ -192,19 +192,19 @@ pre {
     cursor: pointer; /* 마우스 커서를 포인터로 변경합니다 */
     text-indent: -9999px; /* 버튼 텍스트를 숨깁니다 */
     margin-left: auto;
-    
+    background-color: transparent;
 }
 
 #share-fb {
-    background-image: '${pageContext.request.contextPath}/static/uploadimages/icon/facebook-icon.png'; /* 페이스북 공유 아이콘 경로를 설정합니다 */
+    background-image: url('/assets/images/icon/facebook-icon.png'); /* 페이스북 공유 아이콘 경로를 설정합니다 */
 }
 
 #share-tw {
-    background-image: '/star/src/main/resources/static/uploadimages/icon/twitter-icon.png'; /* 트위터 공유 아이콘 경로를 설정합니다 */
+    background-image: url('/assets/images/icon/twitter-icon.png'); /* 트위터 공유 아이콘 경로를 설정합니다 */
 }
 
 #share-ko {
-    background-image: '/star/src/main/resources/static/uploadimages/icon/kakao-icon.png'; /* 카카오톡 공유 아이콘 경로를 설정합니다 */
+    background-image: url('/assets/images/icon/kakao-icon.png'); /* 카카오톡 공유 아이콘 경로를 설정합니다 */
 }
 
 

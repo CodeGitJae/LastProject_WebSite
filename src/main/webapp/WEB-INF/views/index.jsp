@@ -26,8 +26,8 @@
 	                    </div>
 	                    <h4>${starspot.title}<br><span>${starspot.views} views</span></h4>
 	                    <ul>
-	                      <li><i class="fa fa-tag"></i> 5</li>
-	                      <li><i class="fa fa-heart"></i> 35</li>
+	                      <li><i class="fa fa-tag"></i> &nbsp;${starspot.replies.size()}</li>
+	                      <li><i class="fa fa-heart"></i> &nbsp;${starspot.likes.size()	}</li>
 	                    </ul>
 	                  </div>
                   </c:forEach>
