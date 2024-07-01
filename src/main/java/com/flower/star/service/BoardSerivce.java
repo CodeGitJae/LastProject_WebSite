@@ -43,7 +43,7 @@ public class BoardSerivce {
 	private final Common common;
 //	@Value("${uploadImagePath.board}")
 //    private String uploadPath;
-
+	
 	
 	// 입력한 게시글 정보 DB에 저장 (MEMBER 객체도 함께)
 	public void insert(Board board) {
@@ -121,52 +121,23 @@ public class BoardSerivce {
 		
 	}
 	
-	
-//	// 새로운 파일 이름을 생성하는 메서드
-//	private String makeSaveNameForSavePath(MultipartFile uploadFile, String folderPath) {
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-//		
-//		//random 객체 생성
-//		Random random = new Random();
-//		
-//		//0이상 100미만의 랜덤한 정수 반환
-//		String randomNumber = Integer.toString(random.nextInt(Integer.MAX_VALUE));
-//		String timeStamp = sdf.format(new Date());	
-//		String originFilename = uploadFile.getOriginalFilename();
-//		// 원래 파일 이름이 비어있는지 검증
-//		assert originFilename != null;
-//		String saveName = uploadPath + File.separator + folderPath + File.separator + timeStamp + randomNumber + "_" + originFilename; 
-//		System.out.println("::::::::::::method saveName:"+ saveName);
-////		System.out.println("::::::::::::timeStamp:"+timeStamp);
-////		System.out.println("::::::::::::randomNumber:"+randomNumber);
-////		System.out.println("::::::::::::originaFileName:"+originaFileName);
-//		return saveName; 
-//	}
-//	
-//	// 날짜 폴더를 생성하는 메서드
-//	private String makeFolder(String curDir) {
-//		// 날짜 포맷 생성
-//		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-//		
-//		// 날짜 폴더 경로 생성
-//		String folderPath = str.replace("/", File.separator);
-//		
-//		
-//		// 업로드 경로에 날짜 폴더가 없으면 생성
-//		File uploadPathFolder = new File(curDir + uploadPath, folderPath);
-//		System.out.println("-------------------"+uploadPathFolder);
-//		if(!uploadPathFolder.exists()) {
-//			boolean mkdirs = uploadPathFolder.mkdirs();
-//			System.out.println("##### Successful== "+ mkdirs + " ==Successful #####");
-//		}
-//		return folderPath;
-//	}
-	
-	
-	// 게시물 목록 조회
-	public List<Board> findAll() {
-		return bRepository.findAll();
+	// 게시물 목록 조회 및 페이지네이션
+	public Page<Board> paging(int curPage) {
+
+		 // 한페이지 최대 출력 수
+		int pageLimit = 10; 
+		Sort sort = Sort.by(Sort.Order.desc("id"));
+    	Pageable pageable = PageRequest.of(curPage, pageLimit, sort);
+		System.out.println("::::::::::::::::::service:: pageable::::"+ pageable);
+		Page<Board> page = bRepository.findAll(pageable);
+
+		return page;
 	}
+	
+//	// 게시물 목록 조회
+//	public List<Board> findAll() {
+//		return bRepository.findAll();
+//	}
 
 	// 게시물 상세 정보 가져오기
 	public Board findById(Integer bId) {
@@ -241,31 +212,20 @@ public class BoardSerivce {
 //		starspotImagesRepository.save(starImages);
 	}
 
+	// 아이디 삭제
 	public void deleteById(Integer id) {
-		bRepository.findById(id);
+		bRepository.deleteById(id);
 		
 	}
 
-	public Page<Board> paging(int curPage) {
-		System.out.println("::::::::::::::::::servicecurPage::::"+ curPage);
-		 // 한페이지 최대 출력 수
-		int pageLimit = 5; 
-		Sort sort = Sort.by(Sort.Order.desc("id"));
-		System.out.println("::::::::::::::::::sort::::"+ sort);
-    	Pageable pageable = PageRequest.of(curPage, pageLimit, sort);
-    	System.out.println("::::::::::::::::::pageable::::"+ pageable);
-		Page<Board> page = bRepository.findAll(pageable);
-		System.out.println("::::::::::::::::::page::::"+ page);
-		return page;
-	}
-
+	
+	// 내 정보 안에 최근 게시글 3개 가져오는 메서드
 	public List<Board> findAllForViews() {
 	        List<Board> boardList = bRepository.findAll(); // 모든 게시물 가져오기
 	        Collections.reverse(boardList); // 리스트를 역순으로 정렬
 	       
-		return boardList.stream().limit(3).collect(Collectors.toList()); // 최신 3개의 게시물 반환;
+		return boardList.stream().limit(5).collect(Collectors.toList()); // 최신 5개의 게시물 반환;
 	}
-
 
 }
 

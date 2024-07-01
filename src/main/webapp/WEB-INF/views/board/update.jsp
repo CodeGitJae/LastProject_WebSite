@@ -4,7 +4,6 @@
 <%@ include file="../components/header.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/write.css">
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<sec:authentication property="principal.username" var="username"/>
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -32,7 +31,7 @@
 				    <input class="form-control mb-3" type="file" id="image" name="uploadToBoardImage"  multiple>
 			  	 <div class="mb-3">
 			      	<input type="hidden" name="bViews" value="${b.views}">
-			      	<input type="hidden" name="username" value="${username}"/>
+			      	<input type="hidden" name="username" value="${b.member.username}"/>
 					<label for="title" class="form-label">제목</label>
 					<input class="form-control" id="title" value="${b.title}" name="title">
 				 </div>

@@ -77,28 +77,31 @@
 	              <div class="heading-section">
 	                <h4><em>최근 내가 쓴</em> 게시글 정보</h4>
 	              </div>
-	              <c:forEach items="${boardList}" var="b" begin="0" end="2">
+	              
 	              <div class="item">
 	                <table class="table table-dark">
 					  <thead>
 					    <tr>
-					      <th scope="col">번호</th>
+					      <th scope="col">No</th>
 					      <th scope="col">제목</th>
 					      <th scope="col">글쓴이</th>
 					      <th scope="col">작성일</th>
+					      <th scope="col">조회수</th>
 					    </tr>
 					  </thead>
+				  	<c:forEach items="${boardList}" var="b">
 					  <tbody>
 					    <tr>
 					      <th>${b.id}</th>
 					      <td><a href="/board/detail?id=${b.id}">${b.title}</a></td>
 					      <td>${b.member.username}</td>
 					      <td>${b.createDate}</td>
+					      <td>${b.views}</td>
 					    </tr>
 					  </tbody>
+  	             	 </c:forEach>
 					</table>
 	              </div>
-	              </c:forEach>
 		             <div class="col-lg-12">
 		              <div class="main-button">
 		                <a href="/board/list">게시판으로 이동</a>

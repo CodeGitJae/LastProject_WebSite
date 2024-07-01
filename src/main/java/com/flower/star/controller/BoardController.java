@@ -1,10 +1,6 @@
 package com.flower.star.controller;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -66,15 +62,34 @@ public class BoardController {
 	}
 	
 	
-	// 게시판 목록 보여주기
 	@GetMapping("/list")
-	public String save(Model model) {
+	public String paging(@RequestParam(name="page", defaultValue = "1") int curPage, Model model) {
+
+		// 한 페이지당 출력 게시물 수 
+		int blockLimit = 5;
+		Page<Board> paging = bService.paging(curPage -1);
+		Pagination pagination = new Pagination(curPage, paging.getTotalPages(), blockLimit);
+//		int nextKey = (int) (Math.floor((curPage - 1) / 5) * 5 + 6);
+//		int prevKey = (int) (Math.floor((curPage - 1) / 5) * 5);
 		
-		List<Board> board = bService.findAll();
-		model.addAttribute("board", board);
+		model.addAttribute("paging", paging);
+		model.addAttribute("pagination", pagination);
+//		model.addAttribute("nextKey", nextKey);
+//		model.addAttribute("prevKey", prevKey);
 		
 		return "/board/list";
+		
 	}
+	
+//	// 게시판 목록 보여주기
+//	@GetMapping("")
+//	public String save(Model model) {
+//		
+//		List<Board> board = bService.findAll();
+//		model.addAttribute("board", board);
+//		
+//		return "/board/list";
+//	}
 	
 	
 	@GetMapping("/detail")
@@ -111,27 +126,6 @@ public class BoardController {
 		}
 		bService.deleteById(id);
 		return "redirect:/board/list";
-	}
-	
-	@GetMapping("/paging")
-	public String paging(@RequestParam(defaultValue = "1") int curPage, Model model) {
-
-		// 한 페이지당 출력 게시물 수 
-		int blockLimit = 5;
-		Page<Board> paging = bService.paging(curPage -1);
-		System.out.println("::::::::::::::::::bservice paging111111::::"+ paging);
-		
-		Pagination pagination = new Pagination(curPage, paging.getTotalPages(), blockLimit);
-		int nextKey = (int) (Math.floor((curPage -1) / 5) * 5 + 6);
-		int prevKey = (int) (Math.floor((curPage -1) / 5) * 5);
-		
-		model.addAttribute("paging", paging);
-		model.addAttribute("pagination", pagination);
-		model.addAttribute("nextKey", nextKey);
-		model.addAttribute("prevKey", prevKey);
-		
-		return "/board/list";
-		
 	}
 	
 }
