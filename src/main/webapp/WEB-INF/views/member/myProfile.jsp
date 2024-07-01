@@ -50,18 +50,17 @@
                    <h4><em>내가 찜한</em> 별자리 스팟</h4>
                  </div>
                </div>
-               <div class="col-lg-4 col-sm-6">
-                 <div class="item">
-                   <div class="thumb">
-                    <!--  <img src="assets/images/clip-01.jpg" alt="" style="border-radius: 23px;"> -->
-                     <a href="#" target="_blank"><i class="fa fa-play"></i></a>
-                   </div>
-                   <div class="down-content">
-                     <h4>별자리 이름 넣는곳</h4>
-                     <span><i class="fa fa-eye"></i> 250</span>
-                   </div>
-                 </div>
+               <c:if test="${likeList.size() == 0}">
+               		<h6>좋아요 누른거 없음</h6>
+               </c:if>
+               <c:if test="${likeList.size() != 0}">
+               <div>
+                 <c:forEach items="${likeList}" var="like">
+                 	<img src="<%= request.getContextPath() %>/${like.starspot.images[0].imagePath}" style="width:100px">
+                 	<p>${like.starspot.title}</p>
+                 </c:forEach>
                </div>
+               </c:if>
                <div class="col-lg-12">
                  <div class="main-button">
                    <a href="#">별자리 스팟으로 이동</a>

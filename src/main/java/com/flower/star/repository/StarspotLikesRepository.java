@@ -1,5 +1,7 @@
 package com.flower.star.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +12,5 @@ import com.flower.star.entity.StarspotLikes;
 @Repository
 public interface StarspotLikesRepository extends JpaRepository<StarspotLikes, Integer>{
 	StarspotLikes findByMemberAndStarspot(Member member, Starspot starspot);
+	List<StarspotLikes> findByMember(Member member);
 }

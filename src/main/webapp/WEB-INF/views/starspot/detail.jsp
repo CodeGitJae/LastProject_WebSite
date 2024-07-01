@@ -159,7 +159,7 @@
 						<c:set var="isLike" value="true" />						
 					</c:if>
 				</c:forEach>
-				<img class="like" alt="" data-isLike="${isLike}" src="${pageContext.request.contextPath}/assets/images/icon/${isLike ? 'icon-fullheart.png' : 'icon-heart.png' }" style="width:50px">
+				<img class="like" alt="" data-isLike="${isLike}" src="${pageContext.request.contextPath}/assets/images/icon/${isLike ? 'icon-fullheart.png' : 'icon-heart.png' }" style="width:50px; cursor:pointer;">
 				<span class="likecount">${data.likes.size()}</span>
 				
 				<div class="comment">

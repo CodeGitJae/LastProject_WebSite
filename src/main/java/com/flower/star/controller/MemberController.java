@@ -1,6 +1,10 @@
 package com.flower.star.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.flower.star.dto.MemberRegisterDTO;
 import com.flower.star.dto.MemberUpdateDTO;
+import com.flower.star.entity.Member;
+import com.flower.star.entity.StarspotLikes;
+import com.flower.star.repository.StarspotLikesRepository;
 import com.flower.star.service.MemberService;
 import com.flower.star.utilities.Common;
 
@@ -74,12 +81,30 @@ public class MemberController {
 	public String myProfile(Model model) {
 		try {
 			model.addAttribute("member", mService.findByUsername(common.getLoginUsername()));
+			
+			List<StarspotLikes> likeList = getLikesList();
+			
+			model.addAttribute("likeList", likeList);
+			
 			return "/member/myProfile";
 		} catch (Exception exception) {
 			return "redirect:/index";
 		}
 	}
 	
+	@Autowired
+	private StarspotLikesRepository starspotLikesRepository;
+	
+	public List<StarspotLikes> getLikesList() {
+		try {
+			Member member = mService.findByUsername(common.getLoginUsername());
+			List<StarspotLikes> likeList = starspotLikesRepository.findByMember(member);
+			
+			return likeList;
+		} catch(Exception e) {
+			return null;
+		}
+	}
 
 	// 입력된 회원정보 유효성 검사후 정상일 때 서비스단으로 데이터 넘김
 	@PostMapping("/member/signup")
