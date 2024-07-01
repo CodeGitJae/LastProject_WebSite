@@ -49,5 +49,7 @@ public class Board {
 	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StarspotImages> images = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BoardComment> comment = new ArrayList<>();
 	
 }

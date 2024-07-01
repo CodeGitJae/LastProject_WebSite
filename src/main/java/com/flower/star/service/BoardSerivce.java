@@ -13,9 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import javax.transaction.Transactional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.flower.star.dto.UploadImgDTO;
 import com.flower.star.dto.UploadImgDTO.Define;
 import com.flower.star.entity.Board;
-import com.flower.star.entity.Member;
 import com.flower.star.entity.StarspotImages;
 import com.flower.star.repository.BoardRepository;
 import com.flower.star.repository.MemberRepository;

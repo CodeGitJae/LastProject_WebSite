@@ -49,12 +49,14 @@ public class Member {
 	@Column(nullable = false, unique = true)
 	private String email;
 	
-	@OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Role> roles;
 	
-	@OneToMany(mappedBy="member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Board> boardList = new ArrayList<>();
 
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BoardComment> comment = new ArrayList<>();
 	
 	/*
 	 * public static Member toMember(MemberDTO mDTO) { Member member = new Member();
