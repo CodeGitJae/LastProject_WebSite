@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../components/header.jsp"%>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/board.css">
+
 <link
 	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE/fonts/static/woff2/SUITE.css"
 	rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/board.css">
 
 <div class="container">
 	<div class="row">
@@ -26,6 +27,7 @@
 						<div class="col-md-4 mb-4">
 							<div class="card">
 								<a href="/starspot/detail?id=${item.id}">
+
 									<div class="card-img">
 										<img src="${item.images[0].imagePath}" class="card-img-top">
 									</div>

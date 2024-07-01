@@ -6,18 +6,19 @@
 <style>
 /* 일요일 날짜 빨간색 */
 .fc-day-sun a {
-  color: red;
+  color: #FF6347;
 }
 
 /* 토요일 날짜 파란색 */
 .fc-day-sat a {
-  color: blue;
+  color: #6495ED;
   text-decoration: none;
 }
 
 .fc-daygrid-day {
      position: relative;
 }
+
 .fc-daygrid-day img {
   position: absolute;
   top: 25px; /* 날짜 숫자 아래로 이미지 배치 */
@@ -29,6 +30,12 @@
   z-index: 0;
   padding: 5px
 }
+
+.fc-today-button {
+	background-color: transparent;
+	color: #e2e2e2; /* 글자색 설정 */
+}
+
 </style>
 
   <div class="container">

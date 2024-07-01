@@ -137,20 +137,27 @@
 					<pre>${data.content}</pre>
 				</div>
 				<br>
-				<div id="map">
-					지도
-				</div>
+				<div id="map">지도</div>
+				<br> <br>
 				
-				<div class="weather">
-					날씨
+				<div class="weather">날씨</div>
+				<br> <br>
+
+				<div class="tag-dar">
+					<div class="tag">
+						공유하기<br>
+						<button id="share-fb" class="share-button">페이스북</button>
+						<button id="share-tw" class="share-button">트위터</button>
+						<button id="share-ko" class="share-button">카카오톡</button>
+					</div>
+
+					<div class="like-section">
+						좋아요<br>
+						<button id="like-button" class="like-button">좋아요</button>
+						<span id="like-count"> </span>
+					</div>
 				</div>
-				<br><br>
-				
-				<div class="tag">
-					공유하기<br>
-					<button id="share-fb">페북공유</button>
-					<button id="share-tw">트위터공유</button>
-				</div>
+
 				<br>
 				
 				<c:set var="isLike" value="false" />
@@ -246,7 +253,7 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 });    
 </script>
 
-<script>
+<script>//공유하기
 	const url = encodeURI(window.location.href);
 	
 	//Facebook

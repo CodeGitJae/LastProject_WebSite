@@ -19,15 +19,15 @@
                   <c:forEach items="${top5Starspot}" var="starspot">
 	                 <div class="item">
 	                    <div class="thumb">
-	                      <img src="${starspot.images[0].imagePath}" alt="">
+	                      <img src="${starspot.images[0].imagePath}" class="thumb-img">
 	                      <div class="hover-effect">
 	                        <h6>${starspot.views} views</h6>
 	                      </div>
 	                    </div>
 	                    <h4>${starspot.title}<br><span>${starspot.views} views</span></h4>
 	                    <ul>
-	                      <li><i class="fa fa-star"></i> 4.8</li>
-	                      <li><i class="fa fa-download"></i> 2.3M</li>
+	                      <li><i class="fa fa-tag"></i> 5</li>
+	                      <li><i class="fa fa-heart"></i> 35</li>
 	                    </ul>
 	                  </div>
                   </c:forEach>
@@ -124,7 +124,7 @@
   <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
                       <h4>Fortnite<br><span>Sandbox</span></h4>
                       <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
+                        <li><i class=""></i>댓글 </li>
                         <li><i class="fa fa-download"></i> 2.3M</li>
                       </ul>
                     </div>

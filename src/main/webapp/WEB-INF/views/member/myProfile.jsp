@@ -14,12 +14,15 @@
 	           <div class="heading-section">
 	              <div class="main-profile ">
 	                <div class="row">
-	                 <div class="col-lg-8">
-	                 	<img src="/assets/images/banner-bg.jpg" alt="" style="border-radius: 23px;">
+	                 <div class="align-self-center">
+	                   <div class="banner-container ">
+					    <img src="/assets/images/banner-bg.jpg" class="banner-img" alt="Banner Image">
+					   </div>
+
 	                 </div>
 	                  <div class="col-lg-12 align-self-center">
 	                    <div class="main-info header-text div1">
-	                      <h4><em>마이페이지</em>내 정보 보기</h4>   <!--  선택해서 사용하기 -->
+	                      <h4><em>마이페이지</em> 내 정보 보기</h4>   <!--  선택해서 사용하기 -->
 	                    </div>
 	                  </div>
 	                  <div class="col-lg-6 align-self-center div2">
