@@ -30,7 +30,7 @@
 										<img src="${item.images[0].imagePath}" class="card-img-top">
 									</div>
 									<div class="card-body">
-										<p class="card-title">${item.title}</p>
+										<p class="card-title">${item.title}&nbsp;<span>[${item.replies.size()}]</span></p>
 										<p>
 											<span class="card-createdate">${item.createdate}</span> <span
 												class="card-views">조회 ${item.views}</span>

@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 			"/",
 			"/sample/**",
 			"/board/**",
-			"/starspot/**",
+			"/starspot", "/starspot/detail",
             "/mooncalendar/**",
             "/observatory/**",
             "/uploadimages/**",
@@ -54,6 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.antMatchers(ACCESS_PUBLIC).permitAll()
 				.antMatchers(ACCESS_GUEST).anonymous()
 				.antMatchers(ACCESS_MANAGER).hasAuthority("MANAGER")
+				.antMatchers("/starspot/write").hasAuthority("USER")
 				.anyRequest().authenticated()
 			.and()
 				.csrf().disable()    // csrf token 비활성화 

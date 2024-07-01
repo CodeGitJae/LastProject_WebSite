@@ -11,6 +11,7 @@
         <div class="page-content" style="color:#fff;">
         <h2>게시글 등록하기</h2><br>
 			<form method="post" action="" enctype="multipart/form-data">
+				<input type="hidden" name="writer" value="<sec:authentication property="principal.username"/>">
 				<div class="mb-3">
 				  <label for="title" class="form-label">제목</label>
 				  <input class="form-control" id="title" placeholder="제목을 입력해주세요." name="title">
