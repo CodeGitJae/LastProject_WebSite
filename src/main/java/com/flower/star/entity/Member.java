@@ -1,5 +1,6 @@
 package com.flower.star.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -52,6 +53,9 @@ public class Member {
 	
 	@OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Role> roles;
+	
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<StarspotLikes> likes = new ArrayList<>();
 	
 	
 	public static Member toMember(MemberDTO mDTO) {

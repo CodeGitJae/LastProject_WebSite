@@ -11,9 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-
 import lombok.Data;
 
 @Entity
@@ -42,5 +39,8 @@ public class Starspot {
 	
 	@OneToMany(mappedBy = "starspot", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StarspotReply> replies = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "starspot", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<StarspotLikes> likes = new ArrayList<>();
 	
 }

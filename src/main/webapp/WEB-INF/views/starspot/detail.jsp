@@ -153,6 +153,15 @@
 				</div>
 				<br>
 				
+				<c:set var="isLike" value="false" />
+				<c:forEach items="${data.likes}" var="like">
+					<c:if test="${like.member.username == authenticatedUsername}">
+						<c:set var="isLike" value="true" />						
+					</c:if>
+				</c:forEach>
+				<img class="like" alt="" data-isLike="${isLike}" src="${pageContext.request.contextPath}/assets/images/icon/${isLike ? 'icon-fullheart.png' : 'icon-heart.png' }" style="width:50px">
+				<span class="likecount">${data.likes.size()}</span>
+				
 				<div class="comment">
 				<h3 class="comment-count">댓글</h3>
 				<form action="" method="get" id="comment-form">
@@ -258,5 +267,42 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 	
 	$('#share-tw').on('click', () => {
 		shareTwitter();
+	});
+</script>
+
+<!-- 좋아요 -->
+<script>
+	$('.like').on('click', (e) => {
+		const starspotid = "${data.id}";
+		const userid = "${authenticatedUsername}";
+		let isLike = JSON.parse(e.target.dataset.islike);
+		let likeCount = $('.likecount').text();
+		
+		$.ajax({
+            type: "POST",
+            url: "/likes/insert?isLike=" + isLike,
+            contentType: "application/json",
+            data: JSON.stringify({
+            	starspotid: starspotid,
+            	userid: userid
+            }),
+            success: function(response) {
+                // 요청이 성공했을 때 실행할 코드
+                if(isLike) {
+                	$('.like').attr('src', '${pageContext.request.contextPath}/assets/images/icon/icon-heart.png');
+                	$('.likecount').text(likeCount - 1);
+                } else {
+                	$('.like').attr('src', '${pageContext.request.contextPath}/assets/images/icon/icon-fullheart.png');
+                	$('.likecount').text(JSON.parse(likeCount) + 1);
+                }
+                e.target.dataset.islike = !isLike;
+            },
+            error: function(xhr, status, error) {
+                // 요청이 실패했을 때 실행할 코드
+                alert("An error occurred: " + error);
+                console.log(xhr, status, error);
+            }
+        });
+		
 	});
 </script>
