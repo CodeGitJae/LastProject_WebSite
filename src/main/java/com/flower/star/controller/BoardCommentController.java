@@ -34,29 +34,19 @@ public class BoardCommentController {
 		return "redirect:/board/detail?id="+ bId;
 	}
 	
-	 /**
-     * 댓글 수정
-     *  id 게시물
-     *  commentId 댓글 ID
-     *  commentRequestDTO 댓글 정보
-     *  게시물 상세 페이지
-     */
-//	@ResponseBody     //        업데이트는 유지보수 기간에 구현할 예정 덧글 ajax로 변경해야함.
-//    @GetMapping("/update")
-//    public String updateComment(@RequestParam(name="id") Integer id, 
-//    							@RequestParam(name="commentId") Integer commentId, BoardComment bcomment) {
-//    	
-//    	System.out.println("---------------------------------"+id+"------------------------"+commentId);
-//        bcService.updateComment(bcomment, commentId);
-//        return "/board/detail?id=" + id + "&comment=" + commentId;
-//    }
 
-    /**
-     * 댓글 삭제
-     *  id 게시물
-     *  commentId 댓글 ID
-     *  해당 게시물 리다이렉트
-     */
+	@ResponseBody    
+    @PostMapping("/update")
+    public String updateComment(@RequestParam(name="content") String content, 
+    							@RequestParam(name="commentId") int commentId,
+    							@RequestParam(name="bId") int bId) {
+    	
+    	System.out.println("---------------------------------------"+content+"----------------"+commentId);
+        bcService.updateComment(commentId, content);
+        return "/board/detail?id=" + bId;
+    }
+
+
     @GetMapping("/delete")
     public String deleteComment(@RequestParam(name="id") Integer id, 
     							@RequestParam(name="commentId") Integer commentId) {

@@ -110,13 +110,16 @@ public class BoardController {
 		return "/board/update";
 	}
 	
+//	@RequestParam(name="savedBoardImage") String imagePath
+//	@RequestParam(name="deleteImages") int imageId,
 	@PostMapping("/update")
-	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage) {
+	public String updateBoard(@RequestParam(name="id") Integer id, Board board, MultipartFile[] uploadToBoardImage) {
 
+		System.out.println(":::::ididididididid::::::::::::::::::::"+id);
 		bService.update(board);
 		bService.updateImage(board, uploadToBoardImage);
 		
-		return "redirect:/board/detail?id="+ board.getId();
+		return "redirect:/board/detail?id="+ id;
 	}
 	
 	@GetMapping("/delete")

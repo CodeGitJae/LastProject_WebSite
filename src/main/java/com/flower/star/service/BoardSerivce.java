@@ -70,8 +70,7 @@ public class BoardSerivce {
 		List<UploadImgDTO> uploadDTOList = new ArrayList<>();
 		
 		for(MultipartFile uploadFile : uploadToBoardImage) {
-			
-			System.out.println("::::::::::::::::::빈깡통 인 경우?::::::::::::::::::"+uploadFile);
+		
 			 // 파일 크기가 20MB 이상의 경우 업로드 할 수 없도록 설정
 			if(!Objects.requireNonNull(uploadFile.getContentType()).startsWith("image")) {
 				System.out.println("파일의 Type이 이미지가 아닙니다.");
@@ -84,7 +83,7 @@ public class BoardSerivce {
 				return;
 			}
 			// 실제 파일 이름 가져오기
-//			String originFilename = uploadFile.getOriginalFilename();
+//				String originFilename = uploadFile.getOriginalFilename();
 			
 			// 폴더 생성
 			String folderPath = common.makeFolder(curDir);
@@ -97,6 +96,7 @@ public class BoardSerivce {
 			// 저장 경로 생성
 			Path savePath = Paths.get(curDir + savePathName);
 			System.out.println("::::::::::::::::::savePath"+ savePath);
+			
 			
 			try {
 				// 범용 고유 식별자 생성
@@ -114,6 +114,7 @@ public class BoardSerivce {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	
 		}
 		
 	}
@@ -176,37 +177,20 @@ public class BoardSerivce {
 		board.setCreateDate(bIdFromDb.getCreateDate());
 		board.setMember(bIdFromDb.getMember());
 		board.setViews(bIdFromDb.getViews());
+		board.setComment(bIdFromDb.getComment());
 
 		bRepository.save(board);
 	}
 
 	public void updateImage(Board board, MultipartFile[] uploadToBoardImage) {
 		insertImage(board, uploadToBoardImage);
-
-//		// DB에서 Image의 Id정보 조회        유지 보수 기간에 수정해야할것같음. 시간 너무 많이 걸림
-//		Integer bId = board.getId();
-//		Optional<StarspotImages> optImgBid = starspotImagesRepository.findById(bId);	
-//		if(optImgBid.isEmpty()) {
-//			return ;
-//		}
-//		// DB저장을 위한 엔터티 객체 생성
-//		StarspotImages starImages = new StarspotImages();
-//		// Optinal로 DB에서 꺼내온 image 객체 추출
-//		StarspotImages image = optImgBid.get();
-//
-//		// 파라미터 값 체크
-//		Integer imageIdFormDb = image.getId();
-//		Board imageBidFormDb = image.getBoard();
-//		System.out.println("::::::::::::::imageIdFormDb::::::::::::"+imageIdFormDb);
-//		System.out.println("::::::::::::::dbImage::::::::::::"+image);
-//		
-//
-//		// 수정된 이미지 데이터 저장
-//		starImages.setId(image.getId());
-//		starImages.setBoard(image.getBoard());
-//		System.out.println(":::::::starImagesstarImagesstarImages::::::::::"+starImages);
-//		
-//		starspotImagesRepository.save(starImages);
+		
+//		System.out.println(":::::ididididididid::::::::::::::::::::"+imageId+imagePath);
+//		Optional<StarspotImages> optImages = starspotImagesRepository.findById(imageId);
+//		StarspotImages images = optImages.get();		
+//	
+//		images.setImagePath(imagePath);
+//		starspotImagesRepository.save(images);
 	}
 
 	// 아이디 삭제

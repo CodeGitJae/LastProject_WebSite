@@ -9,8 +9,6 @@ import com.flower.star.entity.BoardComment;
 
 public interface BoardCommentRepository extends JpaRepository<BoardComment, Integer> {
 
-	BoardComment findByContent(BoardComment bcomment);
-
 	List<BoardComment> findByBoard(Board board);
 
 

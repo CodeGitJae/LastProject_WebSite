@@ -15,7 +15,7 @@
   				    <div class="image-container">
 					  <c:forEach items="${b.images}" var="image" varStatus="status">
 					    <div class="image-item">
-					      <input type="hidden" name="updateToBoardImage" value="${image.id}">
+					      <input type="hidden" name="savedBoardImage" value="${image.imagePath}">
 					      <img id="imgSrc" src="${contextPath}/${image.imagePath}" alt="Image">
 					    </div>
 					    

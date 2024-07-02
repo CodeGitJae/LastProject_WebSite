@@ -52,24 +52,28 @@
 				</sec:authorize>
 				 <!--  로그인 인증 받은 경우 (권한에 관계없음) -->
 				<sec:authorize access="isAuthenticated()">
-				<div class="comment">
-				<h3 class="comment-count">댓글<span> ${b.comment.size()} 개</span></h3>
-				<form action="/boardComment/detail?id=${b.id}" method="post" id="comment-form">
-					<textarea id="comment-text" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-					<button type="submit" id="comment-btn">입력</button>
-				</form>
-				
+				<div class="comment" id="commentList">
+					<h3 class="comment-count">댓글<span> ${b.comment.size()} 개</span></h3>
+					<form action="/boardComment/detail?id=${b.id}" method="post" id="comment-form">
+						<input type="hidden" id="username" value="${b.id}">
+						<textarea id="comment-text" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
+						<button type="submit" id="comment-btn">입력</button>
+				   </form>
 					<c:forEach items="${b.comment}" var="comment">
+						<input class="commentbId" type="hidden" data-bid="${b.id}">
+						<input class="commentId" type="hidden" data-id="${comment.id}">
 						<p class="comment-id">${comment.member.username}</p>
 						<p class="comment-date">${comment.content}</p> 
 						  <div class="UDBtn" style="text-align: right;  margin-right: 20px;">
-<%--  							<a id="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;" 
+  							<%-- <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;" 
 											 href="/boardComment/update?id=${b.id}&commentId=${comment.id}">수정</a> --%>
-							<a id="deleteBtn" type="button" style="background-color: #FFA500; padding: 5px 10px; color: black;" 
+							 <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;">수정</a> 
+											
+							<a class="deleteBtn" type="button" style="background-color: #FFA500; padding: 5px 10px; color: black;" 
 											 href="/boardComment/delete?id=${b.id}&commentId=${comment.id}">삭제</a>
 						  </div>
-						<hr>
-					</c:forEach>
+						<hr>		
+				    </c:forEach>
 				</div>
 				</sec:authorize>
 				<!--  댓글 수정 모달 시작 -->
@@ -81,23 +85,24 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				      <table>
-					      <tr>
-					      	<td>사용자명</td>
-					      	<td><input class="form-control" id="username" readonly></td>
-					      </tr>
-					      <tr>
-					      	<td>내용</td>
-					      	<td>
-					      		<textarea class="form-control" rows="10" id="comment" name="comment"></textarea>
-					      	</td>
-					      </tr>
-				      </table>
-
+					      <table style="width: 95%;">
+					      	<tbody>
+						      <tr>
+						      	<td style="color: gray;">사용자명</td>
+						      	<td><input class="form-control username" name="username" readonly></td>
+						      </tr>
+						      <tr>
+						      	<td style="color: gray;">내용</td>
+						      	<td>
+						      		<textarea class="form-control comment" rows="10" id="updateContent" ></textarea>
+						      	</td>
+						      </tr>
+					      	</tbody>
+					      </table>
 				      </div>
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">저장 취소</button>
-				        <button type="button" class="btn btn-success">댓글 수정</button>
+				       	<button type="button" class="btn btn-success modalSubmit">댓글 수정</button>
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">수정 취소</button>
 				      </div>
 				    </div>
 				  </div>
@@ -107,88 +112,73 @@
 		</div>
 	</div>
 </div>
-
 <%@ include file="../components/footer.jsp"%>
 <script>
-/* var action = '';
-var url = '';
-var type = '';
-var val = 0;
-var button = '';
+let bId = 0;
+let commentId = 0;
+let username = '';
+let content = '';
 
 $(document).ready(function(){
 
 	// 수정하기 버튼 클릭
-	$("a[id='updateBtn']").click(function(e){
-		e.preventDefault();
-		
-		button = $(this);
-
-		action='update';
-		type = 'PUT';
-		val = this.value;
-
-		// 수정할 코멘트의 정보를 포함한 부모 요소를 찾습니다.
-	    var row = button.closest('.UDBtn').parent().parent();
-	    
-	    // 코멘트의 username과 content를 가져옵니다.
-	    var userName = row.find('.comment-id').first().text().trim();
-	    var content = row.find('.comment-date').first().text().trim();
-	    
-	    // 가져온 정보를 모달에 채워 넣습니다.
-	    $("#username").val(userName);
-	    $("#comment").val(content);
-	    
-        console.log(username, content);
-		// content 담기
-		var row = button.parent().parent();
-		console.log(row.children());
-		var items = row.children();
-		
-		var username = items.eq(2).text();
-		var comment = items.eq(3).text();
-		console.log(username, comment) 
-		
-        
-        
-        // 모달을 띄웁니다.
-        $("#myModal").modal();
-	});
-
-	// 삭제하기 버튼 클릭
-	$("button[name='delete']").click(function(){
-		val = this.value;
-		$.ajax({
-			url : '/board/' + val,
-			type : 'DELETE',
-		});
-		location.reload();
-	})
+$(".updateBtn").click(function(e){
+	e.preventDefault();
 	
-	// Modal의 Submit 버튼 클릭
-	$("#modalSubmit").click(function(){
-		
-		if(action == 'update'){
-			url = '/board/detail?id='+ id +'&commentId=' + commentId;
+
+	bId = $(this).parent().prev().prev().prev().prev().data('bid');
+	commentId = $(this).parent().prev().prev().prev().data('id');
+	username = $(this).parent().prev().prev().text();
+ 	originContent = $(this).parent().prev().text(); 
+
+	console.log(username, commentId, bId);
+
+	$(".username").val(username);
+	$(".comment").val(originContent);
+
+	 // 모달을 띄웁니다.
+    $("#myModal").modal("show");
+	 
+	
+	});
+ 
+//Modal의 Submit 버튼 클릭
+$(".modalSubmit").click(function(e){
+	 e.preventDefault();
+	 
+	 content = document.querySelector("#updateContent").value;
+	 
+	 console.log(content);
+/* 	 let row = $(this).parent().prev().children().children().children();
+	 let ser = row.eq(1).children().eq(1).children().val(); 	 
+	 console.log(":::::::::::::::::::::::",ser);*/
+	 
+	 $(".comment").val(content);
+	 
+ 	$.ajax({
+		type : "post",
+		url : "/boardComment/update",
+		data : {
+			"commentId": commentId,
+			"content" : content,
+			"bId" : bId
+			
+		},
+		success: function(res){
+			console.log("데이터 전송을 성공했습니다.", res);
+			location.href= res;
+			
+		},
+		error: function(err){
+			console.log("에러가 발생했습니다. : ", err)
 		}
-
-		var data = {
-			"bno" : bno,
-			"userName" : $("#userName").val(),
-			"contents" : $("#contents").val()
-		};
-		
-		$.ajax({
-			url : url,
-			type : type,
-			data : data
-		})
-		
-		location.reload();
-	});
+	}); 
+	 
 	
-
-}); */
-
+});
+	
+	
+       
+});
 </script>
 >

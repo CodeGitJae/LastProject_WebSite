@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    
+  
 <!--
 
 TemplateMo 579 Cyborg Gaming

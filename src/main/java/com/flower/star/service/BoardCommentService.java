@@ -1,18 +1,14 @@
 package com.flower.star.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import com.flower.star.entity.Board;
 import com.flower.star.entity.BoardComment;
 import com.flower.star.entity.Member;
 import com.flower.star.repository.BoardCommentRepository;
 import com.flower.star.repository.BoardRepository;
 import com.flower.star.repository.MemberRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -51,11 +47,21 @@ public class BoardCommentService {
     }
 
    
-//    public void updateComment(BoardComment bcomment, Integer commentId) {
-//        BoardComment comment = bcRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
-//        comment.setContent(bcomment.getContent());
-//        bcRepository.save(comment);
-//    }
+    public void updateComment(int commentId, String content) {
+        
+    	System.out.println(":::::::::::::::::::::::::"+commentId + content);
+    	BoardComment comment = bcRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
+//    	Optional<Board> optBid = boardRepository.findById(bId);
+//        Optional<Member> optMuser = memberRepository.findByUsername(username);
+    	
+    	System.out.println(":::::::::::::::::::::::::"+commentId + comment.getContent());
+       
+    	 comment.setContent(content);
+    	 
+    	 System.out.println(":::::::::::::::::::::::::"+commentId + content);
+
+        bcRepository.save(comment);
+    }
 
    
     public void deleteComment(Integer commentId) {
