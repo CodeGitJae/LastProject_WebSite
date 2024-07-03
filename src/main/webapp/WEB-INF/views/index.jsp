@@ -13,7 +13,7 @@
 						<div class="featured-games header-text">
 							<div class="heading-section">
 								<h4>
-									<em>별자리 스팟</em> TOP 5
+									별자리 스팟 TOP 5
 								</h4>
 							</div>
 							<div class="owl-features owl-carousel">
