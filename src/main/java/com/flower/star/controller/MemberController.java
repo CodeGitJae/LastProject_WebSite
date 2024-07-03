@@ -1,6 +1,8 @@
 package com.flower.star.controller;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -16,6 +18,7 @@ import com.flower.star.dto.MemberRegisterDTO;
 import com.flower.star.dto.MemberUpdateDTO;
 import com.flower.star.entity.Member;
 import com.flower.star.entity.StarspotLikes;
+import com.flower.star.repository.BoardRepository;
 import com.flower.star.repository.StarspotLikesRepository;
 import com.flower.star.entity.Board;
 import com.flower.star.service.BoardSerivce;
@@ -30,7 +33,7 @@ public class MemberController {
 
 	private final Common common;
 	private final MemberService mService;
-	private final BoardSerivce bService;
+	private final BoardRepository bRepository;
 
 	// 내 정보 삭제하기
 	@GetMapping("/member/delete")
@@ -81,19 +84,28 @@ public class MemberController {
 	@GetMapping("/member/myProfile")
 	public String myProfile(Model model) {
 		try {
-			List<Board> boardList = bService.findAllForViews();
-			model.addAttribute("boardList", boardList);
-			model.addAttribute("member", mService.findByUsername(common.getLoginUsername()));
+			// UserDetails로 member 객체 가져오기
+			Member member = mService.findByUsername(common.getLoginUsername());
+			model.addAttribute("member", member);
 			
+			// Member 객체를 통해서 내가 쓴 게시물 리스트 가져오기
+			List<Board> myBoardList = member.getBoardList();
+			// 게시글 순서 역순으로 
+			Collections.reverse(myBoardList);
+			myBoardList.stream().limit(5).collect(Collectors.toList());
+			model.addAttribute("myBoardList", myBoardList);
+			
+			// 좋아요 List 가져오기
 			List<StarspotLikes> likeList = getLikesList();
-			
 			model.addAttribute("likeList", likeList);
 			
 			return "/member/myProfile";
+			
 		} catch (Exception exception) {
 			return "redirect:/index";
 		}
 	}
+	
 	
 	@Autowired
 	private StarspotLikesRepository starspotLikesRepository;
