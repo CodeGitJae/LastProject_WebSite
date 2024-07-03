@@ -1,6 +1,5 @@
 package com.flower.star.repository;
 
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +21,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 	@Modifying
 	@Query(value = "update Board b set b.views=b.views+1 where b.id=:id")
 	void updateViews(@Param("id") Integer id);
+
+
 
 }
