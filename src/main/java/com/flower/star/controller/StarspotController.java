@@ -95,4 +95,11 @@ public class StarspotController {
 		
 		return "redirect:/starspot";
 	}
+	
+	@GetMapping("/delete")
+	public String starspotDelete(@RequestParam Integer id) {
+		starspotRepository.deleteById(id);
+		
+		return "redirect:/starspot";
+	}
 }
