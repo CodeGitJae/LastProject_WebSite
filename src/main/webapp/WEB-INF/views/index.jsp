@@ -82,13 +82,11 @@
                 <div class="row">
                   <div class="col-lg-3 col-sm-3">
                     <div class="item">
-  <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
                       <h4>Dust<br><span class="PM10"></span><span class="PM25"></span></h4>
                     </div>
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-  <!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
                       <h4>Weather<br><span class="TMP"></span><span class="REH"></span><span class="PCP"></span></h4>
                     </div>
                   </div>
@@ -102,36 +100,28 @@
             </div>
           </div>
           <!-- ***** 오늘의 날씨 $ 미세먼지 끝***** -->
-
-<!-- ***** 별자리 스팟 크롤링 시작***** -->
+          
+          
           <div class="most-popular">
             <div class="row">
               <div class="col-lg-12">
                 <div class="heading-section">
-                  <h4><em>Star Spot</em> More Pickture</h4>
+                  <h4><em>별스팟 관련 사진</em></h4>
                 </div>
                 <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                    	<img id="picture1" src="" alt="">
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                    	<img id="picture2" src="" alt="">
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                    	<img id="picture3" src="" alt="">
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#">사진 더 보기</a>
-                    </div>
-                  </div>
+                  <c:forEach var="i" begin="0" end="4">
+		               <div class="item" style="width:250px; height:300px;">
+		                   <img style="width:100%; height:100%;" id="pic-${0+i*3}" class="starpictures" src="" alt="">
+	                  </div>
+		             
+		              <div class="item" style="width:250px; height:300px;">
+		                   <img style="width:100%; height:100%;" id="pic-${1+i*3}" class="starpictures" src="" alt="">
+	                  </div>
+		             
+		              <div class="item" style="width:250px; height:300px;">
+		                   <img style="width:100%; height:100%;" id="pic-${2+i*3}" class="starpictures" src="" alt="">
+	                  </div>
+                  </c:forEach>
                 </div>
               </div>
             </div>
@@ -185,7 +175,6 @@
         </div>
       </div>
     </div>
-  </div>
   
   <%@ include file="./components/footer.jsp" %>
   
@@ -251,9 +240,16 @@
 	    url: 'http://13.209.237.30:5000/get_img?keyword='+'별스팟',
 	    dataType:'json',
 	    success : function(result){
-	    		document.getElementById("picture1").src = result["result"][0];
-	    		document.getElementById("picture2").src = result["result"][3];
-	    		document.getElementById("picture3").src = result["result"][5];
+	    	var count;
+	    	const starpic = $('.starpictures');
+	    	
+	    	
+	    	for (count = 0; count < result["result"].length; count++){
+				id = 'pic-' + count;
+				$('#' + id).attr('src', result["result"][count])
+	    		
+	    	}
+	    	
 	    },
 	    error : function(request, status, error) {
 	       console.log(error);
