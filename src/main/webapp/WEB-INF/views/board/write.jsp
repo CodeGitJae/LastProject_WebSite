@@ -12,7 +12,7 @@
             <div class="featured-games header-text">
 <!--                   페이지 제목 입력 ( 지우면 헤더 안따라옴) -->
 			   <div class="heading-section">
-			     <h4><em>흰색 </em> 핑크색 </h4>
+			     <h4><em>자유 게시판 </em> 글쓰기 </h4>
 			   </div>
 			   <!-- 본문 시작하는 곳 -->
 				<form method="post" action="/board/write" enctype="multipart/form-data">
@@ -26,9 +26,9 @@
 				    <label for="content" style="color: white;" class="form-label">내용</label><br>
 				    <textarea style="border-radius: 10px;" id="content" name="content" rows="15" cols="121"></textarea>
 				  </div>
-				  <div class="mb-3">
+				  <div class="mb-3" style="text-align: right;">
 				  	<input type="file" class="form-control" id="image" name="uploadToBoardImage" multiple>
-				   <button style="float: right; margin-top: 10px;" type="submit" class="btn btn-secondary">게시글 등록</button>
+				   <button style=" margin-top: 10px;" type="submit" class="btn btn-secondary">게시글 등록</button>
 				  </div>
 			  	</form>                     
 			   <!--  본문 끝나는 곳 -->

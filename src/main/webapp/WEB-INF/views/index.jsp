@@ -143,30 +143,45 @@
           </div>
           <!-- ***** 별자리 스팟 크롤링 끝***** -->
 
-          <!-- ***** Gaming Library Start ***** -->
-          <div class="gaming-library">
+         <!-- ***** 자유게시판 최근 글 n개 시작 ***** -->
+          <div class="gaming-library profile-library">
             <div class="col-lg-12">
               <div class="heading-section">
-                <h4><em>오늘의 메인</em> 추천글</h4>
+                <h4><em>최근 </em> 게시글 정보</h4>
               </div>
+              
               <div class="item">
-                <ul>
-                  <li><img src="/assets/images/game-01.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Dota 2</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>24/08/2036</span></li>
-                  <li><h4>Hours Played</h4><span>634 H 22 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
-                </ul>
+                <table class="table table-dark">
+				  <thead>
+				    <tr>
+				      <th scope="col">No</th>
+				      <th scope="col">제목</th>
+				      <th scope="col">글쓴이</th>
+				      <th scope="col">작성일</th>
+				      <th scope="col">조회수</th>
+				    </tr>
+				  </thead>
+			  	<c:forEach items="${boardList}" var="b">
+				  <tbody>
+				    <tr>
+				      <th>${b.id}</th>
+				      <td><a href="/board/detail?id=${b.id}">${b.title}</a></td>
+				      <td>${b.member.username}</td>
+				      <td>${b.createDate}</td>
+				      <td>${b.views}</td>
+				    </tr>
+				  </tbody>
+ 	             	 </c:forEach>
+				</table>
               </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="main-button">
-                <a href="/board/save">게시판으로 이동</a>
-              </div>
+	             <div class="col-lg-12">
+	              <div class="main-button">
+	                <a href="/board/list">게시판으로 이동</a>
+	              </div>
+	            </div>
             </div>
           </div>
-          <!-- ***** Gaming Library End ***** -->
+          <!-- ***** 자유게시판 최근 글 n개 끝 ***** -->
         </div>
       </div>
     </div>

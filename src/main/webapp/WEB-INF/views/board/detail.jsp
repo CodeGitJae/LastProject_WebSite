@@ -25,10 +25,12 @@
 				</div>
 				<div class="text">
 					<div class="correction-top">
-						<div class="correction">
-							<a href="/board/update?id=${b.id}" class="correction-data">수정</a><a>|</a> 
-							<a href="/board/delete?id=${b.id}" class="delete-data">삭제</a>
-						</div>
+						<c:if test="${authentication.getName() == b.member.username}">
+							<div class="correction">
+								<a href="/board/update?id=${b.id}" class="correction-data">수정</a><a>|</a> 
+								<a href="/board/delete?id=${b.id}" class="delete-data">삭제</a>
+							</div>
+						</c:if>
 					</div>
 					<c:forEach items="${b.images}" var="image">
 						<img src="<%= request.getContextPath() %>/${image.imagePath}"
@@ -63,7 +65,8 @@
 						<input class="commentbId" type="hidden" data-bid="${b.id}">
 						<input class="commentId" type="hidden" data-id="${comment.id}">
 						<p class="comment-id">${comment.member.username}</p>
-						<p class="comment-date">${comment.content}</p> 
+						<p class="comment-date">${comment.content}</p>
+						<c:if test="${authentication.getName() == comment.member.username}"> 
 						  <div class="UDBtn" style="text-align: right;  margin-right: 20px;">
   							<%-- <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;" 
 											 href="/boardComment/update?id=${b.id}&commentId=${comment.id}">수정</a> --%>
@@ -72,6 +75,7 @@
 							<a class="deleteBtn" type="button" style="background-color: #FFA500; padding: 5px 10px; color: black;" 
 											 href="/boardComment/delete?id=${b.id}&commentId=${comment.id}">삭제</a>
 						  </div>
+						 </c:if>
 						<hr>		
 				    </c:forEach>
 				</div>
@@ -79,7 +83,7 @@
 				<!--  댓글 수정 모달 시작 -->
 				<div class="modal fade" id="myModal" tabindex="-1">
 				  <div class="modal-dialog">
-				    <div class="modal-content">
+				    <div class="modal-content" style="position: relative; top:350px; width: 100%;">
 				      <div class="modal-header">
 				        <h5 class="modal-title">댓글 수정</h5>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

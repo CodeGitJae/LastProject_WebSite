@@ -102,7 +102,7 @@
 					      <th scope="col">조회수</th>
 					    </tr>
 					  </thead>
-				  	<c:forEach items="${boardList}" var="b">
+				  	<c:forEach items="${myBoardList}" var="b">
 					  <tbody>
 					    <tr>
 					      <th>${b.id}</th>
