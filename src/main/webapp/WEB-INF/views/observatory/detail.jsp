@@ -8,6 +8,11 @@
 	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE/fonts/static/woff2/SUITE.css"
 	rel="stylesheet">
 
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.username"
+		var="authenticatedUsername" />
+</sec:authorize>
+
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
@@ -43,34 +48,154 @@
 					</div>
 				</div>
 				<br>
-				<div class="map">지도</div>
+				<div id="map">지도</div>
 				<br> <br>
 
-				<div class="tag">스크랩 정렬위치</div>
+				<div class="weather">날씨</div>
+				<br> <br>
+
+				<div class="share">
+					<p>공유하기</p>
+					<button id="share-fb" class="share-button">페이스북</button>
+					&nbsp;&nbsp;
+					<button id="share-tw" class="share-button">트위터</button>
+					&nbsp;&nbsp; <span class="button gray medium"><a href="#"
+						onclick="clip(); return false;">URL주소복사</a></span>
+				</div>
+
 				<br>
 
 				<div class="comment">
-					<h3 class="comment-count">
-						댓글<span>1</span>
-					</h3>
+					<h4 class="comment-count">댓글</h4>
 					<form action="" method="get" id="comment-form">
+						<input id="comment-writer" type="hidden"
+							value="${authenticatedUsername}"> <input id="board-id"
+							type="hidden" value="${data.id}">
 						<textarea id="comment-text"
 							placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-						<button type="button" id="comment-btn">입력</button>
+						<button type="button" id="comment-btn">등록</button>
 					</form>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-					<hr>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-					<hr>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-
+					<div class="comment-section">
+						<c:forEach items="${data.replies}" var="reply">
+							<div class="commentBox reply-${reply.id}">
+								<div class="comment-header">
+									<span class="comment-author">${reply.writer}</span> <span
+										class="comment-date">${reply.createdate}</span>
+								</div>
+								<div class="comment-content-box">
+									<pre class="comment-content">${reply.content}</pre>
+									<c:if test="${authenticatedUsername == reply.writer}">
+										<div class="comment-actions">
+											<a href="" class="update-reply" data-replyid="${reply.id}">수정</a>
+											| <a href="" class="delete-reply" data-replyid="${reply.id}">삭제</a>
+										</div>
+									</c:if>
+								</div>
+								<hr>
+							</div>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
+<!-- reply modal -->
+<div class="modal-background" id="modal">
+	<div class="modal-content">
+		<h3 style="color: black; margin-bottom: 15px;">댓글 수정</h3>
+		<input class="replyid" type="hidden">
+		<textarea id="modal-textarea" rows="4" cols="30"
+			placeholder="Write your content here..."></textarea>
+		<button type="button" class="btn btn-dark mt-3 update-btn">수정완료</button>
+	</div>
+</div>
+
 <%@ include file="../components/footer.jsp"%>
+<script
+	src="${pageContext.request.contextPath}/assets/js/observatory-detail.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
+
+<script>//지도출력
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+// 지도를 생성합니다    
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('${data.address}', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="padding:3px;color:black;font-size:14px;width:max-content;">${data.title}<br>${data.address}</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
+
+
+<script>//공유하기
+	const url = encodeURI(window.location.href);
+	
+	//Facebook
+	const shareFacebook = () => {
+		window.open("http://www.facebook.com/sharer/sharer.php?u=" + url, '${data.title}', 'width=300px,height=350px');
+	}
+	
+	
+	//Twitter
+	const shareTwitter = () => {
+	const text = '${data.title}'
+		window.open("https://twitter.com/intent/tweet?text=" + text + "&url=" +  url, text, 'width=500px,height=650px')
+	}
+	
+	$('#share-fb').on('click', () => {
+		shareFacebook();
+	});
+	
+	$('#share-tw').on('click', () => {
+		shareTwitter();
+	});
+</script>
+
+
+	<script type="text/javascript">
+
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
+</script>

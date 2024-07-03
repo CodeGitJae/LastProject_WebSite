@@ -21,9 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private static final String [] ACCESS_PUBLIC= {
 			"/",
 			"/sample/**",
+			"/starspot", "/starspot/detail",
 			"/board/list",
 			"/board/detail",
-			"/starspot/**",
             "/mooncalendar/**",
             "/observatory/**",
             "/uploadimages/**",
@@ -55,6 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.antMatchers(ACCESS_PUBLIC).permitAll()
 				.antMatchers(ACCESS_GUEST).anonymous()
 				.antMatchers(ACCESS_MANAGER).hasAuthority("MANAGER")
+				.antMatchers("/starspot/write").hasAuthority("USER")
 				.anyRequest().authenticated()
 			.and()
 				.csrf().disable()    // csrf token 비활성화 

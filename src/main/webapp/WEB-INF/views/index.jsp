@@ -1,42 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ include file="./components/header.jsp" %>
+	pageEncoding="UTF-8"%>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-content">
+<%@ include file="./components/header.jsp"%>
 
-         <!-- ***** Featured Games Start ***** -->
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="featured-games header-text">
-                <div class="heading-section">
-                  <h4><em>별자리 스팟</em> TOP 5</h4>
-                </div>
-                <div class="owl-features owl-carousel">
-                  <c:forEach items="${top5Starspot}" var="starspot">
-	                 <div class="item">
-	                    <div class="thumb">
-	                      <img src="${starspot.images[0].imagePath}" alt="">
-	                      <div class="hover-effect">
-	                        <h6>${starspot.views} views</h6>
-	                      </div>
-	                    </div>
-	                    <h4>${starspot.title}<br><span>${starspot.views} views</span></h4>
-	                    <ul>
-	                      <li><i class="fa fa-star"></i> 4.8</li>
-	                      <li><i class="fa fa-download"></i> 2.3M</li>
-	                    </ul>
-	                  </div>
-                  </c:forEach>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Featured Games End ***** -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-content">
+				<!-- ***** Featured Games Start ***** -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="featured-games header-text">
+							<div class="heading-section">
+								<h4>
+									<em>별자리 스팟</em> TOP 5
+								</h4>
+							</div>
+							<div class="owl-features owl-carousel">
+								<c:forEach items="${top5Starspot}" var="starspot">
+									<div class="item">
+										<a href="/starspot/detail?id=${starspot.id}">
+											<div class="thumb">
+												<img src="${starspot.images[0].imagePath}" class="thumb-img">
+												<div class="hover-effect">
+													<h6>${starspot.views}views</h6>
+												</div>
+											</div>
+											<h4>${starspot.title}<br>
+												<span>${starspot.views} views</span>
+											</h4>
+										</a>
+										<ul>
+											<li><i class="fa fa-tag"></i>
+												&nbsp;${starspot.replies.size()}</li>
+											<li><i class="fa fa-heart"></i>
+												&nbsp;${starspot.likes.size()	}</li>
+										</ul>
+									</div>
+								</c:forEach>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Featured Games End ***** -->
 
           <!-- ***** 오늘의 달모양  시작***** -->
           <div class="most-popular">

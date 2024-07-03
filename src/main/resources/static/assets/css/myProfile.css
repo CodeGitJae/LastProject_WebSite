@@ -1,16 +1,68 @@
+.banner-container {
+	display: flex;
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	margin-bottom: 2rem;
+}
+
+.banner-img {
+	height: 130px;
+	width: 130px;
+	border-radius: 50%;
+	max-width: 100%; /* 이미지가 너무 크면 부모 요소에 맞게 최대 너비 설정 */
+	display: block; /* 인라인 요소를 블록 요소로 변환하여 다른 요소와 수직 정렬할 수 있게 함 */
+	margin: 0 auto; /* 가로 중앙 정렬 */
+}
+
 .div1 {
-  text-align: center;
+	text-align: center;
 }
 
 .div2 {
 	margin: 0 auto;
 }
 
-.div3{
-	text-align: center; 
+.div2 span {
+	float: right;
+}
+
+.div3 {
+	text-align: center;
 	margin-top: 20px;
 }
 
 li p {
+	text-align: center;
+}
+
+.Wishlist-bolck {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.Wishlist item {
+	align-items: center;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.Wishlist img {
+	max-width: 150px; /* 이미지 크기 조절 */
+	height: 80%;
+	border-radius: 10px; 
+	object-fit: cover;
+}
+
+.Wishlist p {
+	text-align: center;
+	margin-top: 3px;
+	max-height: 20%;
+	align-items: center;
+	font-size: 13px;
+	color: white;
+}
+
+.Wishlist-text {
 	text-align: center;
 }

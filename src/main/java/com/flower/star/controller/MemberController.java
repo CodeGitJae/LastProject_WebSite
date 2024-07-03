@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.flower.star.dto.MemberRegisterDTO;
 import com.flower.star.dto.MemberUpdateDTO;
+import com.flower.star.entity.Member;
+import com.flower.star.entity.StarspotLikes;
+import com.flower.star.repository.StarspotLikesRepository;
 import com.flower.star.entity.Board;
 import com.flower.star.service.BoardSerivce;
 import com.flower.star.service.MemberService;
@@ -81,12 +84,30 @@ public class MemberController {
 			List<Board> boardList = bService.findAllForViews();
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("member", mService.findByUsername(common.getLoginUsername()));
+			
+			List<StarspotLikes> likeList = getLikesList();
+			
+			model.addAttribute("likeList", likeList);
+			
 			return "/member/myProfile";
 		} catch (Exception exception) {
 			return "redirect:/index";
 		}
 	}
 	
+	@Autowired
+	private StarspotLikesRepository starspotLikesRepository;
+	
+	public List<StarspotLikes> getLikesList() {
+		try {
+			Member member = mService.findByUsername(common.getLoginUsername());
+			List<StarspotLikes> likeList = starspotLikesRepository.findByMember(member);
+			
+			return likeList;
+		} catch(Exception e) {
+			return null;
+		}
+	}
 
 	// 입력된 회원정보 유효성 검사후 정상일 때 서비스단으로 데이터 넘김
 	@PostMapping("/member/signup")

@@ -8,6 +8,11 @@
 	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE/fonts/static/woff2/SUITE.css"
 	rel="stylesheet">
 
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.username"
+		var="authenticatedUsername" />
+</sec:authorize>
+
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
@@ -19,17 +24,19 @@
 				<div class="title">
 					<h3 class="title-data">${data.title}</h3>
 					<div class="information">
-						<p class="info-id">작성 ${data.id}</p>
+						<p class="info-id">작성 ${data.writer}</p>
 						<p class="info-date">${data.createdate}</p>
 					</div>
 				</div>
 				<div class="text">
 					<div class="correction-top">
 						<p class="address-data">위치 : ${data.address}</p>
-						<div class="correction">
-							<a href="/starspot/update?id=${data.id}" class="correction-data">수정</a><a>|</a> <a href=""
-								class="delete-data">삭제</a>
-						</div>
+						<c:if test="${authenticatedUsername == data.writer}">
+							<div class="correction">
+								<a href="/starspot/update?id=${data.id}" class="correction-data">수정</a><a>|</a>
+								<a href="" class="delete-data">삭제</a>
+							</div>
+						</c:if>
 					</div>
 					<c:forEach items="${data.images}" var="image">
 						<img src="<%= request.getContextPath() %>/${image.imagePath}"
@@ -40,13 +47,36 @@
 					<pre>${data.content}</pre>
 				</div>
 				<br>
-				<div id="map">
-					지도
-				</div>
-				
-				<div class="weather">
-					날씨
-				</div>
+				<div id="map">지도</div>
+				<br> <br>
+
+				<div class="weather">날씨</div>
+				<br> <br>
+
+				<div class="share-dar">
+					<div class="share">
+						<p>공유하기</p>
+						<button id="share-fb" class="share-button">페이스북</button>
+						&nbsp;&nbsp;
+						<button id="share-tw" class="share-button">트위터</button>
+						&nbsp;&nbsp; <span class="button gray medium"><a href="#"
+							onclick="clip(); return false;">URL주소복사</a></span>
+					</div>
+
+					<div class="like-section">
+						<c:set var="isLike" value="false" />
+						<c:forEach items="${data.likes}" var="like">
+							<c:if test="${like.member.username == authenticatedUsername}">
+								<c:set var="isLike" value="true" />
+							</c:if>
+						</c:forEach>
+
+						<div class="likecount-o">
+							<span class="likecount">${data.likes.size()}</span> <img
+								class="like" alt="" data-isLike="${isLike}"
+								src="${pageContext.request.contextPath}/assets/images/icon/${isLike ? 'icon-fullheart.png' : 'icon-heart.png' }">
+						</div>
+					</div>
 				
 				<div class="dustInfo">
 					<span class="1PM10"></span>
@@ -59,40 +89,63 @@
 					<span class="3PM25"></span>
 				</div>
 				
-				<br><br>
-				
-				<div class="tag">
-					공유하기<br>
-					<button id="share-fb">페북공유</button>
-					<button id="share-tw">트위터공유</button>
 				</div>
 				<br>
-				
-				<div class="comment">
-				<h3 class="comment-count">댓글<span>1</span></h3>
-				<form action="" method="get" id="comment-form">
-					<textarea id="comment-text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-					<button type="button" id="comment-btn">입력</button>
-				</form>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-					<hr>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-					<hr>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
 
+				<div class="comment">
+					<h4 class="comment-count">댓글</h4>
+					<form action="" method="get" id="comment-form">
+						<input id="comment-writer" type="hidden"
+							value="${authenticatedUsername}"> <input id="board-id"
+							type="hidden" value="${data.id}">
+						<textarea id="comment-text"
+							placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
+						<button type="button" id="comment-btn">등록</button>
+					</form>
+					<div class="comment-section">
+						<c:forEach items="${data.replies}" var="reply">
+							<div class="commentBox reply-${reply.id}">
+								<div class="comment-header">
+									<span class="comment-author">${reply.writer}</span> <span
+										class="comment-date">${reply.createdate}</span>
+								</div>
+								<div class="comment-content-box">
+									<pre class="comment-content">${reply.content}</pre>
+									<c:if test="${authenticatedUsername == reply.writer}">
+										<div class="comment-actions">
+											<a href="" class="update-reply" data-replyid="${reply.id}">수정</a>
+											| <a href="" class="delete-reply" data-replyid="${reply.id}">삭제</a>
+										</div>
+									</c:if>
+								</div>
+								<hr>
+							</div>
+						</c:forEach>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
+<!-- reply modal -->
+<div class="modal-background" id="modal">
+	<div class="modal-content">
+		<h3 style="color: black; margin-bottom: 15px;">댓글 수정</h3>
+		<input class="replyid" type="hidden">
+		<textarea id="modal-textarea" rows="4" cols="30"
+			placeholder="Write your content here..."></textarea>
+		<button type="button" class="btn btn-dark mt-3 update-btn">수정완료</button>
+	</div>
+</div>
+
 <input id="forAjax" type="hidden" value="${data.address}">
 
 <%@ include file="../components/footer.jsp"%>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
+<script
+	src="${pageContext.request.contextPath}/assets/js/starspot-detail.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -132,7 +185,7 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 });    
 </script>
 
-<script>
+<script>//공유하기
 	const url = encodeURI(window.location.href);
 	
 	//Facebook
@@ -153,6 +206,60 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 	
 	$('#share-tw').on('click', () => {
 		shareTwitter();
+	});
+</script>
+
+<script type="text/javascript">
+
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
+</script>
+
+<!-- 좋아요 -->
+<script>
+	$('.like').on('click', (e) => {
+		const starspotid = "${data.id}";
+		const userid = "${authenticatedUsername}";
+		let isLike = JSON.parse(e.target.dataset.islike);
+		let likeCount = $('.likecount').text();
+		
+		$.ajax({
+            type: "POST",
+            url: "/likes/insert?isLike=" + isLike,
+            contentType: "application/json",
+            data: JSON.stringify({
+            	starspotid: starspotid,
+            	userid: userid
+            }),
+            success: function(response) {
+                // 요청이 성공했을 때 실행할 코드
+                if(isLike) {
+                	$('.like').attr('src', '${pageContext.request.contextPath}/assets/images/icon/icon-heart.png');
+                	$('.likecount').text(likeCount - 1);
+                } else {
+                	$('.like').attr('src', '${pageContext.request.contextPath}/assets/images/icon/icon-fullheart.png');
+                	$('.likecount').text(JSON.parse(likeCount) + 1);
+                }
+                e.target.dataset.islike = !isLike;
+            },
+            error: function(xhr, status, error) {
+                // 요청이 실패했을 때 실행할 코드
+                alert("An error occurred: " + error);
+                console.log(xhr, status, error);
+            }
+        });
+		
 	});
 </script>
 
