@@ -87,21 +87,29 @@
                   <h4><em>Today Of</em> Weather & FineDust</h4>
                 </div>
                 <div class="row">
+                
                   <div class="col-lg-3 col-sm-3">
                     <div class="item">
-                      <h4>Dust<br><span class="PM10"></span><span class="PM25"></span></h4>
+                      <h4>Today Dust<br><span class="todayPM10"></span><span class="todayPM25"></span></h4>
                     </div>
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <h4>Weather<br><span class="TMP"></span><span class="REH"></span><span class="PCP"></span></h4>
+                      <h4>Today Weather<br><span class="todayTMP"></span><span class="todayREH"></span><span class="todayPCP"></span></h4>
                     </div>
                   </div>
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#">자세히 보기</a>
+                  
+                  <div class="col-lg-3 col-sm-3">
+                    <div class="item">
+                      <h4>Today Dust<br><span class="tomorrowPM10"></span><span class="tomorrowPM25"></span></h4>
                     </div>
                   </div>
+                  <div class="col-lg-3 col-sm-6">
+                    <div class="item">
+                      <h4>Today Weather<br><span class="tomorrowTMP"></span><span class="tomorrowREH"></span><span class="tomorrowPCP"></span></h4>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -189,8 +197,11 @@
 	        url: 'http://13.209.237.30:5000/position_dust_info?x=' + parseInt(position.coords.latitude) + '&y=' + parseInt(position.coords.longitude),
 	        dataType:'json',
 	        success : function(result){
-	        	$(".PM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"]) + PM(parseInt(result[0]["PM10"])));
-	        	$(".PM25").text("오늘의 초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])));
+	        	$(".todayPM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"]) + PM(parseInt(result[0]["PM10"])) + "㎍/㎥" );
+	        	$(".todayPM25").text("오늘의 초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])) + "㎍/㎥" );
+	        	
+	        	$(".tomorrowPM10").text("내일의 미세먼지: " + parseInt(result[1]["PM10"]) + PM(parseInt(result[1]["PM10"])) + "㎍/㎥" );
+	        	$(".tomorrowPM25").text("내일의 초미세먼지: " + parseInt(result[1]["PM2.5"]) + PM(parseInt(result[1]["PM2.5"])) + "㎍/㎥" );
 	        },
 	        error : function(request, status, error) {
 	           console.log(error);
@@ -202,17 +213,49 @@
 	        url: 'http://13.209.237.30:5000/get_weather?x=' + parseInt(position.coords.latitude) + '&y=' + parseInt(position.coords.longitude),
 	        dataType:'json',
 	        success : function(result){
-	        	$(".TMP").text("기온: " + parseInt(result["result"]["기온"][0]));
-	        	$(".REH").text("습도: " + parseInt(result["result"]["습도"][0]));
-	        	$(".PCP").text("예측 강수량: " + parseInt(result["result"]["강수량"][0]));
+	        	$(".todayTMP").text("오늘 기온: " + parseInt(result["result"]["기온"][0]) + "°C");
+	        	$(".todayREH").text("오늘 습도: " + parseInt(result["result"]["습도"][0]) + "%");
+	        	$(".todayPCP").text("오늘 예측 강수량: " + parseInt(result["result"]["강수량"][0]) + "mm");
+	        	
+	        	$(".tomorrowTMP").text("내일 기온: " + parseInt(result["result"]["기온"][1]) + "°C");
+	        	$(".tomorrowREH").text("내일 습도: " + parseInt(result["result"]["습도"][1]) + "%");
+	        	$(".tomorrowPCP").text("내일 예측 강수량: " + parseInt(result["result"]["강수량"][1]) + "mm");
+	        },
+	        error : function(request, status, error) {
+	        }
+	     })
+	  
+	} function errorGeo() {
+	    $.ajax({
+	        type:'GET',
+	        url: 'http://13.209.237.30:5000/position_dust_info?x=37&y=127',
+	        dataType:'json',
+	        success : function(result){
+	        	$(".todayPM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"])+ PM(parseInt(result[0]["PM10"])) + "㎍/㎥" );
+	        	$(".todayPM25").text("오늘의 초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])) + "㎍/㎥");
+	        	
+	        	$(".tomorrowPM10").text("내일의 미세먼지: " + parseInt(result[1]["PM10"]) + PM(parseInt(result[1]["PM10"])) + "㎍/㎥");
+	        	$(".tomorrowPM25").text("내일의 초미세먼지: " + parseInt(result[1]["PM2.5"]) + PM(parseInt(result[1]["PM2.5"])) + "㎍/㎥");
 	        },
 	        error : function(request, status, error) {
 	           console.log(error);
 	        }
 	     })
-	  
-	} function errorGeo() {
-	  alert("위치 연결이 안됨");
+	     
+	     $.ajax({
+	        type:'GET',
+	        url: 'http://13.209.237.30:5000/get_weather?x=37&y=127',
+	        dataType:'json',
+	        success : function(result){
+	        	$(".todayTMP").text("오늘 기온: " + parseInt(result["result"]["기온"][0]) + "°C");
+	        	$(".todayREH").text("오늘 습도: " + parseInt(result["result"]["습도"][0]) + "%");
+	        	$(".todayPCP").text("오늘 예측 강수량: " + parseInt(result["result"]["강수량"][0]) + "mm");
+	        	
+	        	$(".tomorrowTMP").text("내일 기온: " + parseInt(result["result"]["기온"][1]) + "°C");
+	        	$(".tomorrowREH").text("내일 습도: " + parseInt(result["result"]["습도"][1]) + "%");
+	        	$(".tomorrowPCP").text("내일 예측 강수량: " + parseInt(result["result"]["강수량"][1]) + "mm");
+			}
+	     })
 	}
 	
 	navigator.geolocation.getCurrentPosition(connectGeo, errorGeo);
