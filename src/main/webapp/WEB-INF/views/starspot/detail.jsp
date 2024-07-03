@@ -47,6 +47,18 @@
 				<div class="weather">
 					날씨
 				</div>
+				
+				<div class="dustInfo">
+					<span class="1PM10"></span>
+					<span class="1PM25"></span>
+					<hr>
+					<span class="2PM10"></span>
+					<span class="2PM25"></span>
+					<hr>
+					<span class="3PM10"></span>
+					<span class="3PM25"></span>
+				</div>
+				
 				<br><br>
 				
 				<div class="tag">
@@ -76,6 +88,8 @@
 		</div>
 	</div>
 </div>
+
+<input id="forAjax" type="hidden" value="${data.address}">
 
 <%@ include file="../components/footer.jsp"%>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
@@ -140,4 +154,45 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 	$('#share-tw').on('click', () => {
 		shareTwitter();
 	});
+</script>
+
+
+<script>
+
+	function PM(pm) {
+		let result = "";
+		
+		if (pm < 30) {
+			result = "(좋음)";
+		} else if (pm >= 31 && pm < 80) {
+			result = "(보통)";
+		} else if (pm >= 81 && pm < 150) {
+			result = "(나쁨)";
+		} else if (pm >= 151) {
+			result = "(매우 나쁨)";
+		}
+		
+		return result;
+	}
+
+
+	let address = document.getElementById("forAjax").value
+
+	$.ajax({
+		type:'GET',
+		url: 'http://13.209.237.30:5000/dust_info?address='+address,
+		dataType:'json',
+		success : function(result){
+			
+			$(".1PM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"]) + PM(parseInt(result[0]["PM10"])) + ", ");
+			$(".1PM25").text("초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])));
+			$(".2PM10").text("내일의 미세먼지: " + parseInt(result[1]["PM10"]) + PM(parseInt(result[1]["PM10"])) + ", ");
+			$(".2PM25").text("내일 초미세먼지: " + parseInt(result[1]["PM2.5"]) + PM(parseInt(result[1]["PM2.5"])));
+			$(".3PM10").text("모레의 미세먼지: " + parseInt(result[2]["PM10"]) + PM(parseInt(result[2]["PM10"])) + ", ");
+			$(".3PM25").text("초미세먼지: " + parseInt(result[2]["PM2.5"]) + PM(parseInt(result[2]["PM2.5"])));
+		},
+		error : function(request, status, error) {
+			console.log(error);
+		}
+	})
 </script>
