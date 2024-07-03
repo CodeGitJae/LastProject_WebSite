@@ -34,7 +34,7 @@
 						<c:if test="${authenticatedUsername == data.writer}">
 							<div class="correction">
 								<a href="/starspot/update?id=${data.id}" class="correction-data">수정</a><a>|</a>
-								<a href="" class="delete-data">삭제</a>
+								<a href="/starspot/delete?id=${data.id}" class="delete-data">삭제</a>
 							</div>
 						</c:if>
 					</div>
