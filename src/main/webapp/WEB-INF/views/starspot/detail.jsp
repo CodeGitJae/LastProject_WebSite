@@ -55,28 +55,31 @@
 
 				<div class="share-dar">
 					<div class="share">
-					<p>공유하기</p>
-						<button id="share-fb" class="share-button">페이스북</button>&nbsp;&nbsp;
-						<button id="share-tw" class="share-button">트위터</button>&nbsp;&nbsp;
-						<button id="share-ko" class="share-button">카카오톡</button>
+						<p>공유하기</p>
+						<button id="share-fb" class="share-button">페이스북</button>
+						&nbsp;&nbsp;
+						<button id="share-tw" class="share-button">트위터</button>
+						&nbsp;&nbsp; <span class="button gray medium"><a href="#"
+							onclick="clip(); return false;">URL주소복사</a></span>
 					</div>
 
 					<div class="like-section">
-					<c:set var="isLike" value="false" />
-					<c:forEach items="${data.likes}" var="like">
-						<c:if test="${like.member.username == authenticatedUsername}">
-							<c:set var="isLike" value="true" />
-						</c:if>
-					</c:forEach>
-					
-					<div class="likecount-o">
-					  <span class="likecount">${data.likes.size()}</span>
-					  <img class="like" alt="" data-isLike="${isLike}" src="${pageContext.request.contextPath}/assets/images/icon/${isLike ? 'icon-fullheart.png' : 'icon-heart.png' }">
+						<c:set var="isLike" value="false" />
+						<c:forEach items="${data.likes}" var="like">
+							<c:if test="${like.member.username == authenticatedUsername}">
+								<c:set var="isLike" value="true" />
+							</c:if>
+						</c:forEach>
+
+						<div class="likecount-o">
+							<span class="likecount">${data.likes.size()}</span> <img
+								class="like" alt="" data-isLike="${isLike}"
+								src="${pageContext.request.contextPath}/assets/images/icon/${isLike ? 'icon-fullheart.png' : 'icon-heart.png' }">
+						</div>
 					</div>
-				  </div>
 				</div>
 				<br>
-				
+
 				<div class="comment">
 					<h4 class="comment-count">댓글</h4>
 					<form action="" method="get" id="comment-form">
@@ -85,7 +88,7 @@
 							type="hidden" value="${data.id}">
 						<textarea id="comment-text"
 							placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-						<button type="button" id="comment-btn">입력</button>
+						<button type="button" id="comment-btn">등록</button>
 					</form>
 					<div class="comment-section">
 						<c:forEach items="${data.replies}" var="reply">
@@ -95,13 +98,13 @@
 										class="comment-date">${reply.createdate}</span>
 								</div>
 								<div class="comment-content-box">
-								<pre class="comment-content">${reply.content}</pre>
-								<c:if test="${authenticatedUsername == reply.writer}">
-									<div class="comment-actions">
-										<a href="" class="update-reply" data-replyid="${reply.id}">수정</a>
-										| <a href="" class="delete-reply" data-replyid="${reply.id}">삭제</a>
-									</div>
-								</c:if>
+									<pre class="comment-content">${reply.content}</pre>
+									<c:if test="${authenticatedUsername == reply.writer}">
+										<div class="comment-actions">
+											<a href="" class="update-reply" data-replyid="${reply.id}">수정</a>
+											| <a href="" class="delete-reply" data-replyid="${reply.id}">삭제</a>
+										</div>
+									</c:if>
 								</div>
 								<hr>
 							</div>
@@ -190,6 +193,23 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 	$('#share-tw').on('click', () => {
 		shareTwitter();
 	});
+</script>
+
+<script type="text/javascript">
+
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
 </script>
 
 <!-- 좋아요 -->

@@ -7,7 +7,7 @@
 <link
 	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE/fonts/static/woff2/SUITE.css"
 	rel="stylesheet">
-	
+
 <sec:authorize access="isAuthenticated()">
 	<sec:authentication property="principal.username"
 		var="authenticatedUsername" />
@@ -49,43 +49,72 @@
 				</div>
 				<br>
 				<div id="map">지도</div>
-				<br><br>
-	
-				<div class="weather">날씨</div>
-				<br><br>
+				<br> <br>
 
-					<div class="share">
+				<div class="weather">날씨</div>
+				<br> <br>
+
+				<div class="share">
 					<p>공유하기</p>
-						<button id="share-fb" class="share-button">페이스북</button>&nbsp;&nbsp;
-						<button id="share-tw" class="share-button">트위터</button>&nbsp;&nbsp;
-						<button id="share-ko" class="share-button">카카오톡</button>
-					</div>
-					
+					<button id="share-fb" class="share-button">페이스북</button>
+					&nbsp;&nbsp;
+					<button id="share-tw" class="share-button">트위터</button>
+					&nbsp;&nbsp; <span class="button gray medium"><a href="#"
+						onclick="clip(); return false;">URL주소복사</a></span>
+				</div>
+
 				<br>
 
 				<div class="comment">
 					<h4 class="comment-count">댓글</h4>
 					<form action="" method="get" id="comment-form">
+						<input id="comment-writer" type="hidden"
+							value="${authenticatedUsername}"> <input id="board-id"
+							type="hidden" value="${data.id}">
 						<textarea id="comment-text"
 							placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-						<button type="button" id="comment-btn">입력</button>
+						<button type="button" id="comment-btn">등록</button>
 					</form>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-					<hr>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-					<hr>
-					<p class="comment-id">${data.id}</p>
-					<p class="comment-date">${data.createdate}</p>
-
+					<div class="comment-section">
+						<c:forEach items="${data.replies}" var="reply">
+							<div class="commentBox reply-${reply.id}">
+								<div class="comment-header">
+									<span class="comment-author">${reply.writer}</span> <span
+										class="comment-date">${reply.createdate}</span>
+								</div>
+								<div class="comment-content-box">
+									<pre class="comment-content">${reply.content}</pre>
+									<c:if test="${authenticatedUsername == reply.writer}">
+										<div class="comment-actions">
+											<a href="" class="update-reply" data-replyid="${reply.id}">수정</a>
+											| <a href="" class="delete-reply" data-replyid="${reply.id}">삭제</a>
+										</div>
+									</c:if>
+								</div>
+								<hr>
+							</div>
+						</c:forEach>
+					</div>
 				</div>
-
+			</div>
 		</div>
 	</div>
 </div>
 
+<!-- reply modal -->
+<div class="modal-background" id="modal">
+	<div class="modal-content">
+		<h3 style="color: black; margin-bottom: 15px;">댓글 수정</h3>
+		<input class="replyid" type="hidden">
+		<textarea id="modal-textarea" rows="4" cols="30"
+			placeholder="Write your content here..."></textarea>
+		<button type="button" class="btn btn-dark mt-3 update-btn">수정완료</button>
+	</div>
+</div>
+
 <%@ include file="../components/footer.jsp"%>
+<script
+	src="${pageContext.request.contextPath}/assets/js/observatory-detail.js"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2ad95b349288a2f15e7c503c543bb5fe&libraries=services"></script>
 
@@ -151,4 +180,22 @@ geocoder.addressSearch('${data.address}', function(result, status) {
 	$('#share-tw').on('click', () => {
 		shareTwitter();
 	});
+</script>
+
+
+	<script type="text/javascript">
+
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
 </script>

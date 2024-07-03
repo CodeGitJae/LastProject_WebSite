@@ -19,7 +19,7 @@ $(document).ready(() => {
 		
 		$.ajax({
             type: "POST",
-            url: "/starspot/reply?boardid=" + boardid,
+            url: "/observatory/reply?boardid=" + boardid,
             contentType: "application/json",
             data: JSON.stringify({
                 content: content,
