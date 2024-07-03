@@ -50,7 +50,7 @@
 				<div id="map">지도</div>
 				<br> <br>
 
-					<div>
+					<div style="text-align:center;">
 						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
 								<span class="1PM10"></span>
 						</div>
@@ -69,7 +69,7 @@
 					</div>
 
 
-					<div>
+					<div style="text-align:center;">
 						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
 								<span class="2PM10"></span>
 						</div>
@@ -89,7 +89,7 @@
 
 
 
-					<div>
+					<div style="text-align:center;">
 						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
 								<span class="3PM10"></span>
 						</div>

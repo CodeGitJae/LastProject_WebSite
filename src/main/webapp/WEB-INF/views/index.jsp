@@ -45,40 +45,6 @@
 				</div>
 				<!-- ***** Featured Games End ***** -->
 
-          <!-- ***** 오늘의 달모양  시작***** -->
-          <div class="most-popular">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Today Of</em> Moon Shape</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
-                      <h4>PubG<br><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** 오늘의 달모양  끝***** -->
-          
           <!-- ***** 오늘의 날씨 $ 미세먼지 시작***** -->
           <div class="most-popular">
             <div class="row">
@@ -123,7 +89,7 @@
                 <div class="heading-section">
                   <h4><em>별스팟 관련 사진</em></h4>
                 </div>
-                <div class="row">
+                <div class="row" style="justify-content: space-around;">
                   <c:forEach var="i" begin="0" end="4">
 		               <div class="item" style="width:250px; height:300px;">
 		                   <img style="width:100%; height:100%;" id="pic-${0+i*3}" class="starpictures" src="" alt="">

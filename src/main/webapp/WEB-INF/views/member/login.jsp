@@ -24,7 +24,7 @@
 			
 			              <h2 class="fw-bold mb-2 text-uppercase loginfont">로 그 인</h2>
 			              <p class="loginfont-comment">미리내를 더 안전하고 편리하게 이용하세요</p>
-<!--			              <p class="text-white-50 mb-5" style="font-size: 20px;">${warning}</p> -->
+			              <p class="text-white-50 mb-5" style="font-size: 20px;">${warning}</p>
 			              
 						<form action="/member/login" method="post">
 			              <div data-mdb-input-init class="log-form-outline form-white mb-4">
