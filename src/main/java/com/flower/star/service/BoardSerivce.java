@@ -195,7 +195,7 @@ public class BoardSerivce {
 	}
 
 	
-	// 내 정보 안에 최근 게시글 3개 가져오는 메서드
+	// index 페이지에 표시 될 최근 게시글 5개 가져오는 메서드
 	public List<Board> findAllForViews() {
 	        List<Board> boardList = bRepository.findAll(); // 모든 게시물 가져오기
 	        Collections.reverse(boardList); // 리스트를 역순으로 정렬

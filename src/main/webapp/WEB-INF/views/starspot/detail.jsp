@@ -50,7 +50,67 @@
 				<div id="map">지도</div>
 				<br> <br>
 
-				<div class="weather">날씨</div>
+					<div>
+						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
+								<span class="1PM10"></span>
+						</div>
+						
+						<div style="border:1px solid; width: 50px; height:50px; display: inline-block;">
+							<img class="110dust" src="" style="width:100%; height:100%; "></img>
+						</div>
+						
+						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
+								<span class="1PM25"></span>
+						</div>
+						
+						<div style="border:1px solid; width: 50px; height:50px; display: inline-block;">
+							<img class="125dust" src="" style="width:100%; height:100%;"></img>
+						</div>
+					</div>
+
+
+					<div>
+						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
+								<span class="2PM10"></span>
+						</div>
+						
+						<div style="border:1px solid; width: 50px; height:50px; display: inline-block;">
+							<img class="210dust" src="" style="width:100%; height:100%;"></img>
+						</div>
+						
+						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
+								<span class="2PM25"></span>
+						</div>
+						
+						<div style="border:1px solid; width: 50px; height:50px; display: inline-block;">
+							<img class="225dust" src="" style="width:100%; height:100%;"></img>
+						</div>
+					</div>
+
+
+
+					<div>
+						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
+								<span class="3PM10"></span>
+						</div>
+						
+						<div style="border:1px solid; width: 50px; height:50px; display: inline-block;">
+							<img class="310dust" src="" style="width:100%; height:100%;"></img>
+						</div>
+						
+						<div class="dustInfo" style="border:1px solid; width: 200px; height:50px; vertical-align:middle; display: inline-block;">
+								<span class="3PM25"></span>
+						</div>
+						
+						<div style="border:1px solid; width: 50px; height:50px; display: inline-block;">
+							<img class="325dust" src="" style="width:100%; height:100%;"></img>
+						</div>
+					</div>
+
+					
+
+
+				<hr>
 				<br> <br>
 
 				<div class="share-dar">
@@ -62,6 +122,8 @@
 						&nbsp;&nbsp; <span class="button gray medium"><a href="#"
 							onclick="clip(); return false;">URL주소복사</a></span>
 					</div>
+					
+					<br>
 
 					<div class="like-section">
 						<c:set var="isLike" value="false" />
@@ -78,16 +140,7 @@
 						</div>
 					</div>
 				
-				<div class="dustInfo">
-					<span class="1PM10"></span>
-					<span class="1PM25"></span>
-					<hr>
-					<span class="2PM10"></span>
-					<span class="2PM25"></span>
-					<hr>
-					<span class="3PM10"></span>
-					<span class="3PM25"></span>
-				</div>
+
 				
 				</div>
 				<br>
@@ -281,6 +334,23 @@ function clip(){
 		
 		return result;
 	}
+	
+	function PM_icon_path(pm) {
+		let path = "/assets/images/icon/"
+		
+		if (pm < 30) {
+			path += "good.JPG"
+		} else if (pm >= 31 && pm < 80) {
+			path += "common.JPG"
+		} else if (pm >= 81 && pm < 150) {
+			path += "bad.JPG"
+		} else if (pm >= 151) {
+			path += "very_bad.JPG";
+		}
+		
+		console.log(path)
+		return path;
+	}
 
 
 	let address = document.getElementById("forAjax").value
@@ -291,12 +361,19 @@ function clip(){
 		dataType:'json',
 		success : function(result){
 			
-			$(".1PM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"]) + PM(parseInt(result[0]["PM10"])) + ", ");
-			$(".1PM25").text("초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])));
-			$(".2PM10").text("내일의 미세먼지: " + parseInt(result[1]["PM10"]) + PM(parseInt(result[1]["PM10"])) + ", ");
+			$(".1PM10").text("오늘의 미세먼지: " + parseInt(result[0]["PM10"]) + PM(parseInt(result[0]["PM10"])));
+			$(".1PM25").text("오늘의 초미세먼지: " + parseInt(result[0]["PM2.5"]) + PM(parseInt(result[0]["PM2.5"])));
+			$(".2PM10").text("내일의 미세먼지: " + parseInt(result[1]["PM10"]) + PM(parseInt(result[1]["PM10"])));
 			$(".2PM25").text("내일 초미세먼지: " + parseInt(result[1]["PM2.5"]) + PM(parseInt(result[1]["PM2.5"])));
-			$(".3PM10").text("모레의 미세먼지: " + parseInt(result[2]["PM10"]) + PM(parseInt(result[2]["PM10"])) + ", ");
+			$(".3PM10").text("모레의 미세먼지: " + parseInt(result[2]["PM10"]) + PM(parseInt(result[2]["PM10"])));
 			$(".3PM25").text("초미세먼지: " + parseInt(result[2]["PM2.5"]) + PM(parseInt(result[2]["PM2.5"])));
+			
+			$('.110dust').attr('src', PM_icon_path(parseInt(result[0]["PM10"])));
+			$('.125dust').attr('src', PM_icon_path(parseInt(result[0]["PM2.5"])));
+			$('.210dust').attr('src', PM_icon_path(parseInt(result[1]["PM10"])));
+			$('.225dust').attr('src', PM_icon_path(parseInt(result[1]["PM2.5"])));
+			$('.310dust').attr('src', PM_icon_path(parseInt(result[2]["PM10"])));
+			$('.325dust').attr('src', PM_icon_path(parseInt(result[2]["PM2.5"])));
 		},
 		error : function(request, status, error) {
 			console.log(error);

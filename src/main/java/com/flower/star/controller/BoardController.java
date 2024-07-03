@@ -1,6 +1,7 @@
 package com.flower.star.controller;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,11 +94,12 @@ public class BoardController {
 	
 	
 	@GetMapping("/detail")
-	public String BoardDetails(@RequestParam("id") Integer bId, Model model) {
+	public String BoardDetails(@RequestParam("id") Integer bId, Model model, Authentication authentication) {
 //		System.out.println("::::::::::::::::bid: "+bId);
 		Board board = bService.findById(bId);
 		bService.updateViews(bId);
 		
+		model.addAttribute("authentication", authentication);
 		model.addAttribute("b", board);
 		return"/board/detail";
 	}
