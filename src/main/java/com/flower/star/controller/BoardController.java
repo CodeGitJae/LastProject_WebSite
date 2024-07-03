@@ -47,8 +47,8 @@ public class BoardController {
 		try {
 			bService.insert(board);
 			bService.insertImage(board, uploadToBoardImage);
-			System.out.println(":::::::::::::::controller :" + board);
-			System.out.println(":::::::::::::::controller :" +uploadToBoardImage);			
+//			System.out.println(":::::::::::::::controller :" + board);
+//			System.out.println(":::::::::::::::controller :" +uploadToBoardImage);			
 
             // 성공적으로 업로드되었을 경우
             redirectAttributes.addFlashAttribute("message", "파일 업로드가 성공적으로 완료되었습니다.");
@@ -94,7 +94,7 @@ public class BoardController {
 	
 	@GetMapping("/detail")
 	public String BoardDetails(@RequestParam("id") Integer bId, Model model) {
-		System.out.println("::::::::::::::::bid: "+bId);
+//		System.out.println("::::::::::::::::bid: "+bId);
 		Board board = bService.findById(bId);
 		bService.updateViews(bId);
 		
@@ -110,16 +110,14 @@ public class BoardController {
 		return "/board/update";
 	}
 	
-//	@RequestParam(name="savedBoardImage") String imagePath
-//	@RequestParam(name="deleteImages") int imageId,
+	
+	
 	@PostMapping("/update")
-	public String updateBoard(@RequestParam(name="id") Integer id, Board board, MultipartFile[] uploadToBoardImage) {
+	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage) {
 
-		System.out.println(":::::ididididididid::::::::::::::::::::"+id);
-		bService.update(board);
-		bService.updateImage(board, uploadToBoardImage);
-		
-		return "redirect:/board/detail?id="+ id;
+		bService.update(board, uploadToBoardImage);
+
+		return "redirect:/board/detail?id="+ board.getId();
 	}
 	
 	@GetMapping("/delete")

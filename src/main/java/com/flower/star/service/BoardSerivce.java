@@ -25,7 +25,6 @@ import com.flower.star.dto.UploadImgDTO.Define;
 import com.flower.star.entity.Board;
 import com.flower.star.entity.StarspotImages;
 import com.flower.star.repository.BoardRepository;
-import com.flower.star.repository.MemberRepository;
 import com.flower.star.repository.StarspotImagesRepository;
 import com.flower.star.utilities.Common;
 
@@ -35,7 +34,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BoardSerivce {
 	private final BoardRepository bRepository;
-	private final MemberRepository mRepository;
 	private final StarspotImagesRepository starspotImagesRepository;
 	private final Common common;
 //	@Value("${uploadImagePath.board}")
@@ -57,8 +55,8 @@ public class BoardSerivce {
 
 	public void insertImage(Board board, MultipartFile[] uploadToBoardImage){
 		
-		System.out.println(":::::::::::::::service :" + board);
-		System.out.println(":::::::::::::::service :" +uploadToBoardImage);
+//		System.out.println(":::::::::::::::service :" + board);
+//		System.out.println(":::::::::::::::service :" +uploadToBoardImage);
 		
 		// 현재 폴더 위치 정보 얻기 (프로젝트 저장한 폴더 위치가 출력됨)
 		String curDir = System.getProperty("user.dir");
@@ -87,15 +85,15 @@ public class BoardSerivce {
 			
 			// 폴더 생성
 			String folderPath = common.makeFolder(curDir);
-			System.out.println("::::::::::::::::::folder"+folderPath);
+//			System.out.println("::::::::::::::::::folder"+folderPath);
 			
 			// 저장할 파일 이름 생성
 			String savePathName = common.makeSaveNameForSavePath(uploadFile, folderPath);
-			System.out.println("::::::::::::::::::saveName"+ savePathName);
+//			System.out.println("::::::::::::::::::saveName"+ savePathName);
 			
 			// 저장 경로 생성
 			Path savePath = Paths.get(curDir + savePathName);
-			System.out.println("::::::::::::::::::savePath"+ savePath);
+//			System.out.println("::::::::::::::::::savePath"+ savePath);
 			
 			
 			try {
@@ -104,9 +102,9 @@ public class BoardSerivce {
 				
 				// 실제 이미지 저장
 				uploadFile.transferTo(savePath);
-				System.out.println("::::::::::::tryCatch uploadFile:"+ uploadFile);
+//				System.out.println("::::::::::::tryCatch uploadFile:"+ uploadFile);
 				uploadDTOList.add(new UploadImgDTO(uploadFile.getOriginalFilename(), uuid, folderPath));
-				System.out.println("::::::::::::tryCatch uploadDTOList:"+ uploadDTOList);
+//				System.out.println("::::::::::::tryCatch uploadDTOList:"+ uploadDTOList);
 				
 				StarspotImages starspotImgs = new StarspotImages(null, savePathName, null, board);
 				starspotImagesRepository.save(starspotImgs);
@@ -126,7 +124,7 @@ public class BoardSerivce {
 		int pageLimit = 10; 
 		Sort sort = Sort.by(Sort.Order.desc("id"));
     	Pageable pageable = PageRequest.of(curPage, pageLimit, sort);
-		System.out.println("::::::::::::::::::service:: pageable::::"+ pageable);
+//		System.out.println("::::::::::::::::::service:: pageable::::"+ pageable);
 		Page<Board> page = bRepository.findAll(pageable);
 
 		return page;
@@ -158,39 +156,36 @@ public class BoardSerivce {
 	
 	
 	//
-	public void update(Board board) {
-		// DB에서 ID 값 기준으로 저장된 정보 가져오기
-		Integer bId = board.getId();
-		Optional<Board> bid = bRepository.findById(bId);
-		if(!bid.isPresent()) {
-			return ;
-		}
-		// Optinal로 DB에서 꺼내온 Board 객체 추출
-		Board bIdFromDb = bid.get();
+	public void update(Board board, MultipartFile[] uploadToBoardImage) {
 		
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String now = sdf.format(date);
+		if(uploadToBoardImage[0].getContentType().startsWith("image") == true) {
+//			System.out.println(":::::222222222222222::::::::::::::::::::"+imageId+imagePath +uploadToBoardImage[0].getContentType().startsWith("image"));
+			insertImage(board, uploadToBoardImage);
 		
-		// DB에 저장할 데이터 값 세팅
-		board.setUpdateDate(now);
-		board.setCreateDate(bIdFromDb.getCreateDate());
-		board.setMember(bIdFromDb.getMember());
-		board.setViews(bIdFromDb.getViews());
-		board.setComment(bIdFromDb.getComment());
-
-		bRepository.save(board);
-	}
-
-	public void updateImage(Board board, MultipartFile[] uploadToBoardImage) {
-		insertImage(board, uploadToBoardImage);
+		} 
 		
-//		System.out.println(":::::ididididididid::::::::::::::::::::"+imageId+imagePath);
-//		Optional<StarspotImages> optImages = starspotImagesRepository.findById(imageId);
-//		StarspotImages images = optImages.get();		
-//	
-//		images.setImagePath(imagePath);
-//		starspotImagesRepository.save(images);
+			// DB에서 ID 값 기준으로 저장된 정보 가져오기
+			Integer bId = board.getId();
+			Optional<Board> bid = bRepository.findById(bId);
+			if(!bid.isPresent()) {
+				return ;
+			}
+			// Optinal로 DB에서 꺼내온 Board 객체 추출
+			Board bIdFromDb = bid.get();
+			
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String now = sdf.format(date);
+			
+			// DB에 저장할 데이터 값 세팅
+			board.setUpdateDate(now);
+			board.setCreateDate(bIdFromDb.getCreateDate());
+			board.setMember(bIdFromDb.getMember());
+			board.setViews(bIdFromDb.getViews());
+			board.setComment(bIdFromDb.getComment());
+			board.setImages(bIdFromDb.getImages());
+	
+			bRepository.save(board);
 	}
 
 	// 아이디 삭제

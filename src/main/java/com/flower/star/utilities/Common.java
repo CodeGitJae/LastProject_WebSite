@@ -94,7 +94,7 @@ public class Common {
 		// 원래 파일 이름이 비어있는지 검증
 		assert originFilename != null;
 		String saveName = uploadPath + File.separator + folderPath + File.separator + timeStamp + randomNumber + "_" + originFilename; 
-		System.out.println("::::::::::::method saveName:"+ saveName);
+//		System.out.println("::::::::::::method saveName:"+ saveName);
 		return saveName; 
 	}
 	
@@ -110,7 +110,7 @@ public class Common {
 		
 		// 업로드 경로에 날짜 폴더가 없으면 생성
 		File uploadPathFolder = new File(curDir + uploadPath, folderPath);
-		System.out.println("-------------------"+uploadPathFolder);
+//		System.out.println("-------------------"+uploadPathFolder);
 		if(!uploadPathFolder.exists()) {
 			boolean mkdirs = uploadPathFolder.mkdirs();
 			System.out.println("##### Successful== " + mkdirs + " ==Successful #####");

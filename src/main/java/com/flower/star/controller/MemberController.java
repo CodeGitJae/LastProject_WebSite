@@ -125,7 +125,7 @@ public class MemberController {
 	//	System.out.println(":::::::::" + status);
 
 		if (status.equals("error")) {
-			model.addAttribute("warning", "아이디가 존재하지 않습니다.");
+			model.addAttribute("warning", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			
 		}
 		return "/member/login";
