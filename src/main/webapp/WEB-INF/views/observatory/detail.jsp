@@ -7,6 +7,11 @@
 <link
 	href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE/fonts/static/woff2/SUITE.css"
 	rel="stylesheet">
+	
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal.username"
+		var="authenticatedUsername" />
+</sec:authorize>
 
 <div class="container">
 	<div class="row">
@@ -44,22 +49,22 @@
 				</div>
 				<br>
 				<div id="map">지도</div>
-				<br>
-				<br>
+				<br><br>
 	
 				<div class="weather">날씨</div>
-				<div class="tag">
-					공유하기<br>
-					<button id="share-fb">페북공유</button>
-					<button id="share-tw">트위터공유</button>
-					<button id="share-ko">카톡공유</button>
-				</div>
+				<br><br>
+
+					<div class="share">
+					<p>공유하기</p>
+						<button id="share-fb" class="share-button">페이스북</button>&nbsp;&nbsp;
+						<button id="share-tw" class="share-button">트위터</button>&nbsp;&nbsp;
+						<button id="share-ko" class="share-button">카카오톡</button>
+					</div>
+					
 				<br>
 
 				<div class="comment">
-					<h3 class="comment-count">
-						댓글<span>1</span>
-					</h3>
+					<h4 class="comment-count">댓글</h4>
 					<form action="" method="get" id="comment-form">
 						<textarea id="comment-text"
 							placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
@@ -75,7 +80,7 @@
 					<p class="comment-date">${data.createdate}</p>
 
 				</div>
-			</div>
+
 		</div>
 	</div>
 </div>

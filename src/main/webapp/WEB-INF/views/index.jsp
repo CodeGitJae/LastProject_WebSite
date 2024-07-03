@@ -1,193 +1,244 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
-<%@ include file="./components/header.jsp" %>
+	pageEncoding="UTF-8"%>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-content">
+<%@ include file="./components/header.jsp"%>
 
-         <!-- ***** Featured Games Start ***** -->
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="featured-games header-text">
-                <div class="heading-section">
-                  <h4><em>별자리 스팟</em> TOP 5</h4>
-                </div>
-                <div class="owl-features owl-carousel">
-                  <c:forEach items="${top5Starspot}" var="starspot">
-	                 <div class="item">
-	                    <div class="thumb">
-	                      <img src="${starspot.images[0].imagePath}" class="thumb-img">
-	                      <div class="hover-effect">
-	                        <h6>${starspot.views} views</h6>
-	                      </div>
-	                    </div>
-	                    <h4>${starspot.title}<br><span>${starspot.views} views</span></h4>
-	                    <ul>
-	                      <li><i class="fa fa-tag"></i> &nbsp;${starspot.replies.size()}</li>
-	                      <li><i class="fa fa-heart"></i> &nbsp;${starspot.likes.size()	}</li>
-	                    </ul>
-	                  </div>
-                  </c:forEach>
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Featured Games End ***** -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="page-content">
 
-          <!-- ***** 오늘의 달모양  시작***** -->
-          <div class="most-popular">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Today Of</em> Moon Shape</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
-                      <h4>PubG<br><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** 오늘의 달모양  끝***** -->
-          
-          <!-- ***** 오늘의 날씨 $ 미세먼지 시작***** -->
-          <div class="most-popular">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Today Of</em> Weather & FineDust</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
-                      <h4>PubG<br><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#">자세히 보기</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** 오늘의 날씨 $ 미세먼지 끝***** -->
+				<!-- ***** Featured Games Start ***** -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="featured-games header-text">
+							<div class="heading-section">
+								<h4>
+									<em>별자리 스팟</em> TOP 5
+								</h4>
+							</div>
+							<div class="owl-features owl-carousel">
+								<c:forEach items="${top5Starspot}" var="starspot">
+									<div class="item">
+										<a href="/starspot/detail?id=${starspot.id}">
+											<div class="thumb">
+												<img src="${starspot.images[0].imagePath}" class="thumb-img">
+												<div class="hover-effect">
+													<h6>${starspot.views}views</h6>
+												</div>
+											</div>
+											<h4>${starspot.title}<br>
+												<span>${starspot.views} views</span>
+											</h4>
+										</a>
+										<ul>
+											<li><i class="fa fa-tag"></i>
+												&nbsp;${starspot.replies.size()}</li>
+											<li><i class="fa fa-heart"></i>
+												&nbsp;${starspot.likes.size()	}</li>
+										</ul>
+									</div>
+								</c:forEach>
 
-<!-- ***** 별자리 스팟 크롤링 시작***** -->
-          <div class="most-popular">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Star Spot</em> More Pickture</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-  <!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class=""></i>댓글 </li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#">사진 더 보기</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** 별자리 스팟 크롤링 끝***** -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Featured Games End ***** -->
 
-          <!-- ***** Gaming Library Start ***** -->
-          <div class="gaming-library">
-            <div class="col-lg-12">
-              <div class="heading-section">
-                <h4><em>오늘의 메인</em> 추천글</h4>
-              </div>
-              <div class="item">
-                <ul>
-                  <li><img src="/assets/images/game-01.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Dota 2</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>24/08/2036</span></li>
-                  <li><h4>Hours Played</h4><span>634 H 22 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
-                </ul>
-              </div>
-              <div class="item">
-                <ul>
-                  <li><img src="/assets/images/game-02.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Fortnite</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>22/06/2036</span></li>
-                  <li><h4>Hours Played</h4><span>740 H 52 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
-                </ul>
-              </div>
-              <div class="item last-item">
-                <ul>
-                  <li><img src="/assets/images/game-03.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>CS-GO</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>21/04/2036</span></li>
-                  <li><h4>Hours Played</h4><span>892 H 14 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="main-button">
-                <a href="#">게시판으로 이동</a>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Gaming Library End ***** -->
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  <%@ include file="./components/footer.jsp" %>
-  
+				<!-- ***** 오늘의 달모양  시작***** -->
+				<div class="most-popular">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="heading-section">
+								<h4>
+									<em>Today Of</em> Moon Shape
+								</h4>
+							</div>
+							<div class="row">
+								<div class="col-lg-3 col-sm-6">
+									<div class="item">
+										<!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
+										<h4>
+											Fortnite<br>
+											<span>Sandbox</span>
+										</h4>
+										<ul>
+											<li><i class="fa fa-star"></i> 4.8</li>
+											<li><i class="fa fa-download"></i> 2.3M</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-3 col-sm-6">
+									<div class="item">
+										<!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
+										<h4>
+											PubG<br>
+											<span>Battle S</span>
+										</h4>
+										<ul>
+											<li><i class="fa fa-star"></i> 4.8</li>
+											<li><i class="fa fa-download"></i> 2.3M</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** 오늘의 달모양  끝***** -->
+
+				<!-- ***** 오늘의 날씨 $ 미세먼지 시작***** -->
+				<div class="most-popular">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="heading-section">
+								<h4>
+									<em>Today Of</em> Weather & FineDust
+								</h4>
+							</div>
+							<div class="row">
+								<div class="col-lg-3 col-sm-6">
+									<div class="item">
+										<!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
+										<h4>
+											Fortnite<br>
+											<span>Sandbox</span>
+										</h4>
+										<ul>
+											<li><i class="fa fa-star"></i> 4.8</li>
+											<li><i class="fa fa-download"></i> 2.3M</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-3 col-sm-6">
+									<div class="item">
+										<!--                     <img src="assets/images/popular-02.jpg" alt=""> -->
+										<h4>
+											PubG<br>
+											<span>Battle S</span>
+										</h4>
+										<ul>
+											<li><i class="fa fa-star"></i> 4.8</li>
+											<li><i class="fa fa-download"></i> 2.3M</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="main-button">
+										<a href="#">자세히 보기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** 오늘의 날씨 $ 미세먼지 끝***** -->
+
+				<!-- ***** 별자리 스팟 크롤링 시작***** -->
+				<div class="most-popular">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="heading-section">
+								<h4>
+									<em>Star Spot</em> More Pickture
+								</h4>
+							</div>
+							<div class="row">
+								<div class="col-lg-3 col-sm-6">
+									<div class="item">
+										<!--                     <img src="assets/images/popular-01.jpg" alt=""> -->
+										<h4>
+											Fortnite<br>
+											<span>Sandbox</span>
+										</h4>
+										<ul>
+											<li><i class=""></i>댓글</li>
+											<li><i class="fa fa-download"></i> 2.3M</li>
+										</ul>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="main-button">
+										<a href="#">사진 더 보기</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- ***** 별자리 스팟 크롤링 끝***** -->
+
+				<!-- ***** Gaming Library Start ***** -->
+				<div class="gaming-library">
+					<div class="col-lg-12">
+						<div class="heading-section">
+							<h4>
+								<em>신규</em> 게시물
+							</h4>
+						</div>
+						<div class="item">
+							<ul>
+								<li><img src="/assets/images/game-01.jpg" alt=""
+									class="templatemo-item"></li>
+								<li><h4>Dota 2</h4>
+									<span>Sandbox</span></li>
+								<li><h4>Date Added</h4>
+									<span>24/08/2036</span></li>
+								<li><h4>Hours Played</h4>
+									<span>634 H 22 Mins</span></li>
+								<li><h4>Currently</h4>
+									<span>Downloaded</span></li>
+								<li><div class="main-border-button">
+										<a href="">이동하기</a>
+									</div></li>
+							</ul>
+						</div>
+						<div class="item">
+							<ul>
+								<li><img src="/assets/images/game-02.jpg" alt=""
+									class="templatemo-item"></li>
+								<li><h4>Fortnite</h4>
+									<span>Sandbox</span></li>
+								<li><h4>Date Added</h4>
+									<span>22/06/2036</span></li>
+								<li><h4>Hours Played</h4>
+									<span>740 H 52 Mins</span></li>
+								<li><h4>Currently</h4>
+									<span>Downloaded</span></li>
+								<li><div class="main-border-button">
+										<a href="#">이동하기</a>
+									</div></li>
+							</ul>
+						</div>
+						<div class="item last-item">
+							<ul>
+								<li><img src="/assets/images/game-03.jpg" alt=""
+									class="templatemo-item"></li>
+								<li><h4>CS-GO</h4>
+									<span>Sandbox</span></li>
+								<li><h4>Date Added</h4>
+									<span>21/04/2036</span></li>
+								<li><h4>Hours Played</h4>
+									<span>892 H 14 Mins</span></li>
+								<li><h4>Currently</h4>
+									<span>Downloaded</span></li>
+								<li><div class="main-border-button">
+										<a href="#">이동하기</a>
+									</div></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="main-button">
+							<a href="#">게시판으로 이동</a>
+						</div>
+					</div>
+				</div>
+				<!-- ***** Gaming Library End ***** -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<%@ include file="./components/footer.jsp"%>

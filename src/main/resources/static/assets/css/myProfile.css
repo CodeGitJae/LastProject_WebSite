@@ -1,19 +1,18 @@
 .banner-container {
-    display: flex;
-    justify-content: center; /* 수평 중앙 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    margin-bottom: 2rem;
+	display: flex;
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	margin-bottom: 2rem;
 }
 
 .banner-img {
 	height: 130px;
 	width: 130px;
 	border-radius: 50%;
-    max-width: 100%; /* 이미지가 너무 크면 부모 요소에 맞게 최대 너비 설정 */
-    display: block; /* 인라인 요소를 블록 요소로 변환하여 다른 요소와 수직 정렬할 수 있게 함 */
-    margin: 0 auto; /* 가로 중앙 정렬 */
+	max-width: 100%; /* 이미지가 너무 크면 부모 요소에 맞게 최대 너비 설정 */
+	display: block; /* 인라인 요소를 블록 요소로 변환하여 다른 요소와 수직 정렬할 수 있게 함 */
+	margin: 0 auto; /* 가로 중앙 정렬 */
 }
-
 
 .div1 {
 	text-align: center;
@@ -34,4 +33,38 @@
 
 li p {
 	text-align: center;
+}
+
+.Wishlist-bolck {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Wishlist {
+	display: inline-flex;
+}
+
+.Wishlist item {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.Wishlist img {
+	max-width: 100px; /* 이미지 크기 조절 */
+	height: auto;
+}
+
+.Wishlist p {
+	text-align: center;
+	margin-top: 3px;
+	max-height: 100%;
+	align-items: center;
+	font-size: 13px;
+	color: white;
+}
+
+.Wishlist-text {
+	display: flex;
+	align-items: center; /* 텍스트를 이미지와 수직 정렬 */
 }

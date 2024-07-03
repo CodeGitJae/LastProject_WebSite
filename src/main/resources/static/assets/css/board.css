@@ -35,6 +35,11 @@ body {
 	margin-top: 8px;
 }
 
+.card-board {
+	flex: 0 0 auto;
+	width: 25%;
+}
+
 .card {
 	background-color: transparent;
 	padding: 10px;

@@ -31,14 +31,13 @@
 						<div class="col-md-4 mb-4">
 							<div class="card">
 								<a href="/observatory/detail?id=${ovitem.id}">
-
 									<div class="card-img">
 										<img src="${ovitem.image}" class="card-img-top">
 									</div>
 									<div class="card-body">
 										<p class="card-title">${ovitem.title}</p>
 										<p>
-											<span class="card-createdate">${ovitem.createdate}</span> <span
+											<span class="card-createdate">2024-07-02</span> <span
 												class="card-views">조회 ${ovitem.views}</span>
 										</p>
 									</div>
