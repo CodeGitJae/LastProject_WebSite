@@ -1,18 +1,28 @@
 package com.flower.star.utilities;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class Common {
+	
+	@Value("${uploadImagePath.board}")
+    private String uploadPath;
 	
  
 	public String isEmpty(String word) {
@@ -70,5 +80,42 @@ public class Common {
         return null;
     }
 	
+// 새로운 파일 이름을 생성하는 메서드
+	public String makeSaveNameForSavePath(MultipartFile uploadFile, String folderPath) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		//random 객체 생성
+		Random random = new Random();
+		
+		//0이상 100미만의 랜덤한 정수 반환
+		String randomNumber = Integer.toString(random.nextInt(Integer.MAX_VALUE));
+		String timeStamp = sdf.format(new Date());	
+		String originFilename = uploadFile.getOriginalFilename();
+		// 원래 파일 이름이 비어있는지 검증
+		assert originFilename != null;
+		String saveName = uploadPath + File.separator + folderPath + File.separator + timeStamp + randomNumber + "_" + originFilename; 
+//		System.out.println("::::::::::::method saveName:"+ saveName);
+		return saveName; 
+	}
+	
+	
+	// 날짜 폴더를 생성하는 메서드
+	public String makeFolder(String curDir) {
+		// 날짜 포맷 생성
+		String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+		
+		// 날짜 폴더 경로 생성
+		String folderPath = str.replace("/", File.separator);
+		
+		
+		// 업로드 경로에 날짜 폴더가 없으면 생성
+		File uploadPathFolder = new File(curDir + uploadPath, folderPath);
+//		System.out.println("-------------------"+uploadPathFolder);
+		if(!uploadPathFolder.exists()) {
+			boolean mkdirs = uploadPathFolder.mkdirs();
+			System.out.println("##### Successful== " + mkdirs + " ==Successful #####");
+		}
+		return folderPath;
+	}
 	
 }

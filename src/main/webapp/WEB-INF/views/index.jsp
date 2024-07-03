@@ -144,30 +144,10 @@
                   <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
                 </ul>
               </div>
-              <div class="item">
-                <ul>
-                  <li><img src="/assets/images/game-02.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Fortnite</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>22/06/2036</span></li>
-                  <li><h4>Hours Played</h4><span>740 H 52 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
-                </ul>
-              </div>
-              <div class="item last-item">
-                <ul>
-                  <li><img src="/assets/images/game-03.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>CS-GO</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>21/04/2036</span></li>
-                  <li><h4>Hours Played</h4><span>892 H 14 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">좋아요</a></div></li>
-                </ul>
-              </div>
             </div>
             <div class="col-lg-12">
               <div class="main-button">
-                <a href="#">게시판으로 이동</a>
+                <a href="/board/save">게시판으로 이동</a>
               </div>
             </div>
           </div>

@@ -27,4 +27,8 @@ public class StarspotImages {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "starspot_id")
     private Starspot starspot;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
 }
