@@ -37,7 +37,7 @@
 									<div class="card-body">
 										<p class="card-title">${ovitem.title}</p>
 										<p>
-											<span class="card-createdate">2024-07-02</span> <span
+											<span class="card-createdate">${ovitem.createdate}</span> <span
 												class="card-views">조회 ${ovitem.views}</span>
 										</p>
 									</div>

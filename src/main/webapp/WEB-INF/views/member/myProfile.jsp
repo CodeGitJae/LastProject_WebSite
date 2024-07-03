@@ -63,21 +63,21 @@
 									<h6>좋아요를 누른 게시물이 없습니다.</h6>
 								</c:if>
 								<c:if test="${likeList.size() != 0}">
+									<c:forEach items="${likeList}" var="like">
 									<div class="Wishlist">
-										<c:forEach items="${likeList}" var="like">
-											<img
-												src="<%= request.getContextPath() %>/${like.starspot.images[0].imagePath}">
-											<div class="Wishlist-text">
-												<p>${like.starspot.title}</p>
-											</div>
-										</c:forEach>
+										<img
+											src="<%= request.getContextPath() %>/${like.starspot.images[0].imagePath}">
+										<div class="Wishlist-text">
+											<p>${like.starspot.title}</p>
+										</div>
 									</div>
+									</c:forEach>
 								</c:if>
 							</div>
-							<div class="col-lg-12">
-								<div class="main-button">
-									<a href="/starspot">별자리 스팟으로 이동</a>
-								</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="main-button">
+								<a href="/starspot">별자리 스팟으로 이동</a>
 							</div>
 						</div>
 					</div>
