@@ -18,4 +18,9 @@ public class UploadImgDTO {
         return URLEncoder.encode(folderPath+"/"+uuid+"_"+fileName, StandardCharsets.UTF_8);
     }
     
+
+    public static class Define {
+        public static final long MAX_FILE_SIZE = 1024 * 1024 * 20; // 20MB
+    }
+
 }

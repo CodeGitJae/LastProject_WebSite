@@ -14,8 +14,8 @@ spring:
       suffix: .jsp
 
   datasource:
-    url: jdbc:mysql://192.168.101.163:3306/star?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: starroot
+    url: jdbc:mysql://localhost:3306/star?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
@@ -27,7 +27,12 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  servlet:
+   multipart:
+     max-file-size: 20MB
+     max-request-size: 20MB  
         
 uploadImagePath:
   starspot: uploadimages\starspot
   observatory: uploadimages\observatory
+  board: uploadimages\board

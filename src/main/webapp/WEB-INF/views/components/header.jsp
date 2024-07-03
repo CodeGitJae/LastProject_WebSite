@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/owl.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-    
+  
 <!--
 
 TemplateMo 579 Cyborg Gaming
@@ -83,7 +83,7 @@ https://templatemo.com/tm-579-cyborg-gaming
                         <li><a href="/starspot">별스팟</a></li>
                         <li><a href="/observatory">국내 천문대</a></li>
                         <li><a href="/mooncalendar">달달력</a></li>
-                        <li><a href="#">자유게시판</a></li>
+                        <li><a href="/board/list">자유게시판</a></li>
 						<sec:authorize access="isAuthenticated()">
 	                        	<li><a href="/member/logout">로그아웃</a></li>
 	                        	<li><a id="a" href="/member/myProfile"><sec:authentication property="principal.username"/>님<br> myPage <img src="/assets/images/profile-header.jpg" alt=""></a></li>

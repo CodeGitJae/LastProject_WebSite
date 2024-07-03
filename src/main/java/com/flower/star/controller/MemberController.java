@@ -1,6 +1,10 @@
 package com.flower.star.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,9 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.flower.star.dto.MemberRegisterDTO;
 import com.flower.star.dto.MemberUpdateDTO;
+import com.flower.star.entity.Board;
+import com.flower.star.service.BoardSerivce;
 import com.flower.star.service.MemberService;
 import com.flower.star.utilities.Common;
 
@@ -22,8 +27,9 @@ public class MemberController {
 
 	private final Common common;
 	private final MemberService mService;
+	private final BoardSerivce bService;
 
-	
+	// 내 정보 삭제하기
 	@GetMapping("/member/delete")
 	public String deleteById(@RequestParam("username") String username) {
 
@@ -59,7 +65,6 @@ public class MemberController {
 	  // 마이페이지 내 정보 가져오기
 	  @GetMapping("/member/update")
 	  public String update(Model model) {
-		
 			try {  
 				model.addAttribute("member", mService.showCurrentInformation(common.getLoginUsername()));
 				return "/member/updateProfile";
@@ -73,6 +78,8 @@ public class MemberController {
 	@GetMapping("/member/myProfile")
 	public String myProfile(Model model) {
 		try {
+			List<Board> boardList = bService.findAllForViews();
+			model.addAttribute("boardList", boardList);
 			model.addAttribute("member", mService.findByUsername(common.getLoginUsername()));
 			return "/member/myProfile";
 		} catch (Exception exception) {
@@ -118,7 +125,7 @@ public class MemberController {
 	//	System.out.println(":::::::::" + status);
 
 		if (status.equals("error")) {
-			model.addAttribute("warning", "아이디가 존재하지 않습니다.");
+			model.addAttribute("warning", "아이디 또는 비밀번호가 일치하지 않습니다.");
 			
 		}
 		return "/member/login";
