@@ -21,8 +21,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	private static final String [] ACCESS_PUBLIC= {
 			"/",
 			"/sample/**",
-			"/board/**",
 			"/starspot", "/starspot/detail",
+			"/board/list",
+			"/board/detail",
             "/mooncalendar/**",
             "/observatory/**",
             "/uploadimages/**",

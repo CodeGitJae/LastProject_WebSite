@@ -84,67 +84,81 @@
 				</div>
 				<!-- ***** 내가 찜한 별자리 스팟 끝 ***** -->
 
-				<!-- ***** 자유게시판 최근 글 n개 시작 ***** -->
-				<div class="gaming-library profile-library">
-					<div class="col-lg-12">
-						<div class="heading-section">
-							<h4>
-								<em>내가 쓴</em> 게시글 정보
-							</h4>
-						</div>
-						<div class="item">
-							<ul>
-								<li><img src="/assets/images/game-01.jpg" alt=""
-									class="templatemo-item"></li>
-								<li><h4>Dota 2</h4> <span>Sandbox</span></li>
-								<li><h4>Date Added</h4> <span>24/08/2036</span></li>
-								<li><h4>Hours Played</h4> <span>634 H 22 Mins</span></li>
-								<li><h4>Currently</h4> <span>Downloaded</span></li>
-							</ul>
-						</div>
- 						<div class="col-lg-12">
-							<div class="main-button">
-								<a href="#">게시판으로 이동</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- ***** 자유게시판 최근 글 n개 끝 ***** -->
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<%@ include file="../components/footer.jsp"%>
-<script>
-	$(document).ready(function() {
-		$(".deleteBtn").click(function(e) {
-			e.preventDefault();
-			username = $(this).data("user");
-
-			if (confirm("정말 삭제하시겠습니까?")) {
-				window.location.href = "/member/delete?username=" + username;
-				/* $.ajax({
-					type: "GET",
-					url: "/member/delete",
-					data: {
-						"username": username
-					},
-					success: function(response){
-						// redirect:/member/logout 맵핑 주소로 처리
-						window.location.href = response;
-						console.log(response);
-						// 2초가 지난 후 처리 멘트 출력
-						setTimeout(function(){
-							alert(username + "님의 계정이 삭제되었습니다."); 
-						}, 2000);		
-					},
-					error: function(err){
-						alert("삭제 처리 중 오류가 발생했습니다.");
-					}
-				});  */
-			}
-		});
+	          <!-- ***** 자유게시판 최근 글 n개 시작 ***** -->
+	          <div class="gaming-library profile-library">
+	            <div class="col-lg-12">
+	              <div class="heading-section">
+	                <h4><em>최근 내가 쓴</em> 게시글 정보</h4>
+	              </div>
+	              
+	              <div class="item">
+	                <table class="table table-dark">
+					  <thead>
+					    <tr>
+					      <th scope="col">No</th>
+					      <th scope="col">제목</th>
+					      <th scope="col">글쓴이</th>
+					      <th scope="col">작성일</th>
+					      <th scope="col">조회수</th>
+					    </tr>
+					  </thead>
+				  	<c:forEach items="${boardList}" var="b">
+					  <tbody>
+					    <tr>
+					      <th>${b.id}</th>
+					      <td><a href="/board/detail?id=${b.id}">${b.title}</a></td>
+					      <td>${b.member.username}</td>
+					      <td>${b.createDate}</td>
+					      <td>${b.views}</td>
+					    </tr>
+					  </tbody>
+  	             	 </c:forEach>
+					</table>
+	              </div>
+		             <div class="col-lg-12">
+		              <div class="main-button">
+		                <a href="/board/list">게시판으로 이동</a>
+		              </div>
+		            </div>
+	            </div>
+	          </div>
+	          <!-- ***** 자유게시판 최근 글 n개 끝 ***** -->
+	          
+	       </div>	
+ 	    </div>
+  	 </div>
+  </div>
+ 
+   <%@ include file="../components/footer.jsp" %>
+ <script>
+ $(document).ready(function(){
+	$(".deleteBtn").click(function(e){
+		e.preventDefault();
+		username = $(this).data("user");
+		
+		if(confirm("정말 삭제하시겠습니까?")){
+			window.location.href ="/member/delete?username=" + username;
+			/* $.ajax({
+				type: "GET",
+				url: "/member/delete",
+				data: {
+					"username": username
+				},
+				success: function(response){
+					// redirect:/member/logout 맵핑 주소로 처리
+ 					window.location.href = response;
+					console.log(response);
+					// 2초가 지난 후 처리 멘트 출력
+					setTimeout(function(){
+		 				alert(username + "님의 계정이 삭제되었습니다."); 
+					}, 2000);		
+				},
+				error: function(err){
+					alert("삭제 처리 중 오류가 발생했습니다.");
+				}
+			});  */
+		}
 	});
-</script>
+ });
+ </script>
+  

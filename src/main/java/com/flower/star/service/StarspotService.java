@@ -105,7 +105,7 @@ public class StarspotService {
                 resultDTOList.add(new UploadImgDTO(fileName, uuid, folderPath));
 
                 // StarspotImages 엔티티 생성 및 저장
-                StarspotImages starspotImages = new StarspotImages(null, saveName, starspot);
+                StarspotImages starspotImages = new StarspotImages(null, saveName, starspot, null);
                 starspotImagesRepository.save(starspotImages);
 
             } catch (IOException e) {

@@ -44,7 +44,7 @@
 					</c:forEach>
 				</div>
 
-				<!-- Pagination Links -->
+ 				<!-- Pagination Links -->
 				<div class="paging">
 					<c:if test="${pagination.hasPreviousBlock}">
 						<a href="?page=0&sortField=${sortField}"> <i
@@ -80,7 +80,7 @@
 							<i class="fa-solid fa-angles-right" id="last_page"></i>
 						</a>
 					</c:if>
-				</div>
+				</div> 
 			</div>
 		</div>
 	</div>

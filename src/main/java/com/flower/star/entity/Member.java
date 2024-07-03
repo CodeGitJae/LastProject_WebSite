@@ -6,15 +6,13 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import com.flower.star.dto.MemberDTO;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,24 +49,27 @@ public class Member {
 	@Column(nullable = false, unique = true)
 	private String email;
 	
-	@OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Role> roles;
 	
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<StarspotLikes> likes = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Board> boardList = new ArrayList<>();
+
+	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<BoardComment> comment = new ArrayList<>();
 	
-	public static Member toMember(MemberDTO mDTO) {
-		Member member = new Member();
-		
-		member.setId(mDTO.getId());
-		member.setUsername(mDTO.getUsername());
-		member.setPassword(mDTO.getPassword());
-		member.setNickname(mDTO.getNickname());
-		member.setEmail(mDTO.getEmail());
-		
-		return member;
-	}
+	/*
+	 * public static Member toMember(MemberDTO mDTO) { Member member = new Member();
+	 * 
+	 * member.setId(mDTO.getId()); member.setUsername(mDTO.getUsername());
+	 * member.setPassword(mDTO.getPassword());
+	 * member.setNickname(mDTO.getNickname()); member.setEmail(mDTO.getEmail());
+	 * 
+	 * return member; }
+	 */
 
 
 
