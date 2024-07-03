@@ -21,7 +21,7 @@
 			   	<p>${message}</p>
 			   	<p>${errorMessage}</p>
 			   	</div>
-			    <table class="table table-secondary">
+			    <table class="table table-dark">
 				  <thead>
 				    <tr>
 				      <th scope="col">번호</th>

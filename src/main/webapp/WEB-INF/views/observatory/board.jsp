@@ -16,9 +16,8 @@
 				<div class="starhead">
 					<b class="menutitle" style="font-size: 35px">국내 천문대</b>
 					<div class="write">
-						<a href="/observatory?sortField=id">최신순</a> <a
-							href="/observatory?sortField=views">조회순</a> | <a href="" class=""
-							style="font-weight: 900;">글쓰기</a>
+						<a href="/observatory?sortField=id">최신순</a>
+						<a href="/observatory?sortField=views">조회순</a>
 					</div>
 					
 				</div>
