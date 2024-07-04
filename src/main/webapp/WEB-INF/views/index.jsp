@@ -52,27 +52,41 @@
                 <div class="heading-section">
                   <h4><em>Today Of</em> Weather & FineDust</h4>
                 </div>
-                <div class="row">
+                <div class="row" style="text-align:center;">
                 
                   <div class="col-lg-3 col-sm-3">
                     <div class="item">
-                      <h4>Today Dust<br><span class="todayPM10"></span><span class="todayPM25"></span></h4>
+                    <h2><i class="fa-solid fa-earth-oceania" style="color:white;"></i></h2>
+                      <h4 style="margin:0px;">Today Dust<br><hr>
+                      <span class="todayPM10"></span>
+                      <span class="todayPM25"></span></h4>
                     </div>
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <h4>Today Weather<br><span class="todayTMP"></span><span class="todayREH"></span><span class="todayPCP"></span></h4>
+                    	<h2><i class="fa-solid fa-cloud-sun" style="color:white;"></i></h2>
+                      <h4 style="margin:0px;">Today Weather<br><hr>
+                      <span class="todayTMP"></span>
+                      <span class="todayREH"></span>
+                      <span class="todayPCP"></span></h4>
                     </div>
                   </div>
                   
                   <div class="col-lg-3 col-sm-3">
                     <div class="item">
-                      <h4>Today Dust<br><span class="tomorrowPM10"></span><span class="tomorrowPM25"></span></h4>
+                    	<h2><i class="fa-solid fa-earth-oceania" style="color:white;"></i></h2>
+                      <h4 style="margin:0px;">Tomorrow Dust<br><hr>
+                      <span class="tomorrowPM10"></span>
+                      <span class="tomorrowPM25"></span></h4>
                     </div>
                   </div>
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
-                      <h4>Today Weather<br><span class="tomorrowTMP"></span><span class="tomorrowREH"></span><span class="tomorrowPCP"></span></h4>
+                    <h2><i class="fa-solid fa-cloud-sun" style="color:white;"></i></h2>
+                      <h4 style="margin:0px;">Tomorrow Weather<br><hr>
+                      <span class="tomorrowTMP"></span>
+                      <span class="tomorrowREH"></span>
+                      <span class="tomorrowPCP"></span></h4>
                     </div>
                   </div>
 
