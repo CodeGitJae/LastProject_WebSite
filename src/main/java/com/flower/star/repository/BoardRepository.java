@@ -22,6 +22,4 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 	@Query(value = "update Board b set b.views=b.views+1 where b.id=:id")
 	void updateViews(@Param("id") Integer id);
 
-
-
 }
