@@ -17,10 +17,10 @@
 				 </div>
 			   </div>
 			   <!-- 본문 시작하는 곳 -->
-			   <div class="resultMessage">
+<%-- 			   <div class="resultMessage">
 			   	<p>${message}</p>
 			   	<p>${errorMessage}</p>
-			   	</div>
+			   	</div> --%>
 			    <table class="table table-dark">
 				  <thead>
 				    <tr>
@@ -35,7 +35,10 @@
 				  <tbody>
 				    <tr>
 				      <th scope="row">${board.id}</th>
-				      <td><a href="/board/detail?id=${board.id}">${board.title}</a></td>
+				      <td>
+					      <a href="/board/detail?id=${board.id}">${board.title}</a>
+					      [<span style="color: #ff7fbf;">${board.comment.size()}</span>]
+				      </td>
 				      <td>${board.member.username}</td>
 				      <td>${board.createDate}</td>
 				      <td>${board.views}</td>
@@ -56,8 +59,8 @@
 				      <a class="page-link">Previous</a>
 				    </li>
 			      </c:otherwise>
-				    </c:choose>
-				       <c:forEach begin="${pagination.startPage}" end="${pagination.endPage}" var="page">
+				    </c:choose>                                       <!--  현재 페이지 처리 기능 체크 불가한 상황이라 나중에 첫 페이지 오류나면 이부분 확인해서 수정해야함. -->
+				       <c:forEach begin="${pagination.startPage}" end="${paging.totalPages == 0 ? 0 : pagination.endPage}" var="page">
 					    <li class="page-item ${page == (pagination.currentPage -1) ? 'active' : ''}">
 					      <a class="page-link" href="/board/list?page=${page + 1}">${page + 1}</a>
 					    </li>
