@@ -12,19 +12,15 @@
 		<div class="col-lg-12">
 			<div class="page-content">
 		         <div class="featured-games header-text">
-		           <div class="heading-section" style="text-align: center;"> 
+		            <div class="heading-section" style="text-align: center;"> 
 		           	   <h4><em>내 정보</em> 수정</h4>
-		           </div>
-				  <div class="main-profile ">
-					<div class="row">
-						<div class="col-lg-2">
-<!--                     <img src="/assets/images/profile.jpg" alt="" style="border-radius: 23px;"> -->
-						</div>
+		            </div>
+				  	<div class="main-profile ">
+						<div class="row">
 							<form:form action="/member/update/processedDone" method="post" modelAttribute="member" >
 									<div class="col-lg-6 align-self-center" style="margin: 0 auto;">
+										<input type="hidden" value="${error}" class="errorMessage">
 										<ul>
-	<%-- 										<li>아이디 <form:input path="username" /></li>
-											<li><form:errors path="username" cssClass="invalid-feedback d-block"/></li> --%>
 											<li>비밀번호 <form:password path="password"/></li>
 											<li><form:errors path="password" cssClass="invalid-feedback d-block"/></li>
 											<li>비밀번호 확인 <form:password path="confirmPassword"/></li>
@@ -50,4 +46,13 @@
 
 
 <%@ include file="../components/footer.jsp" %>
+<script>
+$(document).ready(function(){
+	let error = $(".errorMessage").val();
+	if(error != ""){
+		alert(error);
+	}
+	
+});
+</script>
   

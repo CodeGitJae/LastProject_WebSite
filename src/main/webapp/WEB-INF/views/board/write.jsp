@@ -17,18 +17,20 @@
 			   <!-- 본문 시작하는 곳 -->
 				<form method="post" action="/board/write" enctype="multipart/form-data">
 				  <div class="mb-4" style="margin: 0px, 40px, 0px, 40px;">
-				  <sec:authentication property="principal.username" var="username"/>
+				    <sec:authentication property="principal.username" var="username"/>
 					<input type="hidden" name="username" value="${username}"/>
 				    <label for="title" class="form-label" style="color: white;">제목</label>
 				    <input class="form-control" id="title" name="title">
 				  </div>
+				  
 				  <div class="mb-3">
 				    <label for="content" style="color: white;" class="form-label">내용</label><br>
 				    <textarea style="border-radius: 10px;" id="content" name="content" rows="15" cols="121"></textarea>
 				  </div>
+				  
 				  <div class="mb-3" style="text-align: right;">
 				  	<input type="file" class="form-control" id="image" name="uploadToBoardImage" multiple>
-				   <button style=" margin-top: 10px;" type="submit" class="btn btn-secondary">게시글 등록</button>
+				    <button style=" margin-top: 10px;" type="submit" class="btn btn-secondary">게시글 등록</button>
 				  </div>
 			  	</form>                     
 			   <!--  본문 끝나는 곳 -->

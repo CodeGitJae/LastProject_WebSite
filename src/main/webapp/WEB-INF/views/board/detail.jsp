@@ -42,51 +42,56 @@
 				</div>
 				<br>
 				
+				<!--  로그인 인증이 없는 경우 -->
 				<sec:authorize access="isAnonymous()">
-				<div class="comment">
-				<h3 class="comment-count">댓글<span> ${b.comment.size()} 개</span></h3>
-					<c:forEach items="${b.comment}" var="comment">
-						<p class="comment-id">${comment.member.username}</p>
-						<p class="comment-date">${comment.content}</p> 
-						<hr>
-					</c:forEach>
+					<div class="comment">
+						<h3 class="comment-count">댓글<span> ${b.comment.size()} 개</span></h3>
+						<c:forEach items="${b.comment}" var="comment">
+							<p class="comment-id">${comment.member.username}</p>
+							<p class="comment-date">${comment.content}</p> 
+							<hr>
+						</c:forEach>
 					</div>	
 				</sec:authorize>
+				
+				
 				 <!--  로그인 인증 받은 경우 (권한에 관계없음) -->
 				<sec:authorize access="isAuthenticated()">
-				<div class="comment" id="commentList">
-					<h3 class="comment-count">댓글<span> ${b.comment.size()} 개</span></h3>
-					<form action="/boardComment/detail?id=${b.id}" method="post" id="comment-form">
-						<input type="hidden" id="username" value="${b.id}">
-						<textarea id="comment-text" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
-						<button type="submit" id="comment-btn">입력</button>
-				   </form>
-					<c:forEach items="${b.comment}" var="comment">
-						<input class="commentbId" type="hidden" data-bid="${b.id}">
-						<input class="commentId" type="hidden" data-id="${comment.id}">
-						<p class="comment-id">${comment.member.username}</p>
-						<p class="comment-date">${comment.content}</p>
-						<c:if test="${authentication.getName() == comment.member.username}"> 
-						  <div class="UDBtn" style="text-align: right;  margin-right: 20px;">
-  							<%-- <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;" 
-											 href="/boardComment/update?id=${b.id}&commentId=${comment.id}">수정</a> --%>
-							 <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;">수정</a> 
-											
-							<a class="deleteBtn" type="button" style="background-color: #FFA500; padding: 5px 10px; color: black;" 
-											 href="/boardComment/delete?id=${b.id}&commentId=${comment.id}">삭제</a>
-						  </div>
-						 </c:if>
-						<hr>		
-				    </c:forEach>
-				</div>
+					<div class="comment" id="commentList">
+						<h3 class="comment-count">댓글<span> ${b.comment.size()} 개</span></h3>
+						<form action="/boardComment/detail?id=${b.id}" method="post" id="comment-form">
+							<input type="hidden" id="username" value="${b.id}">
+							<textarea id="comment-text" name="content" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다 :)"></textarea>
+							<button type="submit" id="comment-btn">입력</button>
+					    </form>
+						<c:forEach items="${b.comment}" var="comment">
+							<input class="commentbId" type="hidden" data-bid="${b.id}">
+							<input class="commentId" type="hidden" data-id="${comment.id}">
+							<p class="comment-id">${comment.member.username}</p>
+							<p class="comment-date">${comment.content}</p>
+							<c:if test="${authentication.getName() == comment.member.username}"> 
+							  <div class="UDBtn" style="text-align: right;  margin-right: 20px;">
+	  							<%-- <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;" 
+												 href="/boardComment/update?id=${b.id}&commentId=${comment.id}">수정</a> --%>
+								 <a class="updateBtn" type="button" style="background-color: #FFA500; margin-right: 10px; padding: 5px 10px; color: black;">수정</a> 
+												
+								 <a class="deleteBtn" type="button" style="background-color: #FFA500; padding: 5px 10px; color: black;" 
+												 href="/boardComment/delete?id=${b.id}&commentId=${comment.id}">삭제</a>
+							  </div>
+							</c:if>
+							<hr>		
+					    </c:forEach>
+					</div>
 				</sec:authorize>
+				
+				
 				<!--  댓글 수정 모달 시작 -->
 				<div class="modal fade" id="myModal" tabindex="-1">
 				  <div class="modal-dialog">
 				    <div class="modal-content" style="position: relative; top:350px; width: 100%;">
 				      <div class="modal-header">
-				        <h5 class="modal-title">댓글 수정</h5>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				         <h5 class="modal-title">댓글 수정</h5>
+				         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
 					      <table style="width: 95%;">
@@ -104,6 +109,7 @@
 					      	</tbody>
 					      </table>
 				      </div>
+				      
 				      <div class="modal-footer">
 				       	<button type="button" class="btn btn-success modalSubmit">댓글 수정</button>
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">수정 취소</button>
@@ -149,40 +155,36 @@ $(".updateBtn").click(function(e){
 //Modal의 Submit 버튼 클릭
 $(".modalSubmit").click(function(e){
 	 e.preventDefault();
-	 
-	 content = document.querySelector("#updateContent").value;
-	 
-	 console.log(content);
+ 	 
+/* 	 console.log(content); */
 /* 	 let row = $(this).parent().prev().children().children().children();
 	 let ser = row.eq(1).children().eq(1).children().val(); 	 
 	 console.log(":::::::::::::::::::::::",ser);*/
-	 
+
+	 content = document.querySelector("#updateContent").value;
 	 $(".comment").val(content);
 	 
- 	$.ajax({
-		type : "post",
-		url : "/boardComment/update",
-		data : {
-			"commentId": commentId,
-			"content" : content,
-			"bId" : bId
-			
-		},
-		success: function(res){
-			console.log("데이터 전송을 성공했습니다.", res);
-			location.href= res;
-			
-		},
-		error: function(err){
-			console.log("에러가 발생했습니다. : ", err)
-		}
-	}); 
-	 
-	
-});
+	 	$.ajax({
+			type : "post",
+			url : "/boardComment/update",
+			data : {
+				"commentId": commentId,
+				"content" : content,
+				"bId" : bId
+				
+			},
+			success: function(res){
+				console.log("데이터 전송을 성공했습니다.", res);
+				location.href= res;
+				
+			},
+			error: function(err){
+				console.log("에러가 발생했습니다. : ", err)
+			}
+		}); 
+	});
 	
 	
        
 });
 </script>
->
