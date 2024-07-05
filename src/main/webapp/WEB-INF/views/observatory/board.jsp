@@ -34,7 +34,7 @@
 										<img src="${ovitem.image}" class="card-img-top">
 									</div>
 									<div class="card-body">
-										<p class="card-title">${ovitem.title}</p>
+										<p class="card-title">${ovitem.title}&nbsp;<span>[${ovitem.replies.size()}]</span></p>
 										<p>
 											<span class="card-createdate">${ovitem.createdate}</span> <span
 												class="card-views">조회 ${ovitem.views}</span>

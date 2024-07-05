@@ -13,7 +13,7 @@
 						<div class="featured-games header-text">
 							<div class="heading-section">
 								<h4>
-									별자리 스팟 TOP 5
+									<em>별자리 스팟</em> TOP 5
 								</h4>
 							</div>
 							<div class="owl-features owl-carousel">
@@ -101,7 +101,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="heading-section">
-                  <h4><em>별스팟 관련 사진</em></h4>
+                  <h4><em>별스팟</em> 갤러리</h4>
                 </div>
                 <div class="row" style="justify-content: space-around;">
                   <c:forEach var="i" begin="0" end="4">
@@ -127,7 +127,7 @@
           <div class="gaming-library profile-library">
             <div class="col-lg-12">
               <div class="heading-section">
-                <h4><em>최근 </em> 게시글 정보</h4>
+                <h4><em>최근</em> 게시글 정보</h4>
               </div>
               
               <div class="item">

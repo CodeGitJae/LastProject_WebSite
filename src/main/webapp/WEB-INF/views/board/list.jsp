@@ -11,7 +11,7 @@
             <div class="featured-games header-text">
 <!--                   페이지 제목 입력 ( 지우면 헤더 안따라옴) -->
 			   <div class="heading-section">
-			     <h4><em>자유	</em> 게시판 </h4>
+			     <h4><em>자유</em> 게시판 </h4>
 				 <div class="write mb-2" style="text-align: right; margin: 25px; font-size: 20px; font-weight: bold;">
 				 	 <a href="/board/write" class="" style="font-weight: 900;">글쓰기</a>
 				 </div>
