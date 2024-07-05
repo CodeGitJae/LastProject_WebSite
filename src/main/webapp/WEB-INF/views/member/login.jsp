@@ -5,10 +5,8 @@
 
 
 
-  <div class="container">
-<!--       <div class="col-lg-12"> -->
-        <div class="page-content">
-
+<div class="container">
+  <div class="page-content">
          <!-- *****아래 div태그는 지워고 사용하세요. ***** -->
     <div class="row">
        <div class="col-lg-12">
@@ -67,8 +65,8 @@
 		</div>											
       </div>
     </div>
-   </div>
-</div>
+ </div>
+
   
   <%@ include file="../components/footer.jsp" %>
   

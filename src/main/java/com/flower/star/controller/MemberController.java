@@ -56,14 +56,15 @@ public class MemberController {
 //		 System.out.println("::::::::::member"+bindingResult);
 	 		try {
 				if(bindingResult.hasErrors()) {
-					return "member/updateProfile";
+					return "/member/updateProfile";
 				}
 				mService.updateProfile(member, common.getLoginUsername());
 				return "redirect:/member/myProfile";
+				
 			} catch (Exception exception) {
 				System.out.println(":::::::::ErrorMessage:"+exception.getMessage());
-				model.addAttribute("error", "처리 중 오류가 발생 했습니다.");
-				return "redirect:/";
+				model.addAttribute("error", exception.getMessage());
+				return "/member/updateProfile";
 			}
 	 }	 		
 		 
@@ -102,7 +103,8 @@ public class MemberController {
 			return "/member/myProfile";
 			
 		} catch (Exception exception) {
-			return "redirect:/index";
+			
+			return "redirect:/";
 		}
 	}
 	
@@ -165,66 +167,3 @@ public class MemberController {
 	}
 	
 }
-	
-//// 아이디 중복 체크 라우터
-//@PostMapping("/member/duplicateCheck")
-//@ResponseBody
-//public String duplicateCheck(@RequestParam("username") String username) {
-////	System.out.println(username);	
-//	String checkResult = mService.duplicateCheck(username);
-//	
-//	return checkResult;
-//}
-
-//// 회원 탈퇴 라우터
-//@GetMapping("/member/delete/{id}")
-//public String deleteById(@PathVariable long id, HttpSession session) {
-//	mService.deleteById(id);
-//	session.invalidate();
-//	
-//	return "redirect:/";
-//}
-//
-//// 새로운 회원정보로 수정
-//@PostMapping("/member/update")
-//public String update(@ModelAttribute MemberDTO mDTO) {
-//	mService.update(mDTO);
-////	System.out.println(mDTO.getId());
-//	
-//	return "redirect:/member/myProfile/" + mDTO.getId();
-//}
-//}
-//// 기존 회원정보 클라이언트에 표시
-//@GetMapping("/member/update/{id}")
-//public String updateForm(@PathVariable long id, Model model) {
-//
-//MemberDTO mDTO = mService.updateForm(id);
-//model.addAttribute("updateMember", mDTO);
-//
-//return "/member/updateProfile";
-//}
-
-//// 로그아웃 라우터
-//@GetMapping("/member/logout")
-//public String logout(HttpSession session) {
-//	session.invalidate();
-//	
-//	return "redirect:/";
-//}
-
-//// index 페이지 메뉴바 로그인 라우터
-//	@PostMapping("/member/login")
-//	public String login(@ModelAttribute MemberDTO mDTO, HttpSession session, Model model) {
-//		MemberDTO loginResult = mService.login(mDTO);
-//		
-//		System.out.println(":::::::::::::::"+loginResult);
-//		
-//		if(loginResult != null) {
-//			//login 성공 시
-//			session.setAttribute("loginUsername", loginResult.getUsername());
-//			return "/index";
-//		} else {
-//			//login 실패 시
-//			return "/member/login";
-//		}
-//	}
