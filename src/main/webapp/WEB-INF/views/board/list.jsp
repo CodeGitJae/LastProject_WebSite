@@ -14,7 +14,6 @@
 				     <a href="/board/write" class="" style="font-weight: 900;">글쓰기</a>
 				  </div>
 			   </div>
-			   
 			   <!-- 본문 시작하는 곳 -->
 			    <table class="table table-dark">
 				  <thead>
@@ -81,11 +80,24 @@
 						</c:otherwise>
 				      </c:choose>
 				  </ul>
-				</nav>     
+				</nav>    
 			   <!--  본문 끝나는 곳 -->
+  			  <input class="successMessage" type="hidden" value="${success}"> 
             </div>
         </div>
       </div>
   </div>
 </div>
-  <%@ include file="../components/footer.jsp" %>
+<%@ include file="../components/footer.jsp" %>
+<script>
+$(document).ready(function(){
+	
+	let success = $(".successMessage").val();
+	
+	if(success != ""){
+		setTimeout(function(){
+			alert(success);
+		}, 100);
+	}
+});
+</script>  

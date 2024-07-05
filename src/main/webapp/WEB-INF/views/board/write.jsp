@@ -15,7 +15,7 @@
 			     <h4><em>자유 게시판 </em> 글쓰기 </h4>
 			   </div>
 			   <!-- 본문 시작하는 곳 -->
-				<form method="post" action="/board/write" enctype="multipart/form-data">
+				<form method="post" action="/board/write" id="formTag" enctype="multipart/form-data">
 				  <div class="mb-4" style="margin: 0px, 40px, 0px, 40px;">
 				    <sec:authentication property="principal.username" var="username"/>
 					<input type="hidden" name="username" value="${username}"/>
@@ -25,12 +25,12 @@
 				  
 				  <div class="mb-3">
 				    <label for="content" style="color: white;" class="form-label">내용</label><br>
-				    <textarea style="border-radius: 10px;" id="content" name="content" rows="15" cols="121"></textarea>
+				    <textarea class="form-control" style="border-radius: 10px;" id="content" name="content" rows="15" cols="10"></textarea>
 				  </div>
 				  
 				  <div class="mb-3" style="text-align: right;">
 				  	<input type="file" class="form-control" id="image" name="uploadToBoardImage" multiple>
-				    <button style=" margin-top: 10px;" type="submit" class="btn btn-secondary">게시글 등록</button>
+				    <button style=" margin-top: 10px;" type="submit" class="btn btn-secondary writeBtn">게시글 등록</button>
 				  </div>
 			  	</form>                     
 			   <!--  본문 끝나는 곳 -->
@@ -40,4 +40,38 @@
   </div>
 </div>
   <%@ include file="../components/footer.jsp" %>
+  <script>
+$(document).ready(function(){
+	
+let title = "";
+let content = "";
+console.log(title, content);
+
+
+	$(".writeBtn").click(function(e){
+		e.preventDefault(); 
+		title = $("#title").val();
+		content = $("#content").val();
+		console.log(title, content);
+		
+		let formTag = $("#formTag")
+		
+		if(title == ""){
+			alert("제목이 입력되지 않았습니다.")
+			$("#title").focus();
+			return ;
+		}
+		
+		if(content == ""){
+			alert("내용이 입력되지 않았습니다.")
+			$("#content").focus();
+			return ;
+		}
+		
+		formTag.submit();
+		
+	});
+	
+});
+</script>
   

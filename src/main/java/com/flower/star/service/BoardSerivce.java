@@ -36,18 +36,18 @@ public class BoardSerivce {
 	private final BoardRepository bRepository;
 	private final StarspotImagesRepository starspotImagesRepository;
 	private final Common common;
-//	@Value("${uploadImagePath.board}")
-//    private String uploadPath;
 	
 	
 	// 입력한 게시글 정보 DB에 저장 (MEMBER 객체도 함께)
-	public void insert(Board board) {
+	public void insert(Board board, String title, String content) {
 	
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String now = sdf.format(date);
 		
 		board.setCreateDate(now);
+		board.setTitle(title);
+		board.setContent(content);
 		board.setViews(0);
 		
 		bRepository.save(board);
