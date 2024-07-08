@@ -59,8 +59,7 @@ public class BoardController {
 			}
 			
             // 성공적으로 업로드되었을 경우
-            redirectAttributes.addFlashAttribute("message", "파일 업로드가 성공적으로 완료되었습니다.");
-            
+            redirectAttributes.addFlashAttribute("message", "파일 업로드가 성공적으로 완료되었습니다.");     
             return "redirect:/board/list";
           
             // 사용자 예외 처리  
@@ -123,10 +122,15 @@ public class BoardController {
 	
 	
 	@PostMapping("/update")
-	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage) {
-
+	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage, RedirectAttributes redirectAttributes) {
+		
+		// 제목 또는 내용이 비어 있을 때 페이지 안넘기기
+		if(board.getTitle().isEmpty() && board.getContent().isEmpty()) {
+			return "/board/update?id="+board.getId();
+		}
+		
 		bService.update(board, uploadToBoardImage);
-
+		redirectAttributes.addFlashAttribute("success", "게시글 수정을 성공했습니다.");
 		return "redirect:/board/detail?id="+ board.getId();
 	}
 	

@@ -92,6 +92,7 @@
 <script>
 $(document).ready(function(){
 	
+	// 게시글 등록 성공 시 멘트 alert창으로 띄우기
 	let success = $(".successMessage").val();
 	
 	if(success != ""){

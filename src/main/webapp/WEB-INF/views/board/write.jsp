@@ -47,11 +47,12 @@ let title = "";
 let content = "";
 console.log(title, content);
 
-
 	$(".writeBtn").click(function(e){
 		e.preventDefault(); 
+		
 		title = $("#title").val();
 		content = $("#content").val();
+		
 		console.log(title, content);
 		
 		let formTag = $("#formTag")
