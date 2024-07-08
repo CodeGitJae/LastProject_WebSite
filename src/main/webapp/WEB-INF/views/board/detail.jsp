@@ -118,6 +118,7 @@
 				  </div>
 				</div>
 				<!--  댓글 수정 모달 끝 -->
+				<input class="successMessage" type="hidden" value="${success}"> 
 			</div>
 		</div>
 	</div>
@@ -130,7 +131,17 @@ let username = '';
 let content = '';
 
 $(document).ready(function(){
+	
+	// 게시글 수정 성공 시 멘트 alert창으로 띄우기
+	let success = $(".successMessage").val();
+		
+		if(success != ""){
+			setTimeout(function(){
+				alert(success);
+			}, 100);
+		}
 
+		
 	// 수정하기 버튼 클릭
 $(".updateBtn").click(function(e){
 	e.preventDefault();
@@ -183,8 +194,6 @@ $(".modalSubmit").click(function(e){
 			}
 		}); 
 	});
-	
-	
-       
+	   
 });
 </script>

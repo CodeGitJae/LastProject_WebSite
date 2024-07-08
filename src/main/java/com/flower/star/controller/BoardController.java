@@ -36,7 +36,10 @@ public class BoardController {
 	
 	// 입력된 게시물 정보 저장 / 이미지가 있는 경우도 포함
 	@PostMapping("/write")
-	public String writeBoard(@RequestParam("username") String mUsername, Board board, MultipartFile[] uploadToBoardImage, RedirectAttributes redirectAttributes) {
+	public String writeBoard(@RequestParam("username") String mUsername, @RequestParam("title") String title,
+							@RequestParam("content") String content, Board board, MultipartFile[] uploadToBoardImage, 
+							RedirectAttributes redirectAttributes) {
+		
 		try {
 			// 로그인되어 있는 인증 정보를 받아 member 테이블에 DB 저장
 			board.setMember(mService.findByUsername(mUsername));
@@ -46,13 +49,17 @@ public class BoardController {
 		}
 			
 		try {
-			bService.insert(board);
+			bService.insert(board, title, content);
 			bService.insertImage(board, uploadToBoardImage);
 //			System.out.println(":::::::::::::::controller :" + board);
 //			System.out.println(":::::::::::::::controller :" +uploadToBoardImage);			
-
+			
+			if(mUsername !=null && !mUsername.isEmpty() ) {
+				redirectAttributes.addFlashAttribute("success", "게시글 등록을 성공 했습니다.");
+			}
+			
             // 성공적으로 업로드되었을 경우
-            redirectAttributes.addFlashAttribute("message", "파일 업로드가 성공적으로 완료되었습니다.");
+            redirectAttributes.addFlashAttribute("message", "파일 업로드가 성공적으로 완료되었습니다.");     
             return "redirect:/board/list";
           
             // 사용자 예외 처리  
@@ -115,10 +122,15 @@ public class BoardController {
 	
 	
 	@PostMapping("/update")
-	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage) {
-
+	public String updateBoard(Board board, MultipartFile[] uploadToBoardImage, RedirectAttributes redirectAttributes) {
+		
+		// 제목 또는 내용이 비어 있을 때 페이지 안넘기기
+		if(board.getTitle().isEmpty() && board.getContent().isEmpty()) {
+			return "/board/update?id="+board.getId();
+		}
+		
 		bService.update(board, uploadToBoardImage);
-
+		redirectAttributes.addFlashAttribute("success", "게시글 수정을 성공했습니다.");
 		return "redirect:/board/detail?id="+ board.getId();
 	}
 	

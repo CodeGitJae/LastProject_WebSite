@@ -9,7 +9,7 @@
       <div class="col-lg-12">
         <div class="page-content" style="color:#fff;">
           <h2>${b.title}</h2><br>
-			<form method="post" action="/board/update?id=${b.id}" enctype="multipart/form-data">
+			<form method="post" action="/board/update?id=${b.id}" enctype="multipart/form-data" id="formTag">
 			  <div class="mb-3">
 			    <div>
 			      <div class="image-container">
@@ -43,7 +43,7 @@
 			    <textarea class="form-control" id="content" rows="10" name="content">${b.content}</textarea>
 			  </div>
 			 
-       		 <button type="submit" class="btn btn-secondary" style="float: right;">수정완료</button>
+       		 <button type="submit" class="btn btn-secondary updateBtn" style="float: right;">수정완료</button>
           </form>
         </div>
       </div>
@@ -53,6 +53,32 @@
 <%@ include file="../components/footer.jsp" %>
 <script>
 $(document).ready(function(){
+	
+	$(".updateBtn").click(function(e){
+		e.preventDefault();
+	
+		let title = $("#title").val();
+		let content = $("#content").val();
+//		console.log(title, content);
+		
+		let formTag = $("#formTag");
+		
+		if(title == ""){
+			alert("제목이 입력되지 않았습니다.")
+			$("#title").focus();
+			return ;
+		}
+		
+		if(content == ""){
+			alert("내용이 입력되지 않았습니다.")
+			$("#content").focus();
+			return ;
+		}
+		
+		formTag.submit();
+		
+	});
+	
 	
   /* 이미지 삭제 버튼 동작 */
   $(".delBtn").click(function(e) {
