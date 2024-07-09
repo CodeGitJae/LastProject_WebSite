@@ -138,25 +138,7 @@
 		
 		if(confirm("정말 삭제하시겠습니까?")){
 			window.location.href ="/member/delete?username=" + username;
-			/* $.ajax({
-				type: "GET",
-				url: "/member/delete",
-				data: {
-					"username": username
-				},
-				success: function(response){
-					// redirect:/member/logout 맵핑 주소로 처리
- 					window.location.href = response;
-					console.log(response);
-					// 2초가 지난 후 처리 멘트 출력
-					setTimeout(function(){
-		 				alert(username + "님의 계정이 삭제되었습니다."); 
-					}, 2000);		
-				},
-				error: function(err){
-					alert("삭제 처리 중 오류가 발생했습니다.");
-				}
-			});  */
+			
 		}
 	});
  });

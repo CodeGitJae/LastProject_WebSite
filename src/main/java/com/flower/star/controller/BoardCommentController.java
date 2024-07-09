@@ -27,7 +27,6 @@ public class BoardCommentController {
 							   BoardComment bcomment, Authentication authentication) {
 		
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-		System.out.println(":::::::::::user::::::::details"+userDetails.getUsername());
 		bcService.writeComment(bcomment, bId, userDetails.getUsername());
 		
 		
@@ -41,7 +40,6 @@ public class BoardCommentController {
     							@RequestParam(name="commentId") int commentId,
     							@RequestParam(name="bId") int bId) {
     	
-    	System.out.println("---------------------------------------"+content+"----------------"+commentId);
         bcService.updateComment(commentId, content);
         return "/board/detail?id=" + bId;
     }
@@ -51,7 +49,6 @@ public class BoardCommentController {
     public String deleteComment(@RequestParam(name="id") Integer id, 
     							@RequestParam(name="commentId") Integer commentId) {
     	
-    	System.out.println("들어옴 ---------------------------------");
     	bcService.deleteComment(commentId);
         return "redirect:/board/detail?id=" + id + "&commentId=" + commentId;
     }

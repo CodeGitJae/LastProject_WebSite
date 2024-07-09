@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
-
 	
 	private final PasswordEncoder passwordEncoder;
 	private final ServerValidator validator;
@@ -33,13 +32,7 @@ public class MemberService {
 	public void updateProfile(MemberUpdateDTO member, String username) throws Exception{
 		
 		  Member updateMember = mRepository.findByUsername(username).orElseThrow(() -> new Exception("데이터가 존재 하지 않습니다."));
-		  
-//		  System.out.println(":::::::::username:"+username);
-//		  System.out.println(":::::::::DTOnickname:"+member.getNickname());
-//		  System.out.println(":::::::::DBnickname:"+updateMember.getNickname());
-//		  System.out.println(":::::::::DTOEmail:"+member.getEmail());
-//		  System.out.println(":::::::::DBemail:"+updateMember.getEmail());
-//		  
+		  		  
 		  if(!updateMember.getNickname().equals(member.getNickname())) {
 			  //db에 저장된 데이터가 있는경우 값을 찾아올 때 반환된 false 값을 true로 재 반전 시킴	  
 		  if(!validator.isUnique(MemberType.NICKNAME, member.getNickname())) throw new Exception("이 닉네임은 이미 사용중 입니다"); 
@@ -72,7 +65,6 @@ public class MemberService {
 	@Transactional
 	public void register(MemberRegisterDTO memberDto) throws Exception {
 		
-//			System.out.println(memberDto);
 		
 		try {
 			String password = passwordEncoder.encode(memberDto.getPassword());
@@ -95,88 +87,5 @@ public class MemberService {
 	public Member findByUsername(String username) throws Exception{
 		return mRepository.findByUsername(username).orElseThrow(() -> new Exception("데이터가 없습니다."));
 	}
-
-
-//	
-//	
-//	// 회원정보 수정 화면에 보여줄 데이터 db에서 가져오기
-//	public MemberDTO updateForm(String username) {
-//		Optional<Member> optionalMember =  mRepository.findByUsername(username);
-//		
-//		if(optionalMember.isPresent()) {
-//			return MemberDTO.toMemberDTO(optionalMember.get());
-//		
-//		} else {
-//			// 데이터가 없을 때 null로 처리
-//			return null;
-//		}
-//	}
-
-//	
-//	// 회원 상세보기
-//	public MemberDTO findById(long id) {
-//			
-//		Optional<Member> optionalMember = mRepository.findById(id);
-//		if(optionalMember.isPresent()) {
-//			return MemberDTO.toMemberDTO(optionalMember.get());
-//		
-//		} else {
-//			// 데이터가 없을 때 null로 처리
-//			return null;
-//		}
-//	}
-//	// 아이디 중복 체크 / DB에 중복된 값이 있는지 확인
-//	public String duplicateCheck(String username) {
-//		Optional<Member> checkedUser = mRepository.findByUsername(username);
-//		
-//		if(checkedUser.isPresent())
-//		{
-//			// 조회 결과에 데이터가 있을 때
-//			return null;
-//		}else {
-//			// 조회 결과에 데이터가 없을 때
-//			return "enabled";
-//		}
-//	}
-//
-//	
-//	// 클라이언트에서 보낸 수정 데이터 저장하기
-//	public void update(MemberDTO mDTO) {
-//		mRepository.save(Member.toMember(mDTO));
-//		
-//	}
-//	
-//	
-//	// 로그인을 위해 db 데이터 가져오기
-//	public MemberDTO login(MemberDTO mDTO) {
-//		
-//		Optional<Member> username = mRepository.findByUsername(mDTO.getUsername());          
-//		
-//		if(username.isPresent()) {
-//			//조회 결과가 true
-//			Member member =username.get();
-//			if(member.getPassword().equals(mDTO.getPassword())){
-//				//비밀번호 일치
-//				// entity -> dto 객체로 변환 후 리턴
-//				MemberDTO dto = MemberDTO.toMemberDTO(member);
-//				return dto;
-//				
-//			} else {
-//				//비밀번호 불일치(로그인실패)
-//				return null;
-//			}
-//		} else {
-//			// 조회 결과 false
-//			return null;
-//		}
-//	}
-//
-//	
-//	// 회원 가입 DB 테이블에 데이터 저장 
-//	public void save(MemberDTO mDTO) {
-//		Member member = Member.toMember(mDTO);
-//		mRepository.save(member);
-//		
-//	}
 
 }
