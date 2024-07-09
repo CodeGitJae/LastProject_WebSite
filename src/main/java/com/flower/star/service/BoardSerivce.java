@@ -55,16 +55,13 @@ public class BoardSerivce {
 
 	public void insertImage(Board board, MultipartFile[] uploadToBoardImage){
 		
-//		System.out.println(":::::::::::::::service :" + board);
-//		System.out.println(":::::::::::::::service :" +uploadToBoardImage);
-		
 		// 현재 폴더 위치 정보 얻기 (프로젝트 저장한 폴더 위치가 출력됨)
 		String curDir = System.getProperty("user.dir");
 		
 			// 폴더 생성 및 저장할 경로 추가
 			curDir += File.separator + "src" + File.separator + "main" + File.separator 
 					+ "resources" + File.separator + "static" + File.separator;
-//		System.out.println("::::::::::2"+curDir);
+			
 		List<UploadImgDTO> uploadDTOList = new ArrayList<>();
 		
 		for(MultipartFile uploadFile : uploadToBoardImage) {
@@ -80,20 +77,17 @@ public class BoardSerivce {
 				System.out.println("#########uploadfile 결과:"+(uploadFile.getSize() > Define.MAX_FILE_SIZE));
 				return;
 			}
-			// 실제 파일 이름 가져오기
-//				String originFilename = uploadFile.getOriginalFilename();
+//			   실제 파일 이름 가져오기
+//			   String originFilename = uploadFile.getOriginalFilename();
 			
 			// 폴더 생성
 			String folderPath = common.makeFolder(curDir);
-//			System.out.println("::::::::::::::::::folder"+folderPath);
 			
 			// 저장할 파일 이름 생성
 			String savePathName = common.makeSaveNameForSavePath(uploadFile, folderPath);
-//			System.out.println("::::::::::::::::::saveName"+ savePathName);
 			
 			// 저장 경로 생성
 			Path savePath = Paths.get(curDir + savePathName);
-//			System.out.println("::::::::::::::::::savePath"+ savePath);
 			
 			
 			try {
@@ -102,9 +96,7 @@ public class BoardSerivce {
 				
 				// 실제 이미지 저장
 				uploadFile.transferTo(savePath);
-//				System.out.println("::::::::::::tryCatch uploadFile:"+ uploadFile);
 				uploadDTOList.add(new UploadImgDTO(uploadFile.getOriginalFilename(), uuid, folderPath));
-//				System.out.println("::::::::::::tryCatch uploadDTOList:"+ uploadDTOList);
 				
 				StarspotImages starspotImgs = new StarspotImages(null, savePathName, null, board);
 				starspotImagesRepository.save(starspotImgs);
@@ -124,16 +116,11 @@ public class BoardSerivce {
 		int pageLimit = 10; 
 		Sort sort = Sort.by(Sort.Order.desc("id"));
     	Pageable pageable = PageRequest.of(curPage, pageLimit, sort);
-//		System.out.println("::::::::::::::::::service:: pageable::::"+ pageable);
 		Page<Board> page = bRepository.findAll(pageable);
 
 		return page;
 	}
 	
-//	// 게시물 목록 조회
-//	public List<Board> findAll() {
-//		return bRepository.findAll();
-//	}
 
 	// 게시물 상세 정보 가져오기
 	public Board findById(Integer bId) {
@@ -159,9 +146,7 @@ public class BoardSerivce {
 	public void update(Board board, MultipartFile[] uploadToBoardImage) {
 		
 		if(uploadToBoardImage[0].getContentType().startsWith("image") == true) {
-//			System.out.println(":::::222222222222222::::::::::::::::::::"+imageId+imagePath +uploadToBoardImage[0].getContentType().startsWith("image"));
 			insertImage(board, uploadToBoardImage);
-		
 		} 
 		
 			// DB에서 ID 값 기준으로 저장된 정보 가져오기
@@ -188,7 +173,7 @@ public class BoardSerivce {
 			bRepository.save(board);
 	}
 
-	// 아이디 삭제
+	// 게시글 삭제
 	public void deleteById(Integer id) {
 		bRepository.deleteById(id);
 		

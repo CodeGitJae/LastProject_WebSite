@@ -77,42 +77,5 @@
   <%@ include file="../components/footer.jsp" %>
 
 <script type="text/javascript">
-/* $(document).ready(function(){
-	$("body").on("click", "#userBtn, #emailBtn",function(){
-	 let username = $("#id").val();
-	 let checkBtn = document.getElementById("checkResult");
 
-	 // 아이디 중복 체크 비동기 처리
-	 $.ajax({
-		 type: "post",
-		 url: "/member/duplicateCheck",
-		 data: {
-			 "username" : username
-		 },
-		 success: function(result){
-			 console.log("요청성공", result);
-			 
-			 if(result == "enabled"){
-				 checkBtn.style.color = "green";
-				 checkBtn.innerHTML =  "사용 가능한 아이디 입니다.";
-			 } else {
-				 checkBtn.style.color = "red"; 
-				 checkBtn.innerHTML = "이미 사용중인 아이디 입니다.";
-			 }
-		 },
-		 error: function(err){
-			 console.log("에러발생", err);
-		 }
-		 
-	 });
-		
-	});
-	
-});
-
-// 입력 필드(#id)가 변경될 때 메시지 초기화
-$("#id").on("input", function() {
-    let checkBtn = document.getElementById("checkResult");
-    checkBtn.innerHTML = ""; // 메시지 초기화
-}); */
 </script>

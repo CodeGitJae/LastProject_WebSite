@@ -3,9 +3,7 @@ package com.flower.star.controller;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +16,10 @@ import com.flower.star.dto.MemberRegisterDTO;
 import com.flower.star.dto.MemberUpdateDTO;
 import com.flower.star.entity.Member;
 import com.flower.star.entity.StarspotLikes;
-import com.flower.star.repository.BoardRepository;
 import com.flower.star.repository.StarspotLikesRepository;
 import com.flower.star.entity.Board;
-import com.flower.star.service.BoardSerivce;
 import com.flower.star.service.MemberService;
 import com.flower.star.utilities.Common;
-
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -33,7 +28,6 @@ public class MemberController {
 
 	private final Common common;
 	private final MemberService mService;
-	private final BoardRepository bRepository;
 
 	// 내 정보 삭제하기
 	@GetMapping("/member/delete")
@@ -52,8 +46,6 @@ public class MemberController {
     public String updateProfile(@ModelAttribute("member") @Valid MemberUpdateDTO member,
     									BindingResult bindingResult, Model model) {
 	 
-//		 System.out.println("::::::::::member"+member);
-//		 System.out.println("::::::::::member"+bindingResult);
 	 		try {
 				if(bindingResult.hasErrors()) {
 					return "/member/updateProfile";
@@ -128,8 +120,6 @@ public class MemberController {
 	public String signUpValidation(@ModelAttribute("member") @Valid MemberRegisterDTO member,
 									BindingResult bindingResult, Model model) {
 
-//		System.out.println(member);
-//		System.out.println(bindingResult);
 		try {
 			if (bindingResult.hasErrors()) {
 				return "/member/signup";
@@ -157,7 +147,6 @@ public class MemberController {
 	@GetMapping("/member/login")
 	public String loginForm(@RequestParam(name = "status", defaultValue = "") String status, Model model) {
 		
-	//	System.out.println(":::::::::" + status);
 
 		if (status.equals("error")) {
 			model.addAttribute("warning", "아이디 또는 비밀번호가 일치하지 않습니다.");

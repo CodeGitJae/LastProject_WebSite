@@ -1,6 +1,13 @@
 package com.flower.star.controller;
 
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.flower.star.entity.Board;
+import com.flower.star.repository.StarspotImagesRepository;
 import com.flower.star.service.BoardSerivce;
 import com.flower.star.service.MemberService;
 import com.flower.star.util.Pagination;
@@ -25,7 +34,10 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 	private final MemberService mService;
 	private final BoardSerivce bService;
+	private final StarspotImagesRepository ssimageRepository;
 	
+	@Value("${uploadImagePath.board}")
+    private String uploadPath;	
 
 	 // 글작성 화면 띄워주기
 	@GetMapping("/write")
@@ -51,8 +63,7 @@ public class BoardController {
 		try {
 			bService.insert(board, title, content);
 			bService.insertImage(board, uploadToBoardImage);
-//			System.out.println(":::::::::::::::controller :" + board);
-//			System.out.println(":::::::::::::::controller :" +uploadToBoardImage);			
+			
 			
 			if(mUsername !=null && !mUsername.isEmpty() ) {
 				redirectAttributes.addFlashAttribute("success", "게시글 등록을 성공 했습니다.");
@@ -89,16 +100,6 @@ public class BoardController {
 		
 	}
 	
-//	// 게시판 목록 보여주기
-//	@GetMapping("")
-//	public String save(Model model) {
-//		
-//		List<Board> board = bService.findAll();
-//		model.addAttribute("board", board);
-//		
-//		return "/board/list";
-//	}
-	
 	
 	@GetMapping("/detail")
 	public String BoardDetails(@RequestParam("id") Integer bId, Model model, Authentication authentication) {
@@ -133,6 +134,51 @@ public class BoardController {
 		redirectAttributes.addFlashAttribute("success", "게시글 수정을 성공했습니다.");
 		return "redirect:/board/detail?id="+ board.getId();
 	}
+	
+	// 수정 화면에서 이미지 개별 삭제 기능 추가
+	@ResponseBody
+	@PostMapping("/removeFile")
+    public ResponseEntity<Boolean> removeFile(@RequestParam("imageFilePath") String fileName,
+    										 @RequestParam("imageId") Integer imageId){
+        String srcFilePath = null;
+
+        try {
+        	
+        	// 현재 디렉토리 기준 절대 경로 설정
+        	String curDir = System.getProperty("user.dir");
+        	curDir += File.separator + "src" + File.separator + "main" + File.separator 
+					+ "resources" + File.separator + "static" + File.separator;
+        	
+        	// 절대 경로 + 이미지 path 결합
+        	String absolutfileName = curDir + fileName;
+        	fileName = absolutfileName.replace("/", File.separator);
+        	
+        	// 이미지 URL 디코딩
+        	srcFilePath = URLDecoder.decode(fileName,"UTF-8");
+            File file = new File(srcFilePath);
+            
+            // 절대 경로로 변경
+            file = file.getAbsoluteFile();
+                       
+            // 파일이 실제로 존재하는지 확인
+            if (!file.exists()) {
+                System.out.println("File does not exist: " + file);
+                return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            }
+            
+            // db에 이미지 주소 삭제 요청
+            ssimageRepository.deleteById(imageId);
+            boolean result = file.delete();
+//          System.out.println("::::::::::::::::result::::::::::::::::::::"+result);
+            
+            return new ResponseEntity<>(result,HttpStatus.OK);
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+	
 	
 	@GetMapping("/delete")
 	public String deleteToBoard(@RequestParam("id") Integer id) {

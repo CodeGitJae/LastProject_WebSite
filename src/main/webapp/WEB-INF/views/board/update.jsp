@@ -14,16 +14,18 @@
 			    <div>
 			      <div class="image-container">
 				    <c:forEach items="${b.images}" var="image" varStatus="status">
-				      <div class="image-item">
-				        <input type="hidden" name="saveImageId" value="${image.id}">
-				        <input type="hidden" name="savedBoardImage" value="${image.imagePath}">
-				        <img id="imgSrc" src="${contextPath}/${image.imagePath}" alt="Image">
-				      </div>
-				    
-				      <div class="button-item" style="position: relative; top: 210px; right: 60px;">
-				        <input type="hidden" name="deleteImages" value="${image.id}">
-				        <button class="btn btn-secondary delBtn" type="button" style="">삭제</button>
-				      </div>
+				      <div class="imageDiv" style="text-align: right;">
+					      <div class="image-item">
+					        <input type="hidden" name="saveImageId" value="${image.id}">
+					        <input type="hidden" name="savedBoardImage" value="${image.imagePath}">
+					        <img id="imgSrc" src="${contextPath}/${image.imagePath}" alt="Image">
+					      </div>
+					    							
+					      <div class="button-item">		<!--  style="position: relative; top: 210px; right: 60px;" -->
+					        <input type="hidden" name="deleteImages" value="${image.id}">
+					        <button class="btn btn-secondary delBtn" type="button" style="">삭제</button>
+					      </div>
+				       </div>
 				    </c:forEach>
 				  </div>
 			    </div>
@@ -83,11 +85,29 @@ $(document).ready(function(){
   /* 이미지 삭제 버튼 동작 */
   $(".delBtn").click(function(e) {
     e.preventDefault();
-    $("#imgSrc").removeAttr('src');
-/*     // src속성 값 가져오기
-    let imgSrc = $("#imgSrc").attr('src');
-    console.log(imgSrc); // img 태그의 src 값 출력
- */
+    
+   let imageId = $(this).parent().children().val();
+   let imageFilePath = $(this).parent().prev().children().eq(2).attr('src');
+   let imageTag = $(this).parent().parent();
+// 	console.log(imageId, imageFilePath);
+   	
+   	$.ajax({
+   		type: "post",
+   		url: "/board/removeFile",
+   		data: { 
+   			"imageFilePath" : imageFilePath,
+   			"imageId" : imageId	
+   		},
+   		success: function(result){ // 삭제 성공 실패에 따라 true, false 값을 받게됨.
+//   			console.log(result);
+   			if(result === true){
+   				// 사진 파일 삭제 성공 시 추가된 이미지 박스도 삭제
+   				imageTag.remove();
+   			}
+   		}
+   		
+   	});
+    
   });
   
 });

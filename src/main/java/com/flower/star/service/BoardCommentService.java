@@ -23,11 +23,9 @@ public class BoardCommentService {
    
     public Integer writeComment(BoardComment bcomment, Integer bId, String username) {
         Member member = memberRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("유저가 존재하지 않습니다."));
-        Board board = boardRepository.findById(bId).orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
-//        BoardComment boardcomment = bcRepository.findByContent(bcomment);
-//        String content = boardcomment.getContent();
+        Board board = boardRepository.findById(bId).orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));        
         
-        
+        // 엔터티 객체에 빌더를 이용해서 Repository 에 값을 저장
         BoardComment result = BoardComment.builder()
                 .content(bcomment.getContent())
                 .board(board)
@@ -42,23 +40,14 @@ public class BoardCommentService {
     public List<BoardComment> commentList(Integer id) {
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("게시물을 찾을 수 없습니다."));
         List<BoardComment> comments = bcRepository.findByBoard(board);
-        System.out.println(":::::::::::::::::::::comments::::::::::::::"+comments);
+        
         return comments;
     }
 
    
     public void updateComment(int commentId, String content) {
-        
-    	System.out.println(":::::::::::::::::::::::::"+commentId + content);
-    	BoardComment comment = bcRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));
-//    	Optional<Board> optBid = boardRepository.findById(bId);
-//        Optional<Member> optMuser = memberRepository.findByUsername(username);
-    	
-    	System.out.println(":::::::::::::::::::::::::"+commentId + comment.getContent());
-       
-    	 comment.setContent(content);
-    	 
-    	 System.out.println(":::::::::::::::::::::::::"+commentId + content);
+    	BoardComment comment = bcRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 댓글입니다."));  
+    	comment.setContent(content);
 
         bcRepository.save(comment);
     }
