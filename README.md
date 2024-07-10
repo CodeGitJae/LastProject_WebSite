@@ -32,3 +32,6 @@ Python (Flask)로 LSTM 딥러닝 학습을 통한 예측 시스템 설계
 * JDK17 버전
 * spring 2.4.2 버전
 * jquery-3.7.1 버전
+
+## 미세먼지 연계 FLask 원격브랜치 주소
+*https://github.com/CodeGitJae/LastProject_Flask
