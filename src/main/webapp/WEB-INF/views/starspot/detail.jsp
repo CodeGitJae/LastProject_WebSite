@@ -106,10 +106,21 @@
 							<img class="325dust" src="" style="width:100%; height:100%;"></img>
 						</div>
 					</div>
-
 					
+					
+				<hr>
+	            <div>
+	           		<div style="box-sizing: content-box; text-align: center;">
+	           			<h3>추천 카메라 구매처</h3>
+	           			<br>
+	           			<a href="https://www.enuri.com/list.jsp?cate=024238" target="_blank">         
+			               <img class="img-concert" src="/assets/images/camera.png" style="width:50%; height:25%;"/>
+			            </a>
+	           		</div>
+	            </div>
 
-
+	            
+	            
 				<hr>
 				<br> <br>
 
